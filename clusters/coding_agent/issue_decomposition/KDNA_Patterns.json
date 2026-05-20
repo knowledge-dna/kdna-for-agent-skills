@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "issue_decomposition",
-  "created": "2025-05-20",
-  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for issue decomposition judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "issue_decomposition",
+    "created": "2026-05-20",
+    "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for issue decomposition judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "terminology": {
     "standard_terms": [
       {
@@ -59,7 +60,6 @@
       }
     ]
   },
-
   "misunderstandings": [
     {
       "id": "MS-001",
@@ -90,7 +90,6 @@
       "why": "Conflating triage with prioritization means invalid issues get prioritized instead of rejected, wasting effort on work that shouldn't be done."
     }
   ],
-
   "self_check": [
     "Does each issue deliver observable value on its own, without requiring other issues to be complete?",
     "Is every issue a vertical slice (end-to-end behavior), not a horizontal layer?",

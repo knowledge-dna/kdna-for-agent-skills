@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "handoff_context",
-  "created": "2025-05-20",
-  "purpose": "Define the axioms, ontology, and frameworks that govern handoff context judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "handoff_context",
+    "created": "2026-05-20",
+    "purpose": "Define the axioms, ontology, and frameworks that govern handoff context judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "axioms": [
     {
       "id": "AX-001",
@@ -43,7 +44,6 @@
       "why": "Without forward-looking content, the next agent doesn't know where to start. Without backward-looking content, they don't know why."
     }
   ],
-
   "ontology": [
     {
       "id": "ON-001",
@@ -81,7 +81,6 @@
       "trigger_signal": "The handoff document ends with a summary but no indication of what to do next."
     }
   ],
-
   "frameworks": [
     {
       "id": "FW-001",
@@ -99,7 +98,6 @@
       ]
     }
   ],
-
   "core_structure": [
     {
       "from": "Conversation context",
@@ -107,7 +105,6 @@
       "via": "Extract signal (decisions, constraints, questions) → Remove noise (derivable information) → Add forward-looking context (risks, next steps)"
     }
   ],
-
   "stances": [
     "Preserve decisions, not chronology.",
     "If the next agent can derive it, don't include it.",

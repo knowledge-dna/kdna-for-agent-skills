@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "handoff_context",
-  "created": "2025-05-20",
-  "purpose": "Define scenario triggers and action orientations for handoff context judgment.",
-  "load_condition": "Load when a situation involving conversation compaction, agent transfer, or session handoff is detected.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "handoff_context",
+    "created": "2026-05-20",
+    "purpose": "Define scenario triggers and action orientations for handoff context judgment.",
+    "load_condition": "Load when a situation involving conversation compaction, agent transfer, or session handoff is detected."
+  },
   "scenes": [
     {
       "id": "SC-001",
@@ -21,8 +22,13 @@
           },
           "action_template": "Extract decisions + rationale → List constraints discovered → Surface unresolved questions → Identify risks → Specify next steps",
           "replace": {
-            "avoid": ["chronological summary", "including implementation details that are in the code"],
-            "use": ["structured handoff with decisions, constraints, questions, risks, next steps"]
+            "avoid": [
+              "chronological summary",
+              "including implementation details that are in the code"
+            ],
+            "use": [
+              "structured handoff with decisions, constraints, questions, risks, next steps"
+            ]
           },
           "expected_result": "Self-contained handoff document that enables the next agent to continue without re-discovering context."
         }
@@ -43,8 +49,15 @@
           },
           "action_template": "Document current state precisely → List what's done and what's in progress → Note any partial work that needs completion or rollback → Hand off immediately",
           "replace": {
-            "avoid": ["rushing to complete before handing off", "leaving partial work unmarked"],
-            "use": ["document current state precisely", "mark partial work explicitly", "hand off immediately with full context"]
+            "avoid": [
+              "rushing to complete before handing off",
+              "leaving partial work unmarked"
+            ],
+            "use": [
+              "document current state precisely",
+              "mark partial work explicitly",
+              "hand off immediately with full context"
+            ]
           },
           "expected_result": "Current state documented. Partial work marked. Next agent can continue or roll back as appropriate."
         }
@@ -65,8 +78,14 @@
           },
           "action_template": "Identify signal (decisions, constraints, questions, risks) → Discard noise (derivable details, implementation specifics) → Structure compactly → Verify self-containment",
           "replace": {
-            "avoid": ["compressing the full conversation into a shorter summary", "keeping everything just in case"],
-            "use": ["extract only irreplaceable information", "structure for the next agent's needs"]
+            "avoid": [
+              "compressing the full conversation into a shorter summary",
+              "keeping everything just in case"
+            ],
+            "use": [
+              "extract only irreplaceable information",
+              "structure for the next agent's needs"
+            ]
           },
           "expected_result": "Compact handoff that contains all signal and no noise. The next agent has full judgment context without the conversation history."
         }

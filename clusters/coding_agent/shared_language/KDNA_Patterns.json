@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "shared_language",
-  "created": "2025-05-20",
-  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for shared language judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "shared_language",
+    "created": "2026-05-20",
+    "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for shared language judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "terminology": {
     "standard_terms": [
       {
@@ -59,7 +60,6 @@
       }
     ]
   },
-
   "misunderstandings": [
     {
       "id": "MS-001",
@@ -90,7 +90,6 @@
       "why": "Too many ADRs creates noise. People stop reading them, and consequential decisions get lost among routine ones."
     }
   ],
-
   "self_check": [
     "Am I using a term that has a specific meaning in this project? If so, am I using it consistently?",
     "Am I describing something in 20 words that could be named in 1?",

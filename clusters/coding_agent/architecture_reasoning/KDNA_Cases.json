@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "architecture_reasoning",
-  "created": "2025-05-20",
-  "purpose": "Provide concrete examples of good and bad architecture reasoning judgment.",
-  "load_condition": "Load when examples or cases are needed to illustrate architecture reasoning judgment.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "architecture_reasoning",
+    "created": "2026-05-20",
+    "purpose": "Provide concrete examples of good and bad architecture reasoning judgment.",
+    "load_condition": "Load when examples or cases are needed to illustrate architecture reasoning judgment."
+  },
   "cases": [
     {
       "id": "CS-001",

@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "requirement_alignment",
-  "created": "2025-05-20",
-  "purpose": "Define the axioms, ontology, and frameworks that govern requirement alignment judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "requirement_alignment",
+    "created": "2026-05-20",
+    "purpose": "Define the axioms, ontology, and frameworks that govern requirement alignment judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "axioms": [
     {
       "id": "AX-001",
@@ -43,7 +44,6 @@
       "why": "Ignoring context produces code that is locally correct but systemically wrong."
     }
   ],
-
   "ontology": [
     {
       "id": "ON-001",
@@ -88,7 +88,6 @@
       "trigger_signal": "The user says 'I want X' without specifying what X includes, excludes, or how to verify it."
     }
   ],
-
   "frameworks": [
     {
       "id": "FW-001",
@@ -113,7 +112,6 @@
       ]
     }
   ],
-
   "core_structure": [
     {
       "from": "Vague request",
@@ -126,7 +124,6 @@
       "via": "Analyze codebase context → Surface assumptions → Validate with the user"
     }
   ],
-
   "stances": [
     "Never implement what you don't understand.",
     "Ask before assuming. A question now saves a rework later.",

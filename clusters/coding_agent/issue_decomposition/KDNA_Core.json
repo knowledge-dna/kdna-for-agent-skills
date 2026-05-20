@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "issue_decomposition",
-  "created": "2025-05-20",
-  "purpose": "Define the axioms, ontology, and frameworks that govern issue decomposition judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "issue_decomposition",
+    "created": "2026-05-20",
+    "purpose": "Define the axioms, ontology, and frameworks that govern issue decomposition judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "axioms": [
     {
       "id": "AX-001",
@@ -43,7 +44,6 @@
       "why": "Implicit dependencies cause agents to start issues they cannot complete, wasting time and creating partially-done work."
     }
   ],
-
   "ontology": [
     {
       "id": "ON-001",
@@ -81,7 +81,6 @@
       "trigger_signal": "An issue does not clearly state what is excluded or where its boundaries end."
     }
   ],
-
   "frameworks": [
     {
       "id": "FW-001",
@@ -109,7 +108,6 @@
       ]
     }
   ],
-
   "core_structure": [
     {
       "from": "Plan or PRD",
@@ -122,7 +120,6 @@
       "via": "Read issue → Check completeness → Assess decision needs → Verify alignment → Assign status"
     }
   ],
-
   "stances": [
     "Every issue must deliver observable value on its own.",
     "Slice vertically, not horizontally.",

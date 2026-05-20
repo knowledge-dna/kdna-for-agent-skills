@@ -32,23 +32,6 @@ Judgment patterns for when a requirement is truly aligned vs. when the agent is 
 - `clusters/coding_agent/requirement_alignment/KDNA_Reasoning.json`
 - `clusters/coding_agent/requirement_alignment/KDNA_Evolution.json`
 
-### shared_language
-
-Judgment patterns for building and maintaining a shared language between agents and humans: what terms to keep, avoid, or formalize.
-
-**Load when:**
-- project has domain-specific terminology
-- agent uses verbose descriptions
-- naming consistency matters
-
-**Files:**
-- `clusters/coding_agent/shared_language/KDNA_Core.json`
-- `clusters/coding_agent/shared_language/KDNA_Patterns.json`
-- `clusters/coding_agent/shared_language/KDNA_Scenarios.json`
-- `clusters/coding_agent/shared_language/KDNA_Cases.json`
-- `clusters/coding_agent/shared_language/KDNA_Reasoning.json`
-- `clusters/coding_agent/shared_language/KDNA_Evolution.json`
-
 ### bug_diagnosis
 
 Judgment patterns for disciplined bug diagnosis: when a fix is a guess, what counts as reproduction, and when to refuse to fix.
@@ -85,58 +68,6 @@ Judgment patterns for test-driven development: what makes a test behavioral vs. 
 - `clusters/coding_agent/test_driven_development/KDNA_Reasoning.json`
 - `clusters/coding_agent/test_driven_development/KDNA_Evolution.json`
 
-### architecture_reasoning
-
-Judgment patterns for architecture reasoning: when to zoom out, what constitutes a deep module, and when refactoring boundaries is necessary.
-
-**Load when:**
-- large change
-- module boundary concern
-- codebase complexity
-- request to zoom out
-
-**Files:**
-- `clusters/coding_agent/architecture_reasoning/KDNA_Core.json`
-- `clusters/coding_agent/architecture_reasoning/KDNA_Patterns.json`
-- `clusters/coding_agent/architecture_reasoning/KDNA_Scenarios.json`
-- `clusters/coding_agent/architecture_reasoning/KDNA_Cases.json`
-- `clusters/coding_agent/architecture_reasoning/KDNA_Reasoning.json`
-- `clusters/coding_agent/architecture_reasoning/KDNA_Evolution.json`
-
-### issue_decomposition
-
-Judgment patterns for issue decomposition: what makes an issue independently deliverable, how to slice vertically, and when to triage before executing.
-
-**Load when:**
-- plan needs to become tasks
-- PRD needs issue breakdown
-- triage is requested
-
-**Files:**
-- `clusters/coding_agent/issue_decomposition/KDNA_Core.json`
-- `clusters/coding_agent/issue_decomposition/KDNA_Patterns.json`
-- `clusters/coding_agent/issue_decomposition/KDNA_Scenarios.json`
-- `clusters/coding_agent/issue_decomposition/KDNA_Cases.json`
-- `clusters/coding_agent/issue_decomposition/KDNA_Reasoning.json`
-- `clusters/coding_agent/issue_decomposition/KDNA_Evolution.json`
-
-### handoff_context
-
-Judgment patterns for agent handoff: what information must survive between agents, what is noise, and how to preserve decision context.
-
-**Load when:**
-- conversation needs compacting
-- another agent will continue
-- session is ending
-
-**Files:**
-- `clusters/coding_agent/handoff_context/KDNA_Core.json`
-- `clusters/coding_agent/handoff_context/KDNA_Patterns.json`
-- `clusters/coding_agent/handoff_context/KDNA_Scenarios.json`
-- `clusters/coding_agent/handoff_context/KDNA_Cases.json`
-- `clusters/coding_agent/handoff_context/KDNA_Reasoning.json`
-- `clusters/coding_agent/handoff_context/KDNA_Evolution.json`
-
 ## Loading Strategy
 
 1. **Always load** Core + Patterns for any activated domain
@@ -148,6 +79,13 @@ Judgment patterns for agent handoff: what information must survive between agent
 ## How to Classify
 
 Read the user's request and match against the "Load when" signals above. Multiple domains can be active simultaneously.
+
+## Planned Domains (not yet available)
+
+- `shared_language`
+- `architecture_reasoning`
+- `issue_decomposition`
+- `handoff_context`
 
 ## Important
 

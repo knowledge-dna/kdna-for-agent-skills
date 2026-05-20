@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "test_driven_development",
-  "created": "2025-05-20",
-  "purpose": "Define scenario triggers and action orientations for TDD judgment.",
-  "load_condition": "Load when a concrete situation involving test-driven development is detected.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "test_driven_development",
+    "created": "2026-05-20",
+    "purpose": "Define scenario triggers and action orientations for TDD judgment.",
+    "load_condition": "Load when a concrete situation involving test-driven development is detected."
+  },
   "scenes": [
     {
       "id": "SC-001",
@@ -21,8 +22,14 @@
           },
           "action_template": "Identify first vertical slice → Write failing test for one behavior → Implement minimally → Refactor → Next slice",
           "replace": {
-            "avoid": ["planning all tests upfront", "implementing the full feature then writing tests"],
-            "use": ["identify the tracer bullet slice first", "one RED-GREEN-REFACTOR cycle per behavior"]
+            "avoid": [
+              "planning all tests upfront",
+              "implementing the full feature then writing tests"
+            ],
+            "use": [
+              "identify the tracer bullet slice first",
+              "one RED-GREEN-REFACTOR cycle per behavior"
+            ]
           },
           "expected_result": "Feature built as a series of vertical slices, each with a test that drove its design. No untested behavior."
         }
@@ -43,8 +50,14 @@
           },
           "action_template": "Write a test that reproduces the bug (RED) → Fix the code (GREEN) → Verify test passes → Refactor if needed",
           "replace": {
-            "avoid": ["fixing first and testing after", "writing a test that only verifies the fix, not the bug"],
-            "use": ["write the failing test first", "the test must fail before the fix and pass after"]
+            "avoid": [
+              "fixing first and testing after",
+              "writing a test that only verifies the fix, not the bug"
+            ],
+            "use": [
+              "write the failing test first",
+              "the test must fail before the fix and pass after"
+            ]
           },
           "expected_result": "Regression test that captures the bug condition. Fix verified by test transition from RED to GREEN."
         }
@@ -65,8 +78,14 @@
           },
           "action_template": "Identify the behaviors being tested → Group into vertical slices → Write one test per slice → Implement one slice at a time",
           "replace": {
-            "avoid": ["all unit tests then all integration tests then all E2E tests", "testing layers instead of behaviors"],
-            "use": ["one vertical slice at a time", "each slice tests one behavior from entry to outcome"]
+            "avoid": [
+              "all unit tests then all integration tests then all E2E tests",
+              "testing layers instead of behaviors"
+            ],
+            "use": [
+              "one vertical slice at a time",
+              "each slice tests one behavior from entry to outcome"
+            ]
           },
           "expected_result": "Test suite organized by behavior, not by layer. Each test traces one behavior end-to-end."
         }
@@ -87,8 +106,14 @@
           },
           "action_template": "Identify which mocks test behavior vs. implementation → Remove implementation-coupled mocks → Test at the behavioral boundary instead",
           "replace": {
-            "avoid": ["mocking every dependency", "verifying mock call counts and order"],
-            "use": ["mock at system boundaries only", "verify observable behavior, not interaction patterns"]
+            "avoid": [
+              "mocking every dependency",
+              "verifying mock call counts and order"
+            ],
+            "use": [
+              "mock at system boundaries only",
+              "verify observable behavior, not interaction patterns"
+            ]
           },
           "expected_result": "Tests that verify behavior at boundaries. Implementation can change without breaking tests."
         }

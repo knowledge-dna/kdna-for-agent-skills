@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "handoff_context",
-  "created": "2025-05-20",
-  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for handoff context judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "handoff_context",
+    "created": "2026-05-20",
+    "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for handoff context judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "terminology": {
     "standard_terms": [
       {
@@ -50,7 +51,6 @@
       }
     ]
   },
-
   "misunderstandings": [
     {
       "id": "MS-001",
@@ -81,7 +81,6 @@
       "why": "A handoff without next steps is a dead end. The next agent must reconstruct the plan from context, which is expensive and error-prone."
     }
   ],
-
   "self_check": [
     "Does the handoff document state the goal clearly?",
     "Does it preserve decisions with rationale, not just what was decided?",

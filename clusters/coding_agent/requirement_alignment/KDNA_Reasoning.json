@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "requirement_alignment",
-  "created": "2025-05-20",
-  "purpose": "Define reasoning chains that explain why requirement alignment judgment holds.",
-  "load_condition": "Load when the user asks why, or when tradeoffs in alignment judgment matter.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "requirement_alignment",
+    "created": "2026-05-20",
+    "purpose": "Define reasoning chains that explain why requirement alignment judgment holds.",
+    "load_condition": "Load when the user asks why, or when tradeoffs in alignment judgment matter."
+  },
   "reasoning_chains": [
     {
       "id": "RC-001",

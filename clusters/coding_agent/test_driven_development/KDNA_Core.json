@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "test_driven_development",
-  "created": "2025-05-20",
-  "purpose": "Define the axioms, ontology, and frameworks that govern test-driven development judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "test_driven_development",
+    "created": "2026-05-20",
+    "purpose": "Define the axioms, ontology, and frameworks that govern test-driven development judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "axioms": [
     {
       "id": "AX-001",
@@ -43,7 +44,6 @@
       "why": "Premature generalization during GREEN produces over-engineering. Each test should drive exactly the complexity it requires, no more."
     }
   ],
-
   "ontology": [
     {
       "id": "ON-001",
@@ -88,7 +88,6 @@
       "trigger_signal": "The agent is about to add complexity that no current test requires."
     }
   ],
-
   "frameworks": [
     {
       "id": "FW-001",
@@ -115,7 +114,6 @@
       ]
     }
   ],
-
   "core_structure": [
     {
       "from": "Implementation-first code",
@@ -128,7 +126,6 @@
       "via": "Reorganize tests around behaviors, not layers; each test traces one behavior from entry to outcome"
     }
   ],
-
   "stances": [
     "Behavior first, implementation second.",
     "One test at a time. One behavior per cycle.",

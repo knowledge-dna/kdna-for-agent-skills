@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "issue_decomposition",
-  "created": "2025-05-20",
-  "purpose": "Define scenario triggers and action orientations for issue decomposition judgment.",
-  "load_condition": "Load when a situation involving issue creation, decomposition, or triage is detected.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "issue_decomposition",
+    "created": "2026-05-20",
+    "purpose": "Define scenario triggers and action orientations for issue decomposition judgment.",
+    "load_condition": "Load when a situation involving issue creation, decomposition, or triage is detected."
+  },
   "scenes": [
     {
       "id": "SC-001",
@@ -21,8 +22,14 @@
           },
           "action_template": "List observable behaviors → Slice each end-to-end → Order: tracer bullet first → Write acceptance criteria → Mark dependencies",
           "replace": {
-            "avoid": ["organizing issues by layer", "creating issues without acceptance criteria"],
-            "use": ["organize issues by behavior", "each issue delivers one observable outcome"]
+            "avoid": [
+              "organizing issues by layer",
+              "creating issues without acceptance criteria"
+            ],
+            "use": [
+              "organize issues by behavior",
+              "each issue delivers one observable outcome"
+            ]
           },
           "expected_result": "Vertical-slice issues with acceptance criteria, explicit dependencies, and a tracer bullet as the first issue."
         }
@@ -43,8 +50,13 @@
           },
           "action_template": "Identify distinct behaviors → Split into separate issues → Define acceptance criteria for each → Mark dependencies",
           "replace": {
-            "avoid": ["leaving large issues as-is", "accepting that some issues are 'naturally' large"],
-            "use": ["decompose until each issue is independently deliverable in one session"]
+            "avoid": [
+              "leaving large issues as-is",
+              "accepting that some issues are 'naturally' large"
+            ],
+            "use": [
+              "decompose until each issue is independently deliverable in one session"
+            ]
           },
           "expected_result": "Original issue replaced with 2-5 focused issues, each with clear criteria and independent value."
         }
@@ -65,8 +77,14 @@
           },
           "action_template": "Read issue → Check for scope, criteria, and context → Assess information completeness → Verify alignment → Assign triage status",
           "replace": {
-            "avoid": ["starting work on untriaged issues", "assuming backlog items are ready for execution"],
-            "use": ["triage before picking up", "assign explicit status: ready-for-agent, ready-for-human, needs-info, or wontfix"]
+            "avoid": [
+              "starting work on untriaged issues",
+              "assuming backlog items are ready for execution"
+            ],
+            "use": [
+              "triage before picking up",
+              "assign explicit status: ready-for-agent, ready-for-human, needs-info, or wontfix"
+            ]
           },
           "expected_result": "Every issue has a triage status before work begins. Invalid or incomplete issues are filtered out."
         }
@@ -87,8 +105,14 @@
           },
           "action_template": "Identify the simplest end-to-end path → Create a tracer bullet issue → Implement it first → Validate architecture → Proceed with feature issues",
           "replace": {
-            "avoid": ["assuming the architecture will work", "building multiple slices without proving the foundation"],
-            "use": ["tracer bullet first", "prove the architecture before building features"]
+            "avoid": [
+              "assuming the architecture will work",
+              "building multiple slices without proving the foundation"
+            ],
+            "use": [
+              "tracer bullet first",
+              "prove the architecture before building features"
+            ]
           },
           "expected_result": "Tracer bullet implemented. Architecture validated. Subsequent slices build on a proven foundation."
         }

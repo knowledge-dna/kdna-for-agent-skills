@@ -26,14 +26,21 @@ It is inspired by the broader agent-skills ecosystem, including [mattpocock/skil
 
 ## The Coding Agent Cluster
 
-This project defines a `coding_agent` cluster with 7 KDNA domains:
+### Active Domains (v0.1.0)
+
+3 domains with full 6-file KDNA structure, validated against SPEC.
 
 | Domain | Origin Skill | What It Judges |
 |--------|-------------|----------------|
 | `requirement_alignment` | /grill-me, /grill-with-docs, /to-prd | When to ask vs. when to implement |
-| `shared_language` | /grill-with-docs, CONTEXT.md, ADR | What terms to keep, avoid, or formalize |
 | `bug_diagnosis` | /diagnose | When a fix is a guess vs. a diagnosis |
 | `test_driven_development` | /tdd | What makes a test behavioral vs. brittle |
+
+### Planned Domains
+
+| Domain | Origin Skill | What It Judges |
+|--------|-------------|----------------|
+| `shared_language` | /grill-with-docs, CONTEXT.md, ADR | What terms to keep, avoid, or formalize |
 | `architecture_reasoning` | /zoom-out, /improve-codebase-architecture | When to zoom out vs. push forward |
 | `issue_decomposition` | /to-issues, /triage | What makes an issue independently deliverable |
 | `handoff_context` | /handoff | What information must survive between agents |
@@ -41,11 +48,34 @@ This project defines a `coding_agent` cluster with 7 KDNA domains:
 ## Quick Start
 
 ```bash
-# Validate the cluster
+git clone https://github.com/knowledge-dna/kdna-for-agent-skills.git
+cd kdna-for-agent-skills
+
+# Validate the cluster against KDNA SPEC
 node scripts/validate-cluster.mjs
 
 # Select relevant domains for a task
 node scripts/select-domains.mjs "fix this failing test"
+
+# Generate adapter for your agent
+node scripts/generate-loader-skill.mjs claude_code
+```
+
+### Install for Claude Code
+
+```bash
+# Generate the loader skill
+node scripts/generate-loader-skill.mjs claude_code
+
+# Copy to your project's .claude/ directory
+cp adapters/claude_code/SKILL.md .claude/skills/kdna-loader/SKILL.md
+```
+
+### Install for Codex
+
+```bash
+node scripts/generate-loader-skill.mjs codex
+cp adapters/codex/AGENTS.md AGENTS.md
 ```
 
 ## Project Structure
@@ -55,17 +85,20 @@ kdna-for-agent-skills/
   clusters/
     coding_agent/
       cluster.json              # Cluster index
-      requirement_alignment/    # KDNA domain
+      requirement_alignment/    # Active KDNA domain
         kdna.json
         KDNA_Core.json
         KDNA_Patterns.json
-        ...
-      bug_diagnosis/
-      test_driven_development/
-      shared_language/
-      architecture_reasoning/
-      issue_decomposition/
-      handoff_context/
+        KDNA_Scenarios.json
+        KDNA_Cases.json
+        KDNA_Reasoning.json
+        KDNA_Evolution.json
+      bug_diagnosis/            # Active KDNA domain
+      test_driven_development/  # Active KDNA domain
+      shared_language/          # Planned (draft)
+      architecture_reasoning/   # Planned (draft)
+      issue_decomposition/      # Planned (draft)
+      handoff_context/          # Planned (draft)
   adapters/                     # Agent-specific loaders
     claude_code/
     codex/

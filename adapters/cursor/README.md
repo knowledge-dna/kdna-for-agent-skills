@@ -17,12 +17,8 @@ Apply axioms, terminology, and self-checks to your reasoning.
 ## Available Domains
 
 - **requirement_alignment**: user request is vague; task has hidden constraints; agent is about to implement without enough context; user provides a wish without scope or criteria
-- **shared_language**: project has domain-specific terminology; agent uses verbose descriptions; naming consistency matters
 - **bug_diagnosis**: bug report; test failure; performance regression; runtime error
 - **test_driven_development**: new feature implementation; bug fix with expected behavior; regression prevention; agent is about to write implementation without a failing test
-- **architecture_reasoning**: large change; module boundary concern; codebase complexity; request to zoom out
-- **issue_decomposition**: plan needs to become tasks; PRD needs issue breakdown; triage is requested
-- **handoff_context**: conversation needs compacting; another agent will continue; session is ending
 
 ## Domain Files
 

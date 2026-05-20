@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "shared_language",
-  "created": "2025-05-20",
-  "purpose": "Define the axioms, ontology, and frameworks that govern shared language judgment between agents and humans.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "shared_language",
+    "created": "2026-05-20",
+    "purpose": "Define the axioms, ontology, and frameworks that govern shared language judgment between agents and humans.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "axioms": [
     {
       "id": "AX-001",
@@ -43,7 +44,6 @@
       "why": "Stale terminology documents are worse than no document — they prescribe meanings that no longer match the team's understanding."
     }
   ],
-
   "ontology": [
     {
       "id": "ON-001",
@@ -81,7 +81,6 @@
       "trigger_signal": "The same term is used with subtly different meanings in different parts of the codebase or conversation."
     }
   ],
-
   "frameworks": [
     {
       "id": "FW-001",
@@ -107,7 +106,6 @@
       ]
     }
   ],
-
   "core_structure": [
     {
       "from": "Verbose descriptions",
@@ -120,7 +118,6 @@
       "via": "Detect drift → Reaffirm or update definition → Enforce usage → Update CONTEXT"
     }
   ],
-
   "stances": [
     "Name the concept before implementing it.",
     "If you need 20 words to describe something, you need a term.",

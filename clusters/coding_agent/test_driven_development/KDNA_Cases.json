@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "test_driven_development",
-  "created": "2025-05-20",
-  "purpose": "Provide concrete examples of good and bad TDD judgment.",
-  "load_condition": "Load when examples or cases are needed to illustrate TDD judgment.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "test_driven_development",
+    "created": "2026-05-20",
+    "purpose": "Provide concrete examples of good and bad TDD judgment.",
+    "load_condition": "Load when examples or cases are needed to illustrate TDD judgment."
+  },
   "cases": [
     {
       "id": "CS-001",

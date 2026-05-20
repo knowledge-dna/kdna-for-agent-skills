@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "requirement_alignment",
-  "created": "2025-05-20",
-  "purpose": "Define capability stages and measurable growth for requirement alignment judgment.",
-  "load_condition": "Load when coaching, improvement, or practice measurement is requested.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "requirement_alignment",
+    "created": "2026-05-20",
+    "purpose": "Define capability stages and measurable growth for requirement alignment judgment.",
+    "load_condition": "Load when coaching, improvement, or practice measurement is requested."
+  },
   "stages": [
     {
       "id": "ST-001",
@@ -39,7 +40,6 @@
       ]
     }
   ],
-
   "evolution_layers": [
     {
       "id": "EL-001",
@@ -56,7 +56,6 @@
       "to_stage": "ST-003"
     }
   ],
-
   "measurement": [
     {
       "id": "ME-001",

@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "requirement_alignment",
-  "created": "2025-05-20",
-  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for requirement alignment judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "requirement_alignment",
+    "created": "2026-05-20",
+    "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for requirement alignment judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "terminology": {
     "standard_terms": [
       {
@@ -59,7 +60,6 @@
       }
     ]
   },
-
   "misunderstandings": [
     {
       "id": "MS-001",
@@ -90,7 +90,6 @@
       "why": "Rework from misalignment costs more than upfront clarification, both in time and in user trust."
     }
   ],
-
   "self_check": [
     "Can I state the full scope of what is included and excluded?",
     "Can I list all decision branches and their resolved outcomes?",

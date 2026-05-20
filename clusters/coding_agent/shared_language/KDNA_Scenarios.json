@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "shared_language",
-  "created": "2025-05-20",
-  "purpose": "Define scenario triggers and action orientations for shared language judgment.",
-  "load_condition": "Load when a situation involving terminology, naming, or communication precision is detected.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "shared_language",
+    "created": "2026-05-20",
+    "purpose": "Define scenario triggers and action orientations for shared language judgment.",
+    "load_condition": "Load when a situation involving terminology, naming, or communication precision is detected."
+  },
   "scenes": [
     {
       "id": "SC-001",
@@ -21,8 +22,14 @@
           },
           "action_template": "Identify the repeated concept → Propose a concise term → Define boundary → Add to CONTEXT",
           "replace": {
-            "avoid": ["using longer descriptions to compensate for missing terms", "assuming verbosity is clarity"],
-            "use": ["name the concept", "establish a domain term with a boundary"]
+            "avoid": [
+              "using longer descriptions to compensate for missing terms",
+              "assuming verbosity is clarity"
+            ],
+            "use": [
+              "name the concept",
+              "establish a domain term with a boundary"
+            ]
           },
           "expected_result": "Verbose descriptions replaced with concise domain terms. Token cost reduced. Understanding improved."
         }
@@ -43,8 +50,14 @@
           },
           "action_template": "Identify the conflicting meanings → Propose separate terms for each → Define boundaries → Update CONTEXT",
           "replace": {
-            "avoid": ["assuming context resolves ambiguity", "using the same term for different concepts"],
-            "use": ["split ambiguous terms into specific ones", "define each term's boundary explicitly"]
+            "avoid": [
+              "assuming context resolves ambiguity",
+              "using the same term for different concepts"
+            ],
+            "use": [
+              "split ambiguous terms into specific ones",
+              "define each term's boundary explicitly"
+            ]
           },
           "expected_result": "Each concept has its own unambiguous term. No term carries multiple meanings."
         }
@@ -65,8 +78,14 @@
           },
           "action_template": "Record the decision → Document context and alternatives → Note implications → Add to ADR",
           "replace": {
-            "avoid": ["assuming decisions will be remembered", "moving on without recording"],
-            "use": ["capture the ADR while context is fresh", "include alternatives considered and why they were rejected"]
+            "avoid": [
+              "assuming decisions will be remembered",
+              "moving on without recording"
+            ],
+            "use": [
+              "capture the ADR while context is fresh",
+              "include alternatives considered and why they were rejected"
+            ]
           },
           "expected_result": "ADR captures the decision, its context, and its rationale. Future readers can understand why this choice was made."
         }
@@ -87,8 +106,14 @@
           },
           "action_template": "Identify the canonical term → Map all aliases → Rename where appropriate → Update CONTEXT",
           "replace": {
-            "avoid": ["tolerating multiple names for the same concept", "renaming without establishing a canonical term first"],
-            "use": ["establish one canonical term", "document aliases as deprecated"]
+            "avoid": [
+              "tolerating multiple names for the same concept",
+              "renaming without establishing a canonical term first"
+            ],
+            "use": [
+              "establish one canonical term",
+              "document aliases as deprecated"
+            ]
           },
           "expected_result": "One canonical term per concept. Aliases documented as deprecated. Navigation and search improved."
         }

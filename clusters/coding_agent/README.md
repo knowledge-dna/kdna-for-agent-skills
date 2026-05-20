@@ -4,13 +4,17 @@ This cluster maps common agent-skill workflows into KDNA cognition domains.
 
 ## Active Domains (v0.1.0)
 
-| Domain | Status | Files | Origin |
-|--------|--------|-------|--------|
-| `requirement_alignment` | experimental | Core + Patterns | /grill-me, /grill-with-docs, /to-prd |
-| `bug_diagnosis` | experimental | Core + Patterns | /diagnose |
-| `test_driven_development` | experimental | Core + Patterns | /tdd |
+3 domains with full 6-file KDNA structure, validated against SPEC.
+
+| Domain | Status | Origin |
+|--------|--------|--------|
+| `requirement_alignment` | experimental | /grill-me, /grill-with-docs, /to-prd |
+| `bug_diagnosis` | experimental | /diagnose |
+| `test_driven_development` | experimental | /tdd |
 
 ## Planned Domains
+
+4 domains with draft content, not yet validated for v0.1.
 
 | Domain | Origin |
 |--------|--------|

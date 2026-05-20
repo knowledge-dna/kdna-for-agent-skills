@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "test_driven_development",
-  "created": "2025-05-20",
-  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for test-driven development judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "test_driven_development",
+    "created": "2026-05-20",
+    "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for test-driven development judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "terminology": {
     "standard_terms": [
       {
@@ -59,7 +60,6 @@
       }
     ]
   },
-
   "misunderstandings": [
     {
       "id": "MS-001",
@@ -90,13 +90,12 @@
       "why": "Over-mocked test suites break when implementation changes even though behavior is preserved, eroding trust and eventually being deleted."
     }
   ],
-
   "self_check": [
     "Did I write the failing test before the implementation?",
     "Does this test specify behavior (what) or implementation (how)?",
     "Can this test fail? What condition would make it fail?",
     "Am I refactoring while any test is RED?",
     "Am I adding complexity that no current test requires?",
-    "If the implementation changed but behavior didn't, would this test still pass?"
+    "Would this test still pass if the implementation changed but behavior didn't?"
   ]
 }

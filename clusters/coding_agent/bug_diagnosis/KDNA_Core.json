@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "bug_diagnosis",
-  "created": "2025-05-20",
-  "purpose": "Define the axioms, ontology, and frameworks that govern bug diagnosis judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "bug_diagnosis",
+    "created": "2026-05-20",
+    "purpose": "Define the axioms, ontology, and frameworks that govern bug diagnosis judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "axioms": [
     {
       "id": "AX-001",
@@ -43,7 +44,6 @@
       "why": "Treating symptoms as causes produces fixes that mask the bug locally while it persists systemically."
     }
   ],
-
   "ontology": [
     {
       "id": "ON-001",
@@ -81,7 +81,6 @@
       "trigger_signal": "The agent cannot verify its hypotheses without manual intervention or long wait times."
     }
   ],
-
   "frameworks": [
     {
       "id": "FW-001",
@@ -98,7 +97,6 @@
       ]
     }
   ],
-
   "core_structure": [
     {
       "from": "Unreproduced bug report",
@@ -111,7 +109,6 @@
       "via": "Trace the symptom backward through the execution path, testing one hypothesis at a time"
     }
   ],
-
   "stances": [
     "Never fix what you cannot reproduce.",
     "One hypothesis at a time, one variable at a time.",

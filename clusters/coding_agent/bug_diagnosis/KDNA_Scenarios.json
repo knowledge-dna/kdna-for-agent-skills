@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "bug_diagnosis",
-  "created": "2025-05-20",
-  "purpose": "Define scenario triggers and action orientations for bug diagnosis judgment.",
-  "load_condition": "Load when a concrete bug, failure, or error situation is detected.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "bug_diagnosis",
+    "created": "2026-05-20",
+    "purpose": "Define scenario triggers and action orientations for bug diagnosis judgment.",
+    "load_condition": "Load when a concrete bug, failure, or error situation is detected."
+  },
   "scenes": [
     {
       "id": "SC-001",
@@ -21,8 +22,14 @@
           },
           "action_template": "Run the test locally → Confirm reproduction → Minimize → Hypothesize → Fix with regression guard",
           "replace": {
-            "avoid": ["reading the error message and jumping to a fix", "assuming the test is correct and the code is wrong"],
-            "use": ["reproduce first", "consider whether the test or the code is the source of the failure"]
+            "avoid": [
+              "reading the error message and jumping to a fix",
+              "assuming the test is correct and the code is wrong"
+            ],
+            "use": [
+              "reproduce first",
+              "consider whether the test or the code is the source of the failure"
+            ]
           },
           "expected_result": "Root cause identified. Fix applied. Regression test passes. No instrumentation left behind."
         }
@@ -43,8 +50,14 @@
           },
           "action_template": "Construct feedback loop from logs → Identify reproduction conditions → Generate hypotheses → Test one at a time",
           "replace": {
-            "avoid": ["fixing based on stack trace alone", "deploying a fix without local reproduction"],
-            "use": ["build a feedback loop first", "trace the error backward through the execution path"]
+            "avoid": [
+              "fixing based on stack trace alone",
+              "deploying a fix without local reproduction"
+            ],
+            "use": [
+              "build a feedback loop first",
+              "trace the error backward through the execution path"
+            ]
           },
           "expected_result": "Reproduction in controlled environment. Root cause identified. Fix verified with regression test before deployment."
         },
@@ -58,8 +71,14 @@
           },
           "action_template": "Add instrumentation at the error point → Deploy instrumentation → Collect data → Reproduce → Diagnose",
           "replace": {
-            "avoid": ["refactoring without understanding the root cause", "adding defensive code that masks the symptom"],
-            "use": ["add targeted instrumentation", "use the collected data to construct a reproduction"]
+            "avoid": [
+              "refactoring without understanding the root cause",
+              "adding defensive code that masks the symptom"
+            ],
+            "use": [
+              "add targeted instrumentation",
+              "use the collected data to construct a reproduction"
+            ]
           },
           "expected_result": "Instrumentation captures the missing context. Reproduction becomes possible. Root cause identified."
         }
@@ -80,8 +99,14 @@
           },
           "action_template": "Establish baseline measurement → Profile the slow path → Generate hypotheses ranked by falsifiability → Test one at a time",
           "replace": {
-            "avoid": ["adding indexes without measuring", "assuming the common cause applies to this specific case"],
-            "use": ["measure before and after each change", "profile the actual execution path"]
+            "avoid": [
+              "adding indexes without measuring",
+              "assuming the common cause applies to this specific case"
+            ],
+            "use": [
+              "measure before and after each change",
+              "profile the actual execution path"
+            ]
           },
           "expected_result": "Bottleneck identified through measurement. Fix verified by benchmark. Root cause documented."
         }
@@ -102,8 +127,14 @@
           },
           "action_template": "Collect occurrence patterns → Identify correlated variables → Instrument to capture state → Increase reproduction rate → Diagnose",
           "replace": {
-            "avoid": ["dismissing intermittent bugs as unreproducible", "trying random fixes hoping they work"],
-            "use": ["treat intermittent bugs as bugs with unknown trigger conditions", "use instrumentation to narrow the search space"]
+            "avoid": [
+              "dismissing intermittent bugs as unreproducible",
+              "trying random fixes hoping they work"
+            ],
+            "use": [
+              "treat intermittent bugs as bugs with unknown trigger conditions",
+              "use instrumentation to narrow the search space"
+            ]
           },
           "expected_result": "Trigger conditions identified. Reproduction rate increased. Root cause found and fixed with regression guard."
         }

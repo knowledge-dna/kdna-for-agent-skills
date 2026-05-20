@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "architecture_reasoning",
-  "created": "2025-05-20",
-  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for architecture reasoning judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "architecture_reasoning",
+    "created": "2026-05-20",
+    "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for architecture reasoning judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "terminology": {
     "standard_terms": [
       {
@@ -59,7 +60,6 @@
       }
     ]
   },
-
   "misunderstandings": [
     {
       "id": "MS-001",
@@ -90,7 +90,6 @@
       "why": "Deferring boundary refactoring allows entropy to compound. The cost of refactoring grows exponentially, making it even less likely to happen later."
     }
   ],
-
   "self_check": [
     "Can I explain how this change fits the broader system architecture?",
     "Does this change cross module boundaries? If so, is the boundary wrong or is the feature cross-cutting?",

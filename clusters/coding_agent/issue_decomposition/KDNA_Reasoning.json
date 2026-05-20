@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "issue_decomposition",
-  "created": "2025-05-20",
-  "purpose": "Define reasoning chains that explain why issue decomposition judgment holds.",
-  "load_condition": "Load when the user asks why, or when tradeoffs in decomposition decisions matter.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "issue_decomposition",
+    "created": "2026-05-20",
+    "purpose": "Define reasoning chains that explain why issue decomposition judgment holds.",
+    "load_condition": "Load when the user asks why, or when tradeoffs in decomposition decisions matter."
+  },
   "reasoning_chains": [
     {
       "id": "RC-001",

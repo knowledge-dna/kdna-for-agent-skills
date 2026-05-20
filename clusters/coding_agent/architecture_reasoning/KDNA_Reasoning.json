@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "architecture_reasoning",
-  "created": "2025-05-20",
-  "purpose": "Define reasoning chains that explain why architecture reasoning judgment holds.",
-  "load_condition": "Load when the user asks why, or when tradeoffs in architectural decisions matter.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "architecture_reasoning",
+    "created": "2026-05-20",
+    "purpose": "Define reasoning chains that explain why architecture reasoning judgment holds.",
+    "load_condition": "Load when the user asks why, or when tradeoffs in architectural decisions matter."
+  },
   "reasoning_chains": [
     {
       "id": "RC-001",

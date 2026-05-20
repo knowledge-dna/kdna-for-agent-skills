@@ -18,18 +18,6 @@ Files:
 - clusters/coding_agent/requirement_alignment/KDNA_Reasoning.json
 - clusters/coding_agent/requirement_alignment/KDNA_Evolution.json
 
-### shared_language
-
-Load when: project has domain-specific terminology, agent uses verbose descriptions, naming consistency matters
-
-Files:
-- clusters/coding_agent/shared_language/KDNA_Core.json
-- clusters/coding_agent/shared_language/KDNA_Patterns.json
-- clusters/coding_agent/shared_language/KDNA_Scenarios.json
-- clusters/coding_agent/shared_language/KDNA_Cases.json
-- clusters/coding_agent/shared_language/KDNA_Reasoning.json
-- clusters/coding_agent/shared_language/KDNA_Evolution.json
-
 ### bug_diagnosis
 
 Load when: bug report, test failure, performance regression, runtime error
@@ -53,42 +41,6 @@ Files:
 - clusters/coding_agent/test_driven_development/KDNA_Cases.json
 - clusters/coding_agent/test_driven_development/KDNA_Reasoning.json
 - clusters/coding_agent/test_driven_development/KDNA_Evolution.json
-
-### architecture_reasoning
-
-Load when: large change, module boundary concern, codebase complexity, request to zoom out
-
-Files:
-- clusters/coding_agent/architecture_reasoning/KDNA_Core.json
-- clusters/coding_agent/architecture_reasoning/KDNA_Patterns.json
-- clusters/coding_agent/architecture_reasoning/KDNA_Scenarios.json
-- clusters/coding_agent/architecture_reasoning/KDNA_Cases.json
-- clusters/coding_agent/architecture_reasoning/KDNA_Reasoning.json
-- clusters/coding_agent/architecture_reasoning/KDNA_Evolution.json
-
-### issue_decomposition
-
-Load when: plan needs to become tasks, PRD needs issue breakdown, triage is requested
-
-Files:
-- clusters/coding_agent/issue_decomposition/KDNA_Core.json
-- clusters/coding_agent/issue_decomposition/KDNA_Patterns.json
-- clusters/coding_agent/issue_decomposition/KDNA_Scenarios.json
-- clusters/coding_agent/issue_decomposition/KDNA_Cases.json
-- clusters/coding_agent/issue_decomposition/KDNA_Reasoning.json
-- clusters/coding_agent/issue_decomposition/KDNA_Evolution.json
-
-### handoff_context
-
-Load when: conversation needs compacting, another agent will continue, session is ending
-
-Files:
-- clusters/coding_agent/handoff_context/KDNA_Core.json
-- clusters/coding_agent/handoff_context/KDNA_Patterns.json
-- clusters/coding_agent/handoff_context/KDNA_Scenarios.json
-- clusters/coding_agent/handoff_context/KDNA_Cases.json
-- clusters/coding_agent/handoff_context/KDNA_Reasoning.json
-- clusters/coding_agent/handoff_context/KDNA_Evolution.json
 
 ## Loading Order
 

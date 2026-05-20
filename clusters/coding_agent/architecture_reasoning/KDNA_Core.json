@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "architecture_reasoning",
-  "created": "2025-05-20",
-  "purpose": "Define the axioms, ontology, and frameworks that govern architecture reasoning judgment.",
-  "load_condition": "Always loaded when this domain is active.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "architecture_reasoning",
+    "created": "2026-05-20",
+    "purpose": "Define the axioms, ontology, and frameworks that govern architecture reasoning judgment.",
+    "load_condition": "Always loaded when this domain is active."
+  },
   "axioms": [
     {
       "id": "AX-001",
@@ -43,7 +44,6 @@
       "why": "Changes made without system understanding inevitably violate existing boundaries or create new coupling."
     }
   ],
-
   "ontology": [
     {
       "id": "ON-001",
@@ -81,7 +81,6 @@
       "trigger_signal": "The agent is about to make a change but cannot explain which modules are affected and how."
     }
   ],
-
   "frameworks": [
     {
       "id": "FW-001",
@@ -107,7 +106,6 @@
       ]
     }
   ],
-
   "core_structure": [
     {
       "from": "Local change without system context",
@@ -120,7 +118,6 @@
       "via": "Identify exposed details → Redesign interface to hide them → Move complexity inside the module boundary"
     }
   ],
-
   "stances": [
     "Never implement a change you cannot explain in system context.",
     "When a change crosses boundaries, the boundaries may be wrong — not the change.",

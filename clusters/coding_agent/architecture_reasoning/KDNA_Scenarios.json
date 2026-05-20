@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "architecture_reasoning",
-  "created": "2025-05-20",
-  "purpose": "Define scenario triggers and action orientations for architecture reasoning judgment.",
-  "load_condition": "Load when a situation involving system design, module boundaries, or architectural decisions is detected.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "architecture_reasoning",
+    "created": "2026-05-20",
+    "purpose": "Define scenario triggers and action orientations for architecture reasoning judgment.",
+    "load_condition": "Load when a situation involving system design, module boundaries, or architectural decisions is detected."
+  },
   "scenes": [
     {
       "id": "SC-001",
@@ -21,8 +22,14 @@
           },
           "action_template": "Map affected modules → Assess boundary crossings → Determine if boundaries are wrong → Adjust boundaries or implement as cross-cutting",
           "replace": {
-            "avoid": ["implementing across boundaries without assessment", "assuming boundary crossings are normal"],
-            "use": ["assess whether boundaries need adjustment", "distinguish cross-cutting concerns from wrong boundaries"]
+            "avoid": [
+              "implementing across boundaries without assessment",
+              "assuming boundary crossings are normal"
+            ],
+            "use": [
+              "assess whether boundaries need adjustment",
+              "distinguish cross-cutting concerns from wrong boundaries"
+            ]
           },
           "expected_result": "Clear decision on whether to implement across boundaries or refactor boundaries first."
         }
@@ -43,8 +50,15 @@
           },
           "action_template": "Identify the most entangled modules → Map dependency graph → Propose new boundaries → Implement incrementally",
           "replace": {
-            "avoid": ["accepting complexity as inevitable", "adding more code to work around the tangle"],
-            "use": ["identify the entangled modules", "propose cleaner boundaries", "refactor incrementally"]
+            "avoid": [
+              "accepting complexity as inevitable",
+              "adding more code to work around the tangle"
+            ],
+            "use": [
+              "identify the entangled modules",
+              "propose cleaner boundaries",
+              "refactor incrementally"
+            ]
           },
           "expected_result": "Dependency graph mapped. New boundaries proposed. Incremental refactoring plan created."
         }
@@ -65,8 +79,14 @@
           },
           "action_template": "Define the minimum interface → Hide implementation details behind it → Assess depth ratio",
           "replace": {
-            "avoid": ["exposing internal state and methods", "creating getter/setter pairs for every internal field"],
-            "use": ["design the interface from the caller's perspective", "hide complexity behind simple operations"]
+            "avoid": [
+              "exposing internal state and methods",
+              "creating getter/setter pairs for every internal field"
+            ],
+            "use": [
+              "design the interface from the caller's perspective",
+              "hide complexity behind simple operations"
+            ]
           },
           "expected_result": "Deep module with simple interface. Complexity hidden. Callers use the module without knowing internals."
         }
@@ -87,8 +107,14 @@
           },
           "action_template": "Stop implementing → Map the relevant architecture → Identify affected modules → Assess impact → Proceed with awareness",
           "replace": {
-            "avoid": ["implementing without architectural context", "assuming local knowledge is sufficient"],
-            "use": ["map the architectural context first", "identify all affected modules before writing code"]
+            "avoid": [
+              "implementing without architectural context",
+              "assuming local knowledge is sufficient"
+            ],
+            "use": [
+              "map the architectural context first",
+              "identify all affected modules before writing code"
+            ]
           },
           "expected_result": "Architectural context mapped. Change implemented with awareness of systemic impact."
         }

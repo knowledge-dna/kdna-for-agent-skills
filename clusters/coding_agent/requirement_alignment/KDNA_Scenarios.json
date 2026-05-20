@@ -1,10 +1,11 @@
 {
-  "version": "0.4",
-  "domain": "requirement_alignment",
-  "created": "2025-05-20",
-  "purpose": "Define scenario triggers and action orientations for requirement alignment judgment.",
-  "load_condition": "Load when a concrete situation or scene is detected that involves requirement clarity.",
-
+  "meta": {
+    "version": "0.4",
+    "domain": "requirement_alignment",
+    "created": "2026-05-20",
+    "purpose": "Define scenario triggers and action orientations for requirement alignment judgment.",
+    "load_condition": "Load when a concrete situation or scene is detected that involves requirement clarity."
+  },
   "scenes": [
     {
       "id": "SC-001",
@@ -21,8 +22,14 @@
           },
           "action_template": "Identify decision branches → Ask one at a time → Restate scope and criteria",
           "replace": {
-            "avoid": ["start implementing the most obvious interpretation", "assume standard patterns apply"],
-            "use": ["list all implicit decision branches", "ask the user to resolve each branch explicitly"]
+            "avoid": [
+              "start implementing the most obvious interpretation",
+              "assume standard patterns apply"
+            ],
+            "use": [
+              "list all implicit decision branches",
+              "ask the user to resolve each branch explicitly"
+            ]
           },
           "expected_result": "All decision branches resolved. Scope and success criteria restated and confirmed by user."
         },
@@ -36,8 +43,14 @@
           },
           "action_template": "Check codebase context → Surface hidden constraints → Clarify with user",
           "replace": {
-            "avoid": ["treating brevity as simplicity", "implementing the first interpretation that comes to mind"],
-            "use": ["assume brevity hides complexity until proven otherwise", "verify understanding by restating"]
+            "avoid": [
+              "treating brevity as simplicity",
+              "implementing the first interpretation that comes to mind"
+            ],
+            "use": [
+              "assume brevity hides complexity until proven otherwise",
+              "verify understanding by restating"
+            ]
           },
           "expected_result": "Hidden constraints surfaced. User confirms or corrects the agent's understanding."
         }
@@ -58,8 +71,14 @@
           },
           "action_template": "Restate the plan explicitly → Ask for confirmation on each critical branch → Proceed only after explicit confirmation",
           "replace": {
-            "avoid": ["treating approval as alignment", "skipping the restatement step"],
-            "use": ["always restate before implementing", "confirm each branch separately"]
+            "avoid": [
+              "treating approval as alignment",
+              "skipping the restatement step"
+            ],
+            "use": [
+              "always restate before implementing",
+              "confirm each branch separately"
+            ]
           },
           "expected_result": "User confirms each branch explicitly. No ambiguity about what 'done' looks like."
         }
@@ -80,8 +99,14 @@
           },
           "action_template": "Assess constraint impact → If scope-changing, pause and inform user → If implementation-only, document and proceed",
           "replace": {
-            "avoid": ["silently adjusting scope", "making scope-changing decisions without user input"],
-            "use": ["surface the constraint to the user", "distinguish scope impact from implementation impact"]
+            "avoid": [
+              "silently adjusting scope",
+              "making scope-changing decisions without user input"
+            ],
+            "use": [
+              "surface the constraint to the user",
+              "distinguish scope impact from implementation impact"
+            ]
           },
           "expected_result": "Scope-changing constraints surfaced to user. Implementation-only constraints documented in code."
         }
@@ -102,8 +127,14 @@
           },
           "action_template": "Count decision branches → If >3, draft a PRD → Validate with user before implementing",
           "replace": {
-            "avoid": ["skipping specification for complex requests", "assuming verbal agreement is sufficient"],
-            "use": ["write a PRD for any request with multiple decision branches", "validate the spec before coding"]
+            "avoid": [
+              "skipping specification for complex requests",
+              "assuming verbal agreement is sufficient"
+            ],
+            "use": [
+              "write a PRD for any request with multiple decision branches",
+              "validate the spec before coding"
+            ]
           },
           "expected_result": "PRD with problem statement, solution, user stories, and out-of-scope items. User confirms before implementation."
         }
