@@ -116,30 +116,11 @@ kdna-for-agent-skills/
 
 **Input:** "This test is failing. Can you fix it?"
 
-**Without KDNA** — the agent jumps to the most obvious fix:
-```
-Looking at the failing test, the issue is missing email validation.
-I'll add it now.
+**Without KDNA** — the agent jumps to the most obvious fix and writes `if (!email.includes('@')) throw new Error(...)`. No reproduction. No hypothesis. No regression test. This fix would have broken another service.
 
-+ if (!email.includes('@')) throw new Error('Invalid email format');
-```
-No reproduction. No hypothesis. No regression test. This fix would have broken another service.
+**With KDNA** — `bug_diagnosis` + `test_driven_development` domains load. The agent reproduces the failure, generates 4 hypotheses, eliminates them one by one, discovers a hidden constraint (adminService depends on current behavior), and surfaces the decision to the user before applying any fix.
 
-**With KDNA** — `bug_diagnosis` + `test_driven_development` domains load:
-```
-1. Reproduce: run the test locally → confirmed
-2. Hypotheses (4):
-   H1: validation not called → CHECK: it IS called → eliminated
-   H2: validation returns instead of throwing → CONFIRMED
-   H3: validation throws but caught upstream → eliminated
-   H4: test targets wrong method → eliminated
-3. Hidden constraint found: adminService depends on return-based behavior
-4. Decision surfaced to user before fixing
-5. Regression test written before fix applied
-```
-The KDNA-loaded agent discovered the root cause (inconsistent error handling pattern) instead of writing a fix that would break existing code.
-
-See [examples/failing_test_debugging/](examples/failing_test_debugging/) for the full comparison.
+Full walkthrough with judgment-difference analysis: [docs/demo-failing-test.md](docs/demo-failing-test.md)
 
 ## Attribution
 
