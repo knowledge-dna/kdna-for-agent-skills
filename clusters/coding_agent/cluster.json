@@ -1,13 +1,12 @@
 {
-  "cluster": "coding_agent",
+  "name": "coding_agent",
   "version": "0.1.0",
   "purpose": "Map common agent-skill workflows into KDNA cognition domains for coding agents.",
-  "domains": [
+  "packages": [
     {
-      "domain": "requirement_alignment",
-      "path": "./requirement_alignment",
-      "status": "experimental",
-      "load_when": [
+      "id": "requirement_alignment",
+      "role": "primary",
+      "use_when": [
         "user request is vague",
         "task has hidden constraints",
         "agent is about to implement without enough context",
@@ -15,20 +14,9 @@
       ]
     },
     {
-      "domain": "shared_language",
-      "path": "./shared_language",
-      "status": "experimental",
-      "load_when": [
-        "project has domain-specific terminology",
-        "agent uses verbose descriptions",
-        "naming consistency matters"
-      ]
-    },
-    {
-      "domain": "bug_diagnosis",
-      "path": "./bug_diagnosis",
-      "status": "experimental",
-      "load_when": [
+      "id": "bug_diagnosis",
+      "role": "advisor",
+      "use_when": [
         "bug report",
         "test failure",
         "performance regression",
@@ -36,10 +24,9 @@
       ]
     },
     {
-      "domain": "test_driven_development",
-      "path": "./test_driven_development",
-      "status": "experimental",
-      "load_when": [
+      "id": "test_driven_development",
+      "role": "advisor",
+      "use_when": [
         "new feature implementation",
         "bug fix with expected behavior",
         "regression prevention",
@@ -47,10 +34,9 @@
       ]
     },
     {
-      "domain": "architecture_reasoning",
-      "path": "./architecture_reasoning",
-      "status": "experimental",
-      "load_when": [
+      "id": "architecture_reasoning",
+      "role": "advisor",
+      "use_when": [
         "large change",
         "module boundary concern",
         "codebase complexity",
@@ -58,24 +44,44 @@
       ]
     },
     {
-      "domain": "issue_decomposition",
-      "path": "./issue_decomposition",
-      "status": "experimental",
-      "load_when": [
+      "id": "issue_decomposition",
+      "role": "advisor",
+      "use_when": [
         "plan needs to become tasks",
         "PRD needs issue breakdown",
         "triage is requested"
       ]
     },
     {
-      "domain": "handoff_context",
-      "path": "./handoff_context",
-      "status": "experimental",
-      "load_when": [
+      "id": "shared_language",
+      "role": "constraint",
+      "use_when": [
+        "project has domain-specific terminology",
+        "agent uses verbose descriptions",
+        "naming consistency matters"
+      ]
+    },
+    {
+      "id": "handoff_context",
+      "role": "constraint",
+      "use_when": [
         "conversation needs compacting",
         "another agent will continue",
         "session is ending"
       ]
     }
+  ],
+  "composition_rules": [
+    "requirement_alignment leads — all other domains interpret tasks relative to aligned requirements",
+    "shared_language constrains terminology across all domains",
+    "bug_diagnosis and test_driven_development complement but do not override each other",
+    "handoff_context activates only when session continuity is at risk"
+  ],
+  "routing_questions": [
+    "Is the user request clear or vague?",
+    "Is there a bug, test failure, or performance issue?",
+    "Is the agent about to write code without a test?",
+    "Does the change affect architecture or module boundaries?",
+    "Does the session need to be compacted or handed off?"
   ]
 }
