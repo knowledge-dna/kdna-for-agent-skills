@@ -1,0 +1,101 @@
+{
+  "version": "0.4",
+  "domain": "architecture_reasoning",
+  "created": "2025-05-20",
+  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for architecture reasoning judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "terminology": {
+    "standard_terms": [
+      {
+        "term": "deep module",
+        "definition": "A module with a simple interface that hides substantial complexity, providing high functionality with low interface surface."
+      },
+      {
+        "term": "shallow module",
+        "definition": "A module with a complex interface that exposes implementation details, providing low functionality relative to its interface surface."
+      },
+      {
+        "term": "module boundary",
+        "definition": "The contract between two areas of responsibility, defined by the interface they share rather than file or class organization."
+      },
+      {
+        "term": "software entropy",
+        "definition": "The tendency of a codebase to lose architectural clarity over time as changes accumulate without boundary maintenance."
+      },
+      {
+        "term": "ball of mud",
+        "definition": "A system where boundaries have eroded so that changes propagate unpredictably across modules."
+      },
+      {
+        "term": "zooming out",
+        "definition": "Deliberately shifting perspective from the immediate task to how the change fits the broader system architecture."
+      },
+      {
+        "term": "cross-cutting concern",
+        "definition": "A feature or requirement that legitimately spans multiple modules, as opposed to a feature that crosses boundaries because the boundaries are wrong."
+      }
+    ],
+    "banned_terms": [
+      {
+        "term": "it's just a quick change",
+        "why": "Calling a change 'quick' dismisses its architectural impact. A one-line change can cross boundaries and create coupling.",
+        "replace_with": "this change affects modules X and Y, here's the boundary impact"
+      },
+      {
+        "term": "we'll refactor later",
+        "why": "'Later' never comes. Architectural debt compounds. If a change worsens the architecture, it should be rejected or the boundary should be refactored as part of the change.",
+        "replace_with": "let me assess whether the boundary needs refactoring as part of this change"
+      },
+      {
+        "term": "this doesn't affect the architecture",
+        "why": "Every change either preserves or degrades the architecture. No change is architecturally neutral.",
+        "replace_with": "let me assess the architectural impact of this change"
+      },
+      {
+        "term": "over-engineering",
+        "why": "Used to dismiss architectural thinking. Architecture reasoning is not over-engineering — it is the minimum due diligence for system integrity.",
+        "replace_with": "let me assess whether this design is proportional to the problem"
+      }
+    ]
+  },
+
+  "misunderstandings": [
+    {
+      "id": "MS-001",
+      "wrong": "If the code works, the architecture is fine.",
+      "correct": "Working code and sound architecture are independent dimensions. Code can work correctly while the architecture decays. Architecture problems manifest as increasing cost of change, not as broken functionality.",
+      "key_distinction": "Functional correctness ≠ Architectural soundness. A system can be bug-free and architecturally bankrupt.",
+      "why": "Equating working code with sound architecture allows entropy to accumulate invisibly until change becomes prohibitively expensive."
+    },
+    {
+      "id": "MS-002",
+      "wrong": "Zooming out means designing for future requirements we don't have yet.",
+      "correct": "Zooming out means understanding the current system context before making a change. It is about the present architecture, not hypothetical future needs.",
+      "key_distinction": "Understanding current context ≠ Designing for future needs. Zoom out to understand what is, not to predict what will be.",
+      "why": "Confusing zooming out with over-engineering causes agents to skip architectural reasoning and implement locally optimal changes."
+    },
+    {
+      "id": "MS-003",
+      "wrong": "Deep modules mean writing lots of code and hiding it behind a small interface.",
+      "correct": "Deep modules are about the ratio of functionality to interface, not about code volume. A module that does little with a small interface is not deep — it's trivial.",
+      "key_distinction": "Depth = Functionality / Interface. High functionality with small interface = deep. Small functionality with small interface = trivial.",
+      "why": "Misunderstanding depth leads to either over-abstracting (hiding trivial functionality) or under-abstracting (exposing complex functionality)."
+    },
+    {
+      "id": "MS-004",
+      "wrong": "Refactoring boundaries is optional cleanup that can be done when there's time.",
+      "correct": "Boundary refactoring is preventive maintenance. Doing it when there's time means never doing it, because there's always more pressing work. It must be integrated into the development process.",
+      "key_distinction": "Optional maintenance vs. Preventive maintenance. Preventive maintenance is scheduled; optional maintenance is perpetually deferred.",
+      "why": "Deferring boundary refactoring allows entropy to compound. The cost of refactoring grows exponentially, making it even less likely to happen later."
+    }
+  ],
+
+  "self_check": [
+    "Can I explain how this change fits the broader system architecture?",
+    "Does this change cross module boundaries? If so, is the boundary wrong or is the feature cross-cutting?",
+    "Am I about to add a public method to a module that already has many?",
+    "Is this module deep (high functionality, small interface) or shallow (low functionality, large interface)?",
+    "Am I treating 'refactor later' as a plan, or as an excuse to skip architectural thinking now?"
+  ]
+}

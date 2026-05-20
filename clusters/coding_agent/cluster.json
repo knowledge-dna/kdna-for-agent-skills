@@ -1,0 +1,81 @@
+{
+  "cluster": "coding_agent",
+  "version": "0.1.0",
+  "purpose": "Map common agent-skill workflows into KDNA cognition domains for coding agents.",
+  "domains": [
+    {
+      "domain": "requirement_alignment",
+      "path": "./requirement_alignment",
+      "status": "experimental",
+      "load_when": [
+        "user request is vague",
+        "task has hidden constraints",
+        "agent is about to implement without enough context",
+        "user provides a wish without scope or criteria"
+      ]
+    },
+    {
+      "domain": "shared_language",
+      "path": "./shared_language",
+      "status": "experimental",
+      "load_when": [
+        "project has domain-specific terminology",
+        "agent uses verbose descriptions",
+        "naming consistency matters"
+      ]
+    },
+    {
+      "domain": "bug_diagnosis",
+      "path": "./bug_diagnosis",
+      "status": "experimental",
+      "load_when": [
+        "bug report",
+        "test failure",
+        "performance regression",
+        "runtime error"
+      ]
+    },
+    {
+      "domain": "test_driven_development",
+      "path": "./test_driven_development",
+      "status": "experimental",
+      "load_when": [
+        "new feature implementation",
+        "bug fix with expected behavior",
+        "regression prevention",
+        "agent is about to write implementation without a failing test"
+      ]
+    },
+    {
+      "domain": "architecture_reasoning",
+      "path": "./architecture_reasoning",
+      "status": "experimental",
+      "load_when": [
+        "large change",
+        "module boundary concern",
+        "codebase complexity",
+        "request to zoom out"
+      ]
+    },
+    {
+      "domain": "issue_decomposition",
+      "path": "./issue_decomposition",
+      "status": "experimental",
+      "load_when": [
+        "plan needs to become tasks",
+        "PRD needs issue breakdown",
+        "triage is requested"
+      ]
+    },
+    {
+      "domain": "handoff_context",
+      "path": "./handoff_context",
+      "status": "experimental",
+      "load_when": [
+        "conversation needs compacting",
+        "another agent will continue",
+        "session is ending"
+      ]
+    }
+  ]
+}

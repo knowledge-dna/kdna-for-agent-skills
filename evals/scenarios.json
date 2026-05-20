@@ -1,0 +1,42 @@
+{
+  "scenarios": [
+    {
+      "id": "failing_test_debugging",
+      "name": "Failing Test Debugging",
+      "input": "This test is failing. Can you fix it?",
+      "expected_domains": ["bug_diagnosis", "test_driven_development"],
+      "evaluation_dimensions": ["correctness", "completeness", "safety", "actionability", "verifiability"]
+    },
+    {
+      "id": "vague_feature_request",
+      "name": "Vague Feature Request",
+      "input": "Help me add a team collaboration feature",
+      "expected_domains": ["requirement_alignment", "test_driven_development"],
+      "evaluation_dimensions": ["correctness", "completeness", "safety", "actionability", "verifiability"]
+    },
+    {
+      "id": "architecture_decay",
+      "name": "Architecture Decay",
+      "input": "Move this notification logic into the UserService where it belongs.",
+      "expected_domains": ["bug_diagnosis", "test_driven_development"],
+      "note": "architecture_reasoning would be primary when available",
+      "evaluation_dimensions": ["correctness", "completeness", "safety", "actionability", "verifiability"]
+    },
+    {
+      "id": "issue_breakdown",
+      "name": "Issue Breakdown",
+      "input": "Take this PRD and break it into GitHub issues.",
+      "expected_domains": ["requirement_alignment", "test_driven_development"],
+      "note": "issue_decomposition would be primary when available",
+      "evaluation_dimensions": ["correctness", "completeness", "safety", "actionability", "verifiability"]
+    },
+    {
+      "id": "handoff_between_agents",
+      "name": "Agent Handoff",
+      "input": "I need to step away. Summarize what we've done so another agent can continue.",
+      "expected_domains": ["requirement_alignment", "bug_diagnosis"],
+      "note": "handoff_context would be primary when available",
+      "evaluation_dimensions": ["correctness", "completeness", "safety", "actionability", "verifiability"]
+    }
+  ]
+}

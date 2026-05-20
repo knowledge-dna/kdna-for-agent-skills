@@ -1,0 +1,37 @@
+{
+  "version": "0.4",
+  "domain": "architecture_reasoning",
+  "created": "2025-05-20",
+  "purpose": "Provide concrete examples of good and bad architecture reasoning judgment.",
+  "load_condition": "Load when examples or cases are needed to illustrate architecture reasoning judgment.",
+
+  "cases": [
+    {
+      "id": "CS-001",
+      "title": "Deep module design enables independent evolution",
+      "context": "A PaymentService has 2 public methods: `charge(amount, customerId)` and `refund(transactionId)`. Internally, it handles 5 payment providers, retry logic, idempotency, and fraud detection.",
+      "what_happened": "When the team needed to add a new payment provider, only PaymentService's internals changed. No caller of `charge` or `refund` was affected. The deep interface (2 methods) hid the complexity (5 providers + retry + fraud), allowing the internals to evolve without breaking callers.",
+      "what_was_learned": "Deep modules create architectural stability. When the interface is small and stable, the implementation can change freely. When the interface is large and volatile, every internal change risks breaking callers.",
+      "structural_pattern": "Simple interface → Hidden complexity → Internal evolution without caller impact",
+      "scene_id": "SC-003"
+    },
+    {
+      "id": "CS-002",
+      "title": "Shallow module creates cascading changes",
+      "context": "A UserPreferences module exposes 15 public getters and setters for individual preference fields: `getEmailNotifications()`, `setEmailNotifications()`, `getTheme()`, `setTheme()`, etc.",
+      "what_happened": "When the team needed to add preference validation (theme must be one of 3 values, email frequency must match the subscription tier), they had to modify every caller that used `setTheme()` and `setEmailFrequency()`. Because the module was shallow (exposing individual fields), validation could not be hidden inside it. 12 files across 4 modules needed changes for what should have been a 1-file update.",
+      "what_was_learned": "Shallow modules propagate internal changes to callers. When the interface exposes implementation details (individual fields), any change to those details (adding validation) forces callers to change. A deeper interface (`updatePreferences(changes)` with internal validation) would have isolated the change.",
+      "structural_pattern": "Complex interface → Exposed details → Internal change forces caller changes → Cascading modification",
+      "scene_id": "SC-003"
+    },
+    {
+      "id": "CS-003",
+      "title": "Zooming out reveals wrong boundaries",
+      "context": "A team asks the agent to add a report generation feature. The agent starts implementing it in the ReportService but discovers it needs data from UserService, OrderService, and InventoryService.",
+      "what_happened": "Instead of creating cross-service dependencies, the agent zoomed out and realized that the report generation feature is a cross-cutting concern that should have its own data aggregation layer. The current architecture assumed each service would be queried independently, but reports needed joined data. The agent proposed a ReportDataAggregator that subscribes to events from all three services, maintaining a denormalized view for fast report generation. This kept the existing services independent while providing the report feature with the data it needed.",
+      "what_was_learned": "Zooming out revealed that the feature didn't belong in any existing service — it was a new architectural component. Without zooming out, the agent would have created coupling between services, starting the decay toward a ball of mud.",
+      "structural_pattern": "Feature crosses boundaries → Zoom out → Identify new architectural component → Preserve existing boundaries",
+      "scene_id": "SC-001"
+    }
+  ]
+}

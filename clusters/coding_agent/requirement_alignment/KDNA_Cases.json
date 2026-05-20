@@ -1,0 +1,37 @@
+{
+  "version": "0.4",
+  "domain": "requirement_alignment",
+  "created": "2025-05-20",
+  "purpose": "Provide concrete examples of good and bad requirement alignment judgment.",
+  "load_condition": "Load when examples or cases are needed to illustrate alignment judgment.",
+
+  "cases": [
+    {
+      "id": "CS-001",
+      "title": "Vague feature request resolved through grilling",
+      "context": "User says 'Add team collaboration to the app.' This is a wish with no scope, constraints, or success criteria.",
+      "what_happened": "The agent identified 5 decision branches (real-time vs. async, document vs. element-level, permission model, notification strategy, data isolation). It asked one question at a time with recommended answers. After resolving all branches, it restated the scope and criteria. The user realized their initial idea was underspecified and adjusted two decisions during the grilling.",
+      "what_was_learned": "Grilling uncovered that the user's mental model differed from the obvious interpretation in 2 out of 5 branches. Without grilling, the agent would have implemented the wrong collaboration model.",
+      "structural_pattern": "Wish → Decision branches identified → Each resolved with user → Scope restated → Alignment confirmed",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-002",
+      "title": "Premature implementation from assumed alignment",
+      "context": "User says 'Add email notifications' and the agent immediately starts implementing an email service.",
+      "what_happened": "The agent implemented a full email notification system with templates, scheduling, and preferences. When the user saw the result, they said 'I just wanted a simple alert when something fails, not a full notification system.' The agent had assumed the user wanted a comprehensive system based on the phrase 'email notifications'.",
+      "what_was_learned": "The phrase 'email notifications' was a wish, not a task. The agent treated brevity as simplicity and implemented the most feature-rich interpretation. A single clarifying question ('What events should trigger notifications?') would have prevented the rework.",
+      "structural_pattern": "Wish → Assumed alignment (no grilling) → Implemented wrong scope → Rework required",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-003",
+      "title": "Hidden constraint discovered during implementation",
+      "context": "User asks to 'add caching to the API responses.' The agent starts implementing a Redis-based cache layer.",
+      "what_happened": "During implementation, the agent discovered that some API responses contain user-specific data and cannot be shared across sessions. The agent paused, informed the user about this constraint, and asked whether to cache only public responses or implement per-user caching. The user chose per-user caching, which changed the architecture from a simple cache layer to a keyed cache with session isolation.",
+      "what_was_learned": "The codebase contained a hidden constraint (user-specific data in responses) that changed the implementation scope. By pausing and surfacing the constraint rather than silently adjusting, the agent avoided building a cache that would leak data between users.",
+      "structural_pattern": "Request → Implementation started → Hidden constraint found → Agent paused → User decided → Correct scope implemented",
+      "scene_id": "SC-003"
+    }
+  ]
+}

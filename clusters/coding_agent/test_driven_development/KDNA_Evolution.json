@@ -1,0 +1,82 @@
+{
+  "version": "0.4",
+  "domain": "test_driven_development",
+  "created": "2025-05-20",
+  "purpose": "Define capability stages and measurable growth for TDD judgment.",
+  "load_condition": "Load when coaching, improvement, or practice measurement is requested.",
+
+  "stages": [
+    {
+      "id": "ST-001",
+      "name": "Test-After Coder",
+      "description": "Writes implementation first, then adds tests. Tests verify what the code does, not what it should do. May write horizontal test suites. Mocks liberally without considering behavioral boundaries.",
+      "indicators": [
+        "Implements the feature, then writes tests to match",
+        "Tests mirror the implementation structure",
+        "Test suite is organized by layer (unit, integration, E2E) rather than by behavior",
+        "Over-mocks internal dependencies"
+      ]
+    },
+    {
+      "id": "ST-002",
+      "name": "Vertical-Slice TDD Practitioner",
+      "description": "Follows RED-GREEN-REFACTOR for each vertical slice. Writes behavioral tests before implementation. One test at a time. Simplest passing implementation. Refactors only on GREEN. Mocks at boundaries only.",
+      "indicators": [
+        "Writes failing test before implementation for each behavior",
+        "Organizes tests around behaviors, not layers",
+        "Hardcodes during GREEN when only one test case exists",
+        "Refactors only when all tests are GREEN",
+        "Mocks at system boundaries, not between internal components"
+      ]
+    },
+    {
+      "id": "ST-003",
+      "name": "TDD Strategist",
+      "description": "Selects the right testing granularity for each situation. Knows when a unit test suffices vs. when an integration test is needed. Identifies and creates proper test seams. Designs testable architecture proactively.",
+      "indicators": [
+        "Chooses test granularity based on where the behavior boundary is, not by rote",
+        "Identifies missing test seams and creates them through architecture changes",
+        "Uses tracer bullets to validate architecture before building out features",
+        "Balances test speed and coverage deliberately"
+      ]
+    }
+  ],
+
+  "evolution_layers": [
+    {
+      "id": "EL-001",
+      "name": "From test-after to vertical-slice TDD",
+      "capability": "Consistently write behavioral tests before implementation and organize work around vertical slices",
+      "from_stage": "ST-001",
+      "to_stage": "ST-002"
+    },
+    {
+      "id": "EL-002",
+      "name": "From practitioner to strategist",
+      "capability": "Design testable architecture and select appropriate testing strategies for each situation",
+      "from_stage": "ST-002",
+      "to_stage": "ST-003"
+    }
+  ],
+
+  "measurement": [
+    {
+      "id": "ME-001",
+      "what": "Test-first rate",
+      "how": "Count the number of implementation tasks where a failing test was written before the implementation, divided by total implementation tasks.",
+      "threshold": "ST-002: >90%. ST-003: >95%."
+    },
+    {
+      "id": "ME-002",
+      "what": "Behavioral test ratio",
+      "how": "Count tests that specify observable behavior (what) vs. tests that verify implementation details (how). Divide behavioral by total.",
+      "threshold": "ST-002: >70%. ST-003: >85%."
+    },
+    {
+      "id": "ME-003",
+      "what": "Test fragility rate",
+      "how": "Count the number of test failures caused by implementation changes that preserved behavior, divided by total implementation changes.",
+      "threshold": "ST-002: <15%. ST-003: <5%."
+    }
+  ]
+}

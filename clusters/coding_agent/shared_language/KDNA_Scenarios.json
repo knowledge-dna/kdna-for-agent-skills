@@ -1,0 +1,98 @@
+{
+  "version": "0.4",
+  "domain": "shared_language",
+  "created": "2025-05-20",
+  "purpose": "Define scenario triggers and action orientations for shared language judgment.",
+  "load_condition": "Load when a situation involving terminology, naming, or communication precision is detected.",
+
+  "scenes": [
+    {
+      "id": "SC-001",
+      "name": "Verbose Agent Output",
+      "trigger_signal": "The agent uses long descriptions where concise terms would suffice.",
+      "sub_scenarios": [
+        {
+          "id": "SC-001-A",
+          "trap_belief": "More words mean more clarity.",
+          "three_questions": {
+            "belief": "Is verbosity improving understanding, or is it a symptom of missing vocabulary?",
+            "state": "What concept am I describing that could be named?",
+            "need": "Does a term already exist for this concept, or should I propose one?"
+          },
+          "action_template": "Identify the repeated concept → Propose a concise term → Define boundary → Add to CONTEXT",
+          "replace": {
+            "avoid": ["using longer descriptions to compensate for missing terms", "assuming verbosity is clarity"],
+            "use": ["name the concept", "establish a domain term with a boundary"]
+          },
+          "expected_result": "Verbose descriptions replaced with concise domain terms. Token cost reduced. Understanding improved."
+        }
+      ]
+    },
+    {
+      "id": "SC-002",
+      "name": "Ambiguous Term Detected",
+      "trigger_signal": "The same word is used with different meanings in different parts of the conversation or codebase.",
+      "sub_scenarios": [
+        {
+          "id": "SC-002-A",
+          "trap_belief": "People will figure out the meaning from context.",
+          "three_questions": {
+            "belief": "Is contextual disambiguation reliable, or will it fail under time pressure or across agents?",
+            "state": "What are the different meanings currently attached to this term?",
+            "need": "Should we split this term into multiple specific terms?"
+          },
+          "action_template": "Identify the conflicting meanings → Propose separate terms for each → Define boundaries → Update CONTEXT",
+          "replace": {
+            "avoid": ["assuming context resolves ambiguity", "using the same term for different concepts"],
+            "use": ["split ambiguous terms into specific ones", "define each term's boundary explicitly"]
+          },
+          "expected_result": "Each concept has its own unambiguous term. No term carries multiple meanings."
+        }
+      ]
+    },
+    {
+      "id": "SC-003",
+      "name": "Consequential Architecture Decision",
+      "trigger_signal": "A decision is made that would be expensive to reverse or surprising to someone without context.",
+      "sub_scenarios": [
+        {
+          "id": "SC-003-A",
+          "trap_belief": "We'll remember why we made this decision.",
+          "three_questions": {
+            "belief": "Will the rationale for this decision be clear in 3 months?",
+            "state": "What alternatives were considered and why were they rejected?",
+            "need": "Would someone new to the project be surprised by this decision?"
+          },
+          "action_template": "Record the decision → Document context and alternatives → Note implications → Add to ADR",
+          "replace": {
+            "avoid": ["assuming decisions will be remembered", "moving on without recording"],
+            "use": ["capture the ADR while context is fresh", "include alternatives considered and why they were rejected"]
+          },
+          "expected_result": "ADR captures the decision, its context, and its rationale. Future readers can understand why this choice was made."
+        }
+      ]
+    },
+    {
+      "id": "SC-004",
+      "name": "Naming Inconsistency",
+      "trigger_signal": "The same concept is referred to by different names in code, conversation, or documentation.",
+      "sub_scenarios": [
+        {
+          "id": "SC-004-A",
+          "trap_belief": "Different names for the same thing are harmless as long as the code works.",
+          "three_questions": {
+            "belief": "Is naming inconsistency truly harmless, or does it create navigation and comprehension friction?",
+            "state": "What is the canonical name for this concept?",
+            "need": "Should we rename in code, in conversation, or in documentation to align with the canonical term?"
+          },
+          "action_template": "Identify the canonical term → Map all aliases → Rename where appropriate → Update CONTEXT",
+          "replace": {
+            "avoid": ["tolerating multiple names for the same concept", "renaming without establishing a canonical term first"],
+            "use": ["establish one canonical term", "document aliases as deprecated"]
+          },
+          "expected_result": "One canonical term per concept. Aliases documented as deprecated. Navigation and search improved."
+        }
+      ]
+    }
+  ]
+}

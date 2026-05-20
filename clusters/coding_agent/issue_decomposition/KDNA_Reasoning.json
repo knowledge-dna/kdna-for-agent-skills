@@ -1,0 +1,46 @@
+{
+  "version": "0.4",
+  "domain": "issue_decomposition",
+  "created": "2025-05-20",
+  "purpose": "Define reasoning chains that explain why issue decomposition judgment holds.",
+  "load_condition": "Load when the user asks why, or when tradeoffs in decomposition decisions matter.",
+
+  "reasoning_chains": [
+    {
+      "id": "RC-001",
+      "one_sentence": "Vertical slices deliver value faster because each slice is independently verifiable.",
+      "logic": [
+        "A vertical slice delivers one complete behavior from input to output.",
+        "The user can verify this behavior immediately, providing feedback on whether it's correct.",
+        "Feedback on a vertical slice informs the design of subsequent slices, preventing compounding misalignment.",
+        "Horizontal slices cannot be verified until all layers are complete, delaying feedback and increasing rework risk.",
+        "Therefore, vertical slices reduce both time-to-value and rework risk."
+      ],
+      "so_what": "Organize work around behaviors, not layers. Each behavior should be end-to-end and independently verifiable."
+    },
+    {
+      "id": "RC-002",
+      "one_sentence": "Triage is cheaper than implementation because filtering invalid issues prevents wasted effort.",
+      "logic": [
+        "Some issues in any backlog are invalid: outdated, duplicated, incomplete, or misaligned.",
+        "Implementing an invalid issue wastes all the effort spent on it.",
+        "Triaging an issue takes minutes; implementing it takes hours to days.",
+        "Even if only 10% of issues are invalid, triage prevents significant wasted effort.",
+        "Therefore, triage is a high-ROI quality gate."
+      ],
+      "so_what": "Never start work on an untriaged issue. The few minutes of triage save hours of wasted implementation."
+    },
+    {
+      "id": "RC-003",
+      "one_sentence": "Acceptance criteria define the issue's boundary, preventing scope creep within the issue.",
+      "logic": [
+        "Without acceptance criteria, the agent (or developer) decides when the issue is 'done' based on their judgment.",
+        "Judgment about completeness varies between agents and over time, leading to inconsistent scope.",
+        "Explicit acceptance criteria create an objective boundary: the issue is done when the criteria are met.",
+        "Criteria also define what is excluded: anything not in the criteria belongs to another issue.",
+        "Therefore, acceptance criteria are not documentation — they are scope control."
+      ],
+      "so_what": "If an issue has no acceptance criteria, don't implement it. Write the criteria first."
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "version": "0.4",
+  "domain": "handoff_context",
+  "created": "2025-05-20",
+  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for handoff context judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "terminology": {
+    "standard_terms": [
+      {
+        "term": "handoff document",
+        "definition": "A structured artifact that preserves the judgment layer of a session for the next agent, including decisions, constraints, unresolved questions, risks, and next steps."
+      },
+      {
+        "term": "decision context",
+        "definition": "The why behind a decision: alternatives considered, constraints that applied, and implications of the choice."
+      },
+      {
+        "term": "handoff signal",
+        "definition": "Information that cannot be recovered from the codebase, git history, or existing documentation — the irreplaceable content of the handoff."
+      },
+      {
+        "term": "handoff noise",
+        "definition": "Information that can be derived from other sources. Including it wastes the next agent's attention without adding value."
+      },
+      {
+        "term": "unresolved question",
+        "definition": "A known uncertainty where assuming the wrong answer would cause rework or misalignment."
+      },
+      {
+        "term": "forward-looking context",
+        "definition": "Information about what should happen next: priorities, risks, dependencies, and immediate next steps."
+      }
+    ],
+    "banned_terms": [
+      {
+        "term": "here's a summary of what we did",
+        "why": "A chronological summary is a log, not a handoff. It preserves history but not judgment.",
+        "replace_with": "here are the decisions, constraints, and next steps for continuity"
+      },
+      {
+        "term": "the rest is in the code",
+        "why": "The code contains implementation, not reasoning. Decisions and constraints are not in the code.",
+        "replace_with": "the decisions and constraints are documented in the handoff; implementation details are in the code"
+      },
+      {
+        "term": "I think we're done",
+        "why": "This is a claim about completeness without evidence. The handoff should be verified against a checklist.",
+        "replace_with": "I've verified the handoff covers: goal, decisions, constraints, unresolved questions, risks, and next steps"
+      }
+    ]
+  },
+
+  "misunderstandings": [
+    {
+      "id": "MS-001",
+      "wrong": "A good handoff summarizes everything that happened in the session.",
+      "correct": "A good handoff preserves the judgment layer: decisions, constraints, unresolved questions, risks, and next steps. Chronological history is noise unless it contains signal.",
+      "key_distinction": "Summary vs. Handoff. A summary tells what happened. A handoff tells what the next agent needs to continue effectively.",
+      "why": "Comprehensive summaries are long and buried in detail. The next agent skims them and misses critical information. Focused handoffs are short and every word matters."
+    },
+    {
+      "id": "MS-002",
+      "wrong": "The handoff should include all implementation details so the next agent knows exactly what code was written.",
+      "correct": "Implementation details are in the code and git history. The handoff should include only what cannot be derived: why decisions were made, what constraints were discovered, and what remains unresolved.",
+      "key_distinction": "Derivable vs. Irreplaceable. If the next agent can read the code to understand implementation, don't duplicate it in the handoff.",
+      "why": "Including implementation details makes the handoff bloated and brittle — it becomes stale as soon as the code changes."
+    },
+    {
+      "id": "MS-003",
+      "wrong": "If I don't know the answer, I shouldn't mention the question in the handoff.",
+      "correct": "An unresolved question is more valuable than an assumed answer. Explicitly stating what is unresolved allows the next agent to investigate or ask, rather than building on a false assumption.",
+      "key_distinction": "Unresolved question vs. Assumed answer. An unresolved question triggers verification. An assumed answer prevents it.",
+      "why": "Hiding uncertainty in handoffs is more dangerous than exposing it. The next agent is better off knowing there's a question than assuming a wrong answer."
+    },
+    {
+      "id": "MS-004",
+      "wrong": "The handoff only needs to cover what was done, not what should happen next.",
+      "correct": "A handoff needs both backward-looking context (what was done and why) and forward-looking direction (what to do next and what to watch out for). Without direction, the next agent doesn't know where to start.",
+      "key_distinction": "Backward-looking vs. Forward-looking. Both are necessary. History provides context; direction provides action.",
+      "why": "A handoff without next steps is a dead end. The next agent must reconstruct the plan from context, which is expensive and error-prone."
+    }
+  ],
+
+  "self_check": [
+    "Does the handoff document state the goal clearly?",
+    "Does it preserve decisions with rationale, not just what was decided?",
+    "Does it list unresolved questions explicitly rather than assuming answers?",
+    "Does it include constraints discovered during the session?",
+    "Does it identify risks and things to watch out for?",
+    "Does it specify next steps in priority order?",
+    "Is all information in the handoff irreplaceable (not derivable from code or docs)?"
+  ]
+}

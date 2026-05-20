@@ -1,0 +1,102 @@
+{
+  "version": "0.4",
+  "domain": "issue_decomposition",
+  "created": "2025-05-20",
+  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for issue decomposition judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "terminology": {
+    "standard_terms": [
+      {
+        "term": "vertical slice",
+        "definition": "A thin end-to-end implementation that delivers one observable behavior from user input to system output."
+      },
+      {
+        "term": "tracer bullet",
+        "definition": "The first vertical slice that proves the architecture works end-to-end at production quality."
+      },
+      {
+        "term": "HITL",
+        "definition": "Human-In-The-Loop: an issue or step that requires human interaction to complete (decisions, approvals, manual verification)."
+      },
+      {
+        "term": "AFK",
+        "definition": "Away-From-Keyboard: an issue or step that can be completed autonomously by the agent without human interaction."
+      },
+      {
+        "term": "acceptance criteria",
+        "definition": "Observable, testable conditions that define when an issue is complete. Without them, an issue is a wish."
+      },
+      {
+        "term": "triage",
+        "definition": "The process of determining whether an issue is ready for execution, needs information, requires human decision, or should not be done."
+      },
+      {
+        "term": "scope boundary",
+        "definition": "The explicit line between what an issue includes and excludes, preventing scope creep within the issue."
+      }
+    ],
+    "banned_terms": [
+      {
+        "term": "just a small task",
+        "why": "'Small' is not a decomposition criterion. A small horizontal task is still a fragment. Size is irrelevant; deliverability is what matters.",
+        "replace_with": "an independently deliverable issue with clear acceptance criteria"
+      },
+      {
+        "term": "we'll figure out the scope as we go",
+        "why": "Scope discovery during implementation is scope creep. Define the boundary before starting.",
+        "replace_with": "let me define the acceptance criteria and scope boundary first"
+      },
+      {
+        "term": "this issue covers the frontend",
+        "why": "Describing an issue by layer (frontend, backend, database) is horizontal slicing. Describe it by behavior instead.",
+        "replace_with": "this issue delivers [specific behavior] end-to-end"
+      },
+      {
+        "term": "I'll just start on this and see what needs to be done",
+        "why": "Starting without triage risks working on invalid, incomplete, or misaligned issues.",
+        "replace_with": "let me triage this issue first to confirm it's ready for execution"
+      }
+    ]
+  },
+
+  "misunderstandings": [
+    {
+      "id": "MS-001",
+      "wrong": "Breaking work into small pieces is the same as vertical slicing.",
+      "correct": "Small pieces can still be horizontal. Vertical slicing means each piece delivers end-to-end behavior. Small horizontal pieces deliver structural progress without observable value.",
+      "key_distinction": "Small ≠ Vertical. A small task can be a fragment. A vertical slice is defined by the behavior it delivers, not its size.",
+      "why": "Confusing small with vertical leads to many small fragments that provide no value until assembled — the same problem as large horizontal slices."
+    },
+    {
+      "id": "MS-002",
+      "wrong": "The tracer bullet should be a throwaway prototype.",
+      "correct": "The tracer bullet is production-quality code that establishes the architecture. It is not a prototype to be thrown away — it is the first vertical slice that subsequent slices extend.",
+      "key_distinction": "Prototype vs. Tracer bullet. A prototype is disposable exploration. A tracer bullet is the first production slice that proves the architecture.",
+      "why": "Making the tracer bullet disposable means the architecture isn't proven under production conditions. The team builds on an unvalidated foundation."
+    },
+    {
+      "id": "MS-003",
+      "wrong": "All dependencies should be resolved before starting any issue.",
+      "correct": "Only blocking dependencies must be resolved. Non-blocking dependencies can be worked around with stubs or interfaces. Waiting for all dependencies creates bottlenecks.",
+      "key_distinction": "Blocking dependency vs. Non-blocking dependency. Blocking = cannot start without it. Non-blocking = can start but need it for full integration.",
+      "why": "Treating all dependencies as blocking serializes work that could be parallelized, slowing the project without improving quality."
+    },
+    {
+      "id": "MS-004",
+      "wrong": "Triage is just prioritization — deciding what to do first.",
+      "correct": "Triage determines whether to do something at all. Prioritization determines the order. Triage answers 'should we do this?' not 'when should we do this?'",
+      "key_distinction": "Triage ≠ Prioritization. Triage is a quality gate (is this issue valid and ready?). Prioritization is a scheduling decision (what order?).",
+      "why": "Conflating triage with prioritization means invalid issues get prioritized instead of rejected, wasting effort on work that shouldn't be done."
+    }
+  ],
+
+  "self_check": [
+    "Does each issue deliver observable value on its own, without requiring other issues to be complete?",
+    "Is every issue a vertical slice (end-to-end behavior), not a horizontal layer?",
+    "Does every issue have acceptance criteria that define what 'done' looks like?",
+    "Are dependencies between issues explicitly stated?",
+    "Has each issue been triaged before being picked up for execution?",
+    "Is there a tracer bullet — a first slice that proves the architecture works?"
+  ]
+}

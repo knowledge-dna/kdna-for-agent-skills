@@ -1,0 +1,26 @@
+{
+  "kdna_spec": "0.4",
+  "name": "shared_language",
+  "version": "0.1.0",
+  "status": "experimental",
+  "access": "open",
+  "language": "en",
+  "author": "KDNA Contributors",
+  "license": {
+    "type": "MIT",
+    "allow_agent_use": true,
+    "allow_redistribution": true,
+    "allow_training": true
+  },
+  "description": "Judgment patterns for building and maintaining a shared language between agents and humans: what terms to keep, avoid, or formalize.",
+  "keywords": ["terminology", "shared-language", "context", "naming", "domain-model", "agent-skills"],
+  "file_count": 6,
+  "files": [
+    "KDNA_Core.json",
+    "KDNA_Patterns.json",
+    "KDNA_Scenarios.json",
+    "KDNA_Cases.json",
+    "KDNA_Reasoning.json",
+    "KDNA_Evolution.json"
+  ]
+}

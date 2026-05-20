@@ -1,0 +1,58 @@
+{
+  "version": "0.4",
+  "domain": "requirement_alignment",
+  "created": "2025-05-20",
+  "purpose": "Define reasoning chains that explain why requirement alignment judgment holds.",
+  "load_condition": "Load when the user asks why, or when tradeoffs in alignment judgment matter.",
+
+  "reasoning_chains": [
+    {
+      "id": "RC-001",
+      "one_sentence": "Implementation is the most expensive form of requirement verification.",
+      "logic": [
+        "Writing code requires making hundreds of micro-decisions about scope, naming, structure, and behavior.",
+        "Each micro-decision is a potential point of misalignment if the requirement is underspecified.",
+        "The cost of a wrong micro-decision is proportional to how far it propagates before detection.",
+        "Asking a question before implementation costs seconds. Reworking implementation costs minutes to hours.",
+        "Therefore, investing time in alignment before implementation reduces total cost."
+      ],
+      "so_what": "Never treat the time spent clarifying as waste. It is an investment that compounds as implementation progresses."
+    },
+    {
+      "id": "RC-002",
+      "one_sentence": "Approval and alignment are different signals processed by different checks.",
+      "logic": [
+        "Approval ('go ahead') means the user authorizes the agent to start working.",
+        "Alignment means the agent and user share the same understanding of what 'done' looks like.",
+        "Approval can be given without alignment — the user may approve because they trust the agent, not because they verified understanding.",
+        "An agent that treats approval as alignment will implement based on its own interpretation, not the user's intent.",
+        "Therefore, the agent must verify alignment independently of whether approval has been given."
+      ],
+      "so_what": "After receiving approval, always restate the scope and success criteria before implementing. Approval is permission, not understanding."
+    },
+    {
+      "id": "RC-003",
+      "one_sentence": "Hidden constraints are inevitable because users communicate from their mental model, not the system's model.",
+      "logic": [
+        "Users describe what they want from their perspective, using their vocabulary and assumptions.",
+        "The system has its own constraints: architecture, conventions, data model, performance characteristics.",
+        "These two models overlap but are not identical. The gap is where hidden constraints live.",
+        "The user is not hiding constraints — they genuinely don't see the gap between their mental model and the system's reality.",
+        "Therefore, the agent must actively bridge the gap by analyzing the codebase context and surfacing mismatches."
+      ],
+      "so_what": "Don't blame the user for hidden constraints. The agent's job is to detect the gap between user expectations and system reality."
+    },
+    {
+      "id": "RC-004",
+      "one_sentence": "A PRD is worthwhile when the cost of misalignment exceeds the cost of specification.",
+      "logic": [
+        "Writing a PRD takes time but creates a shared artifact that all stakeholders can verify.",
+        "The cost of misalignment is proportional to the number of decision branches and the cost of rework.",
+        "For simple requests (1-2 branches), verbal confirmation may suffice.",
+        "For complex requests (3+ branches), the probability of misalignment on at least one branch approaches certainty.",
+        "Therefore, PRDs are worthwhile when the request has enough decision branches that verbal confirmation is unreliable."
+      ],
+      "so_what": "Don't write a PRD for every request, but don't skip it for complex ones. The threshold is roughly 3+ decision branches."
+    }
+  ]
+}

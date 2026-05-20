@@ -1,0 +1,46 @@
+{
+  "version": "0.4",
+  "domain": "handoff_context",
+  "created": "2025-05-20",
+  "purpose": "Define reasoning chains that explain why handoff context judgment holds.",
+  "load_condition": "Load when the user asks why, or when tradeoffs in handoff decisions matter.",
+
+  "reasoning_chains": [
+    {
+      "id": "RC-001",
+      "one_sentence": "Decision loss is the most expensive form of information loss because decisions constrain all future work.",
+      "logic": [
+        "Every decision made during a session establishes a constraint: a path chosen, an alternative rejected, a tradeoff accepted.",
+        "These constraints shape all subsequent work. Changing a decision requires undoing everything built on it.",
+        "If the decision is lost in handoff, the next agent may make a different decision, creating contradictory constraints.",
+        "Contradictory constraints produce code that works locally but fails systemically.",
+        "Therefore, preserving decisions (and their rationale) is the highest-priority handoff content."
+      ],
+      "so_what": "Always include why a decision was made, not just what was decided. The rationale enables the next agent to evaluate whether the decision still holds."
+    },
+    {
+      "id": "RC-002",
+      "one_sentence": "Signal-to-noise ratio determines handoff effectiveness because attention is the scarce resource.",
+      "logic": [
+        "The next agent has limited attention for the handoff document.",
+        "Every piece of noise (derivable information) consumes attention without adding value.",
+        "As noise increases, the probability that the next agent misses signal approaches certainty.",
+        "A concise handoff with high signal-to-noise ratio is more effective than a comprehensive one with low ratio.",
+        "Therefore, removing noise is not optional — it is essential for the handoff to function."
+      ],
+      "so_what": "If the next agent can derive it from code, docs, or git, don't include it. Every word in the handoff must earn its place."
+    },
+    {
+      "id": "RC-003",
+      "one_sentence": "Forward-looking context is necessary because the next agent needs direction, not just history.",
+      "logic": [
+        "A handoff without next steps is a historical document, not an operational one.",
+        "The next agent must decide what to work on first. Without direction, they may start with the wrong thing.",
+        "Risks and warnings prevent the next agent from falling into known traps.",
+        "Priority ordering tells the next agent what matters most, enabling them to make tradeoffs if time is limited.",
+        "Therefore, the handoff must be both backward-looking (context) and forward-looking (direction)."
+      ],
+      "so_what": "End every handoff with: what to do next, what to watch out for, and what matters most."
+    }
+  ]
+}

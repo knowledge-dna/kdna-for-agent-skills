@@ -1,0 +1,113 @@
+{
+  "version": "0.4",
+  "domain": "requirement_alignment",
+  "created": "2025-05-20",
+  "purpose": "Define scenario triggers and action orientations for requirement alignment judgment.",
+  "load_condition": "Load when a concrete situation or scene is detected that involves requirement clarity.",
+
+  "scenes": [
+    {
+      "id": "SC-001",
+      "name": "Vague Feature Request",
+      "trigger_signal": "User requests a feature without scope, constraints, or success criteria.",
+      "sub_scenarios": [
+        {
+          "id": "SC-001-A",
+          "trap_belief": "The user knows what they want and just didn't explain it fully. I can infer the details.",
+          "three_questions": {
+            "belief": "Is the user's request actually complete, or am I filling gaps with my own assumptions?",
+            "state": "What specifically is included and excluded from this request?",
+            "need": "What decision branches must be resolved before I can proceed?"
+          },
+          "action_template": "Identify decision branches → Ask one at a time → Restate scope and criteria",
+          "replace": {
+            "avoid": ["start implementing the most obvious interpretation", "assume standard patterns apply"],
+            "use": ["list all implicit decision branches", "ask the user to resolve each branch explicitly"]
+          },
+          "expected_result": "All decision branches resolved. Scope and success criteria restated and confirmed by user."
+        },
+        {
+          "id": "SC-001-B",
+          "trap_belief": "A short request means the requirement is simple.",
+          "three_questions": {
+            "belief": "Is brevity equal to simplicity, or is the user omitting critical context?",
+            "state": "Can I define what 'done' looks like without making assumptions?",
+            "need": "What hidden constraints from the codebase or domain does this request imply?"
+          },
+          "action_template": "Check codebase context → Surface hidden constraints → Clarify with user",
+          "replace": {
+            "avoid": ["treating brevity as simplicity", "implementing the first interpretation that comes to mind"],
+            "use": ["assume brevity hides complexity until proven otherwise", "verify understanding by restating"]
+          },
+          "expected_result": "Hidden constraints surfaced. User confirms or corrects the agent's understanding."
+        }
+      ]
+    },
+    {
+      "id": "SC-002",
+      "name": "Premature Go-Ahead",
+      "trigger_signal": "User says 'go ahead', 'sounds good', or 'just do it' without reviewing specifics.",
+      "sub_scenarios": [
+        {
+          "id": "SC-002-A",
+          "trap_belief": "The user's approval means the requirement is aligned.",
+          "three_questions": {
+            "belief": "Does 'go ahead' mean the user agrees with my understanding, or just wants me to start?",
+            "state": "Have I stated the scope, constraints, and success criteria explicitly?",
+            "need": "What would the user say if I restated the plan in their words?"
+          },
+          "action_template": "Restate the plan explicitly → Ask for confirmation on each critical branch → Proceed only after explicit confirmation",
+          "replace": {
+            "avoid": ["treating approval as alignment", "skipping the restatement step"],
+            "use": ["always restate before implementing", "confirm each branch separately"]
+          },
+          "expected_result": "User confirms each branch explicitly. No ambiguity about what 'done' looks like."
+        }
+      ]
+    },
+    {
+      "id": "SC-003",
+      "name": "Hidden Constraint Discovery",
+      "trigger_signal": "During implementation, the agent encounters codebase context that contradicts the assumed approach.",
+      "sub_scenarios": [
+        {
+          "id": "SC-003-A",
+          "trap_belief": "I can adjust the approach myself without going back to the user.",
+          "three_questions": {
+            "belief": "Is this constraint something I can accommodate, or does it change the scope?",
+            "state": "Does this constraint affect the user's stated goals or just the implementation path?",
+            "need": "Should the user decide how to handle this constraint, or can I resolve it within the agreed scope?"
+          },
+          "action_template": "Assess constraint impact → If scope-changing, pause and inform user → If implementation-only, document and proceed",
+          "replace": {
+            "avoid": ["silently adjusting scope", "making scope-changing decisions without user input"],
+            "use": ["surface the constraint to the user", "distinguish scope impact from implementation impact"]
+          },
+          "expected_result": "Scope-changing constraints surfaced to user. Implementation-only constraints documented in code."
+        }
+      ]
+    },
+    {
+      "id": "SC-004",
+      "name": "PRD-Worthy Request",
+      "trigger_signal": "The request is complex enough that implementing without a written spec risks significant rework.",
+      "sub_scenarios": [
+        {
+          "id": "SC-004-A",
+          "trap_belief": "We can figure it out as we go. A PRD would slow us down.",
+          "three_questions": {
+            "belief": "Is the cost of writing a PRD greater than the cost of rework from misalignment?",
+            "state": "How many decision branches does this request contain?",
+            "need": "Would a written spec prevent more rework than it causes delay?"
+          },
+          "action_template": "Count decision branches → If >3, draft a PRD → Validate with user before implementing",
+          "replace": {
+            "avoid": ["skipping specification for complex requests", "assuming verbal agreement is sufficient"],
+            "use": ["write a PRD for any request with multiple decision branches", "validate the spec before coding"]
+          },
+          "expected_result": "PRD with problem statement, solution, user stories, and out-of-scope items. User confirms before implementation."
+        }
+      ]
+    }
+  ]
+}

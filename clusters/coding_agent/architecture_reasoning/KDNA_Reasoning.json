@@ -1,0 +1,46 @@
+{
+  "version": "0.4",
+  "domain": "architecture_reasoning",
+  "created": "2025-05-20",
+  "purpose": "Define reasoning chains that explain why architecture reasoning judgment holds.",
+  "load_condition": "Load when the user asks why, or when tradeoffs in architectural decisions matter.",
+
+  "reasoning_chains": [
+    {
+      "id": "RC-001",
+      "one_sentence": "Software entropy is inevitable but manageable through boundary maintenance.",
+      "logic": [
+        "Every change to a system either preserves or degrades its architectural boundaries.",
+        "Changes that respect existing boundaries preserve the architecture. Changes that cross or blur boundaries degrade it.",
+        "Without deliberate maintenance, more changes degrade than preserve, because degradation is the path of least resistance.",
+        "Boundary maintenance is the process of undoing degradation and reinforcing boundaries.",
+        "Therefore, entropy is manageable if boundary maintenance is part of the development process, not deferred."
+      ],
+      "so_what": "Schedule boundary maintenance, don't defer it. Like any maintenance, it's cheapest when done regularly."
+    },
+    {
+      "id": "RC-002",
+      "one_sentence": "Deep modules reduce coupling because they minimize the interface surface that callers depend on.",
+      "logic": [
+        "Coupling is the degree to which one module depends on another module's interface.",
+        "The larger the interface, the more points of coupling exist between the caller and the module.",
+        "Each point of coupling is a potential source of breakage when the module's internals change.",
+        "Deep modules have small interfaces, minimizing the coupling surface.",
+        "Therefore, deep modules allow internals to change freely without affecting callers."
+      ],
+      "so_what": "Design interfaces from the caller's perspective: what does the caller need to do, not what does the module contain?"
+    },
+    {
+      "id": "RC-003",
+      "one_sentence": "Zooming out is necessary because local changes have non-local effects in an interconnected system.",
+      "logic": [
+        "Modules in a system are connected through their interfaces and shared data.",
+        "A change to one module can affect other modules through these connections, even if the change seems local.",
+        "The agent implementing the change can only see the local context unless it deliberately looks at the broader system.",
+        "Without understanding the broader context, the agent cannot predict the non-local effects of its change.",
+        "Therefore, zooming out is necessary to understand the full impact of a change before implementing it."
+      ],
+      "so_what": "If you can't explain how your change fits the system, you're not ready to implement it."
+    }
+  ]
+}

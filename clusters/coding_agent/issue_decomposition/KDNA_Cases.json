@@ -1,0 +1,37 @@
+{
+  "version": "0.4",
+  "domain": "issue_decomposition",
+  "created": "2025-05-20",
+  "purpose": "Provide concrete examples of good and bad issue decomposition judgment.",
+  "load_condition": "Load when examples or cases are needed to illustrate issue decomposition judgment.",
+
+  "cases": [
+    {
+      "id": "CS-001",
+      "title": "Vertical slices deliver incremental value",
+      "context": "A team needs to implement a user notification system. The PRD includes: in-app notifications, email notifications, notification preferences, and a notification history view.",
+      "what_happened": "The team decomposed into vertical slices: (1) Tracer bullet — display a hardcoded notification in the UI, proving the frontend-backend-websocket pipeline works. (2) In-app notifications — generate and display real notifications for real events. (3) Email notifications — extend the notification pipeline to also send emails. (4) Notification preferences — add a settings UI that controls which notifications are sent. (5) History view — display past notifications. After Issue 2, users already had working in-app notifications. Each subsequent issue added incremental, observable value.",
+      "what_was_learned": "Vertical slicing means each issue delivers something the user can see and use. The team could have stopped after Issue 2 and still delivered value. Horizontal slicing would have produced nothing visible until all layers were complete.",
+      "structural_pattern": "Tracer bullet → First behavior end-to-end → Incremental behaviors → Each issue independently valuable",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-002",
+      "title": "Horizontal issues produce no value until complete",
+      "context": "Same notification system, but decomposed by layer: (1) Database tables and models, (2) API endpoints, (3) WebSocket infrastructure, (4) Frontend components, (5) Email integration.",
+      "what_happened": "After Issues 1-3, the team had database tables, API endpoints, and WebSocket infrastructure — but nothing the user could see. The frontend components (Issue 4) took longer than expected due to a WebSocket library compatibility issue. By the time the first notification appeared on screen, 4 issues were complete and the team had no user feedback on whether the notification design was correct. Issue 5 (email) required changes to the API and database that were supposed to be done in Issues 1-2, causing rework.",
+      "what_was_learned": "Horizontal issues delay feedback. The team couldn't verify the notification design until 4 issues were complete. Changes discovered during frontend implementation rippled back to earlier layers, causing rework that vertical slicing would have caught in Issue 1.",
+      "structural_pattern": "Layer 1 → Layer 2 → Layer 3 → Layer 4 discovers problems → Rework Layer 1-3 → No user value until all layers done",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-003",
+      "title": "Triage prevents wasted effort on invalid issues",
+      "context": "An issue in the backlog says 'Add PDF export to the reporting module.' The agent picks it up and starts implementing.",
+      "what_happened": "The agent implemented a full PDF export feature. During code review, it was discovered that the reporting module had been deprecated two weeks ago in favor of a new analytics dashboard. The issue was outdated. The agent's work was entirely wasted. A triage step would have caught this: the issue had no triage status, no verification that the reporting module was still active.",
+      "what_was_learned": "Triage is a cheap quality gate. The cost of triaging an issue (minutes) is negligible compared to the cost of implementing an invalid one (hours to days). Every issue should be triaged before work begins.",
+      "structural_pattern": "Untriaged issue → Implementation → Discovery of invalidity → Wasted effort",
+      "scene_id": "SC-003"
+    }
+  ]
+}

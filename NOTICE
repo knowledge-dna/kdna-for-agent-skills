@@ -1,0 +1,13 @@
+KDNA for Agent Skills
+Copyright (c) 2025 KDNA Contributors
+
+This project includes concepts inspired by the broader agent-skills ecosystem,
+including mattpocock/skills (https://github.com/mattpocock/skills).
+
+This project does not include any copied text, skill instructions, or
+proprietary content from mattpocock/skills or any other agent-skill project.
+
+KDNA domains in this project are original works that encode judgment patterns
+derived from publicly documented agent failure modes and workflow concepts.
+
+For attribution details, see docs/attribution.md.

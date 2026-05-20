@@ -1,0 +1,81 @@
+{
+  "version": "0.4",
+  "domain": "shared_language",
+  "created": "2025-05-20",
+  "purpose": "Define capability stages and measurable growth for shared language judgment.",
+  "load_condition": "Load when coaching, improvement, or practice measurement is requested.",
+
+  "stages": [
+    {
+      "id": "ST-001",
+      "name": "Informal Communicator",
+      "description": "Uses words naturally without formalizing terms. Does not maintain a CONTEXT document. Verbosity is high. Ambiguity is resolved through clarification cycles.",
+      "indicators": [
+        "No CONTEXT document exists or it is stale",
+        "Same concept described differently each time",
+        "Ambiguous terms used without disambiguation",
+        "No ADRs recorded"
+      ]
+    },
+    {
+      "id": "ST-002",
+      "name": "Terminology Steward",
+      "description": "Maintains a CONTEXT document with domain terms and banned terms. Proposes new terms when verbosity is detected. Records ADRs for consequential decisions. Checks term usage for consistency.",
+      "indicators": [
+        "CONTEXT document is active and up to date",
+        "New terms proposed when verbose descriptions appear",
+        "ADRs written for hard-to-reverse decisions",
+        "Term usage checked against CONTEXT definitions"
+      ]
+    },
+    {
+      "id": "ST-003",
+      "name": "Language Strategist",
+      "description": "Proactively identifies terminology gaps before they cause problems. Distinguishes terms that need formalization from those that don't. Manages terminology evolution — updates terms when meaning shifts. Designs naming schemes that scale with the project.",
+      "indicators": [
+        "Terminology gaps identified proactively, not reactively",
+        "Only consequential terms formalized — no over-formalization",
+        "Stale terms detected and updated before they mislead",
+        "Naming schemes designed for project growth"
+      ]
+    }
+  ],
+
+  "evolution_layers": [
+    {
+      "id": "EL-001",
+      "name": "From informal to steward",
+      "capability": "Consistently maintain and use a shared language document",
+      "from_stage": "ST-001",
+      "to_stage": "ST-002"
+    },
+    {
+      "id": "EL-002",
+      "name": "From steward to strategist",
+      "capability": "Proactively manage terminology and design naming schemes that scale",
+      "from_stage": "ST-002",
+      "to_stage": "ST-003"
+    }
+  ],
+
+  "measurement": [
+    {
+      "id": "ME-001",
+      "what": "Context document freshness",
+      "how": "Days since the CONTEXT document was last updated, divided by the number of domain terms. Lower is better.",
+      "threshold": "ST-002: Updated at least weekly during active development. ST-003: Updated within 24 hours of any terminology change."
+    },
+    {
+      "id": "ME-002",
+      "what": "Verbosity reduction rate",
+      "how": "Compare token count for describing domain concepts before and after term formalization.",
+      "threshold": "ST-002: >50% token reduction for formalized concepts. ST-003: >70%."
+    },
+    {
+      "id": "ME-003",
+      "what": "Term consistency rate",
+      "how": "Count the number of times a formalized term is used inconsistently, divided by total uses of that term.",
+      "threshold": "ST-002: <10% inconsistency. ST-003: <3%."
+    }
+  ]
+}

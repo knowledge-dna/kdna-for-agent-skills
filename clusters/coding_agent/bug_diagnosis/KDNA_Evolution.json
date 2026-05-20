@@ -1,0 +1,82 @@
+{
+  "version": "0.4",
+  "domain": "bug_diagnosis",
+  "created": "2025-05-20",
+  "purpose": "Define capability stages and measurable growth for bug diagnosis judgment.",
+  "load_condition": "Load when coaching, improvement, or practice measurement is requested.",
+
+  "stages": [
+    {
+      "id": "ST-001",
+      "name": "Symptom Fixer",
+      "description": "Fixes bugs by addressing the most obvious cause. Skips reproduction for simple bugs. Commits to the first hypothesis. May mask root causes with defensive code.",
+      "indicators": [
+        "Fixes based on error message without reproducing",
+        "Commits to the first plausible explanation",
+        "Adds try-catch blocks or defensive checks without understanding the root cause",
+        "No regression test after the fix"
+      ]
+    },
+    {
+      "id": "ST-002",
+      "name": "Disciplined Diagnostician",
+      "description": "Follows the diagnosis loop: reproduction → hypotheses → instrumentation → fix → regression test. Changes one variable at a time. Writes regression tests before fixes. Removes instrumentation after diagnosis.",
+      "indicators": [
+        "Always reproduces before proposing a fix",
+        "Generates multiple hypotheses and ranks by falsifiability",
+        "Writes regression test before applying the fix",
+        "Removes instrumentation after diagnosis is complete",
+        "States the root cause in the commit message"
+      ]
+    },
+    {
+      "id": "ST-003",
+      "name": "Diagnostic Strategist",
+      "description": "Selects the most efficient diagnostic strategy for the situation. Knows when a simple fix is safe vs. when full diagnosis is needed. Identifies architectural root causes (missing seams, poor abstractions) and recommends structural improvements beyond the immediate fix.",
+      "indicators": [
+        "Skips full diagnosis loop for trivially reproducible bugs without sacrificing quality",
+        "Identifies when the bug reveals an architectural weakness, not just a code error",
+        "Recommends structural improvements (new seams, better abstractions) when the diagnosis reveals them",
+        "Constructs creative feedback loops for hard-to-reproduce bugs (HITL scripts, probabilistic tests)"
+      ]
+    }
+  ],
+
+  "evolution_layers": [
+    {
+      "id": "EL-001",
+      "name": "From symptom fixing to disciplined diagnosis",
+      "capability": "Consistently follow the full diagnosis loop and generate multiple hypotheses",
+      "from_stage": "ST-001",
+      "to_stage": "ST-002"
+    },
+    {
+      "id": "EL-002",
+      "name": "From disciplined to strategic",
+      "capability": "Select the right diagnostic depth for the situation and identify architectural root causes",
+      "from_stage": "ST-002",
+      "to_stage": "ST-003"
+    }
+  ],
+
+  "measurement": [
+    {
+      "id": "ME-001",
+      "what": "Reproduction-before-fix rate",
+      "how": "Count the number of bug fixes where the agent reproduced the bug before proposing a fix, divided by total bug fixes.",
+      "threshold": "ST-002: 100% for non-trivial bugs. ST-003: 100% for all bugs."
+    },
+    {
+      "id": "ME-002",
+      "what": "Regression test coverage for fixes",
+      "how": "Count the number of bug fixes that include a regression test, divided by total bug fixes.",
+      "threshold": "ST-002: >90%. ST-003: 100%."
+    },
+    {
+      "id": "ME-003",
+      "what": "Root cause identification accuracy",
+      "how": "Count the number of fixes where the stated root cause matches the actual root cause (verified by no recurrence within 30 days), divided by total fixes.",
+      "threshold": "ST-002: >80%. ST-003: >95%."
+    }
+  ]
+}

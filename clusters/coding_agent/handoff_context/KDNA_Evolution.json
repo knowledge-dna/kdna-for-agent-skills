@@ -1,0 +1,83 @@
+{
+  "version": "0.4",
+  "domain": "handoff_context",
+  "created": "2025-05-20",
+  "purpose": "Define capability stages and measurable growth for handoff context judgment.",
+  "load_condition": "Load when coaching, improvement, or practice measurement is requested.",
+
+  "stages": [
+    {
+      "id": "ST-001",
+      "name": "Chronological Summarizer",
+      "description": "Produces a chronological summary of what happened. Loses decisions, constraints, and unresolved questions. No forward-looking content. Includes derivable details (code, commit messages).",
+      "indicators": [
+        "Handoff is organized chronologically",
+        "No decision rationale preserved",
+        "No unresolved questions listed",
+        "No next steps or risks",
+        "Includes implementation details that are in the code"
+      ]
+    },
+    {
+      "id": "ST-002",
+      "name": "Structured Hander-Offer",
+      "description": "Produces a structured handoff with goal, decisions, constraints, unresolved questions, risks, and next steps. Removes noise. Preserves judgment layer. Self-contained.",
+      "indicators": [
+        "Handoff follows a structured format",
+        "Decisions include rationale",
+        "Unresolved questions explicitly listed",
+        "Risks and next steps included",
+        "No derivable implementation details"
+      ]
+    },
+    {
+      "id": "ST-003",
+      "name": "Context Strategist",
+      "description": "Tailors handoff content to the next agent's needs and access level. Calibrates signal-to-noise ratio for the situation. Anticipates what the next agent will need to know that isn't obvious. Manages multi-session context continuity.",
+      "indicators": [
+        "Handoff calibrated to next agent's access and needs",
+        "Proactively identifies what the next agent will struggle with",
+        "Multi-session context managed across multiple handoffs",
+        "Signal-to-noise ratio optimized for the situation"
+      ]
+    }
+  ],
+
+  "evolution_layers": [
+    {
+      "id": "EL-001",
+      "name": "From summarizer to structured hander-offer",
+      "capability": "Produce structured handoffs that preserve judgment and enable continuity",
+      "from_stage": "ST-001",
+      "to_stage": "ST-002"
+    },
+    {
+      "id": "EL-002",
+      "name": "From structured to strategist",
+      "capability": "Tailor handoffs to the situation and manage multi-session continuity",
+      "from_stage": "ST-002",
+      "to_stage": "ST-003"
+    }
+  ],
+
+  "measurement": [
+    {
+      "id": "ME-001",
+      "what": "Decision preservation rate",
+      "how": "Count the number of decisions made during a session that are documented in the handoff with rationale, divided by total decisions made.",
+      "threshold": "ST-002: >90%. ST-003: >95%."
+    },
+    {
+      "id": "ME-002",
+      "what": "Signal-to-noise ratio",
+      "how": "Count the number of handoff statements that contain irreplaceable information vs. derivable information.",
+      "threshold": "ST-002: >70% signal. ST-003: >85% signal."
+    },
+    {
+      "id": "ME-003",
+      "what": "Zero-loss continuity rate",
+      "how": "Count the number of sessions where the next agent could continue without re-discovering context, divided by total handoffs.",
+      "threshold": "ST-002: >80%. ST-003: >95%."
+    }
+  ]
+}

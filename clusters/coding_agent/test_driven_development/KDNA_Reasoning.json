@@ -1,0 +1,58 @@
+{
+  "version": "0.4",
+  "domain": "test_driven_development",
+  "created": "2025-05-20",
+  "purpose": "Define reasoning chains that explain why TDD judgment holds.",
+  "load_condition": "Load when the user asks why, or when tradeoffs in TDD judgment matter.",
+
+  "reasoning_chains": [
+    {
+      "id": "RC-001",
+      "one_sentence": "Tests written before implementation drive design; tests written after confirm implementation.",
+      "logic": [
+        "When the test is written first, it specifies what the code should do without being influenced by how the code currently works.",
+        "This forces the developer (or agent) to think about the interface and behavior before the implementation exists.",
+        "The resulting design tends to be simpler and more testable because it was designed to be tested.",
+        "When the test is written after, it naturally mirrors the implementation because the author knows how the code works.",
+        "Therefore, test-first design produces better abstractions than test-after verification."
+      ],
+      "so_what": "TDD is not just about catching bugs. Its primary value is design feedback — the test shapes the code before the code exists."
+    },
+    {
+      "id": "RC-002",
+      "one_sentence": "Vertical slices are independently valuable; horizontal slices are only collectively valuable.",
+      "logic": [
+        "A vertical slice delivers one complete behavior: from user input to observable output.",
+        "This behavior is independently testable, independently deployable, and independently verifiable by the user.",
+        "A horizontal slice delivers one layer of the system: all unit tests, or all integration tests, or all E2E tests.",
+        "No single horizontal slice can verify that the system actually works — only the complete stack can.",
+        "Therefore, vertical slices provide value incrementally while horizontal slices only provide value when complete."
+      ],
+      "so_what": "Organize work around behaviors (vertical slices), not layers. Each slice should be a complete, testable, demonstrable unit of value."
+    },
+    {
+      "id": "RC-003",
+      "one_sentence": "The simplest passing implementation is correct because complexity should be driven by need, not anticipation.",
+      "logic": [
+        "When only one test exists, the simplest implementation that passes it is the most honest response: it does exactly what the test demands, no more.",
+        "Adding complexity beyond what the test requires is anticipation — guessing what future tests will need.",
+        "Anticipated complexity is often wrong because the next test may demand a different generalization.",
+        "Each new test adds exactly the complexity it requires, building the design incrementally from simple to complex.",
+        "Therefore, hardcoding during GREEN is not laziness — it is discipline against premature generalization."
+      ],
+      "so_what": "Don't anticipate. Let each test drive exactly the complexity it demands. The next test will tell you what to generalize."
+    },
+    {
+      "id": "RC-004",
+      "one_sentence": "Refactoring while RED is waste because there is no safety net to catch regressions.",
+      "logic": [
+        "Refactoring means changing implementation without changing behavior.",
+        "To verify behavior hasn't changed, all tests must pass before and after the refactoring.",
+        "If tests are failing (RED), the agent cannot verify that refactoring preserved behavior.",
+        "Any regression introduced during refactoring while RED will be masked by the already-failing test.",
+        "Therefore, the only valid action during RED is to make the test pass. Refactoring must wait for GREEN."
+      ],
+      "so_what": "GREEN before REFACTOR. Always. No exceptions. The cycle is RED → GREEN → REFACTOR, not RED → REFACTOR → GREEN."
+    }
+  ]
+}

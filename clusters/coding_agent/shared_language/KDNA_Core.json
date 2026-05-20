@@ -1,0 +1,131 @@
+{
+  "version": "0.4",
+  "domain": "shared_language",
+  "created": "2025-05-20",
+  "purpose": "Define the axioms, ontology, and frameworks that govern shared language judgment between agents and humans.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "axioms": [
+    {
+      "id": "AX-001",
+      "one_sentence": "A word that means different things to different people is not a shared term — it is a source of misalignment.",
+      "full_statement": "Shared language requires that every domain term has one agreed-upon meaning. If the agent and the user use the same word with different definitions, communication appears successful but understanding diverges.",
+      "why": "Undefined terms create the illusion of alignment while hiding real disagreements about meaning."
+    },
+    {
+      "id": "AX-002",
+      "one_sentence": "Verbose description is a symptom of missing terminology.",
+      "full_statement": "When the agent uses 20 words where 1 would suffice, it typically means the project lacks a term for that concept. Establishing the term eliminates the verbosity and reduces token cost permanently.",
+      "why": "Verbosity is not a style problem — it is a vocabulary problem. The fix is not 'be concise' but 'name the concept'."
+    },
+    {
+      "id": "AX-003",
+      "one_sentence": "A term without a boundary is a term that will be misunderstood.",
+      "full_statement": "Every domain term must have a clear definition of what it includes and what it excludes. Without boundaries, terms expand to cover adjacent concepts, losing precision and creating ambiguity.",
+      "why": "Terms without boundaries drift in meaning over time, especially when used by multiple people or agents."
+    },
+    {
+      "id": "AX-004",
+      "one_sentence": "Not every word needs to become a domain term.",
+      "full_statement": "A domain term is a word that carries specific meaning in the project context and is used repeatedly. Common English words used in their ordinary sense do not need formalization. Over-formalizing creates bureaucratic overhead without communicative value.",
+      "why": "Treating every word as a domain term makes the vocabulary unwieldy and discourages people from using it."
+    },
+    {
+      "id": "AX-005",
+      "one_sentence": "When a term is formalized, every use must conform or be explicitly marked as informal.",
+      "full_statement": "Once a term is defined in the shared vocabulary, using it loosely or with a different meaning is worse than not having defined it — it creates a false sense of shared understanding.",
+      "why": "Inconsistent use of formalized terms is more dangerous than inconsistent use of undefined terms, because it's harder to detect."
+    },
+    {
+      "id": "AX-006",
+      "one_sentence": "A shared language document is alive — it must be updated when terms evolve.",
+      "full_statement": "Domain terminology changes as the project grows. New concepts emerge, existing terms shift in meaning, and some terms become obsolete. The shared language document must be updated to reflect these changes, or it becomes misleading.",
+      "why": "Stale terminology documents are worse than no document — they prescribe meanings that no longer match the team's understanding."
+    }
+  ],
+
+  "ontology": [
+    {
+      "id": "ON-001",
+      "one_sentence": "A domain term is a word or phrase that carries specific, agreed-upon meaning within the project context.",
+      "essence": "A domain term is not just a word — it is a contract. When someone uses it, they commit to its defined meaning, and the listener can rely on that commitment.",
+      "boundary": "A domain term is not a variable name or a function name. Those are implementation details. A domain term captures a concept; code names capture mechanics.",
+      "trigger_signal": "The agent or user uses a word that could mean multiple things in this project's context."
+    },
+    {
+      "id": "ON-002",
+      "one_sentence": "A banned term is a word or phrase that should not be used because it introduces ambiguity or misdirection.",
+      "essence": "Banned terms are not forbidden words — they are terms whose common meaning in this domain is misleading. They must be replaced with a term that carries the correct meaning.",
+      "boundary": "Banning a term does not mean the concept doesn't exist. It means the word for it is wrong. The concept still needs a proper name.",
+      "trigger_signal": "The agent uses a generic term where a domain-specific term exists, or uses a term that the project has explicitly banned."
+    },
+    {
+      "id": "ON-003",
+      "one_sentence": "A CONTEXT document is the authoritative source for a project's shared language.",
+      "essence": "CONTEXT is not documentation of the code — it is documentation of the domain vocabulary. It defines terms, lists banned terms, and records decisions about naming.",
+      "boundary": "CONTEXT is not a glossary of technical terms. It is a living contract between the team and the agent about what words mean in this project.",
+      "trigger_signal": "The agent is about to use a term that may have a specific meaning in this project, or the agent is using 20 words where 1 would suffice."
+    },
+    {
+      "id": "ON-004",
+      "one_sentence": "An ADR (Architecture Decision Record) captures a decision that is hard to reverse and would surprise someone without context.",
+      "essence": "ADRs are not meeting notes or design documents. They record specific, consequential decisions: why a choice was made, what alternatives were considered, and what the implications are.",
+      "boundary": "Not every decision needs an ADR. Only decisions that are hard to reverse, surprising without context, and the result of a real trade-off.",
+      "trigger_signal": "The agent is about to make or recommend a decision that would be expensive to undo."
+    },
+    {
+      "id": "ON-005",
+      "one_sentence": "Terminology drift is the gradual divergence of a term's actual usage from its formalized definition.",
+      "essence": "Drift happens naturally as people use terms loosely or extend them to cover adjacent concepts. It is not malicious — it is entropy in language.",
+      "boundary": "Drift is not the same as a conscious decision to change a term's meaning. Drift is unintentional and often invisible until it causes a misunderstanding.",
+      "trigger_signal": "The same term is used with subtly different meanings in different parts of the codebase or conversation."
+    }
+  ],
+
+  "frameworks": [
+    {
+      "id": "FW-001",
+      "name": "Term Discovery",
+      "when_to_use": "When the agent or user uses verbose descriptions that could be compressed into domain terms.",
+      "steps": [
+        "Identify repeated verbose descriptions in conversation or code",
+        "Extract the core concept being described",
+        "Propose a concise term with a clear definition and boundary",
+        "Verify the term does not conflict with existing vocabulary",
+        "Add to CONTEXT document"
+      ]
+    },
+    {
+      "id": "FW-002",
+      "name": "ADR Capture",
+      "when_to_use": "When a consequential architectural decision is made during conversation.",
+      "steps": [
+        "Identify that a decision was made (not just discussed)",
+        "Verify the decision is hard to reverse and surprising without context",
+        "Record: context, decision, alternatives considered, implications",
+        "Add to ADR document"
+      ]
+    }
+  ],
+
+  "core_structure": [
+    {
+      "from": "Verbose descriptions",
+      "to": "Concise domain terms",
+      "via": "Identify repeated phrases → Extract concept → Name it → Define boundary → Add to CONTEXT"
+    },
+    {
+      "from": "Ambiguous term usage",
+      "to": "Consistent shared language",
+      "via": "Detect drift → Reaffirm or update definition → Enforce usage → Update CONTEXT"
+    }
+  ],
+
+  "stances": [
+    "Name the concept before implementing it.",
+    "If you need 20 words to describe something, you need a term.",
+    "Every domain term must have a boundary — what it is NOT.",
+    "Not every word is a domain term. Formalize only what is reused and ambiguous.",
+    "When a term is formalized, use it consistently or flag the deviation."
+  ]
+}

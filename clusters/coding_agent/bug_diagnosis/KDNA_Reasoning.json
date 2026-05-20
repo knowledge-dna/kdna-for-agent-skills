@@ -1,0 +1,59 @@
+{
+  "version": "0.4",
+  "domain": "bug_diagnosis",
+  "created": "2025-05-20",
+  "purpose": "Define reasoning chains that explain why bug diagnosis judgment holds.",
+  "load_condition": "Load when the user asks why, or when tradeoffs in diagnosis judgment matter.",
+
+  "reasoning_chains": [
+    {
+      "id": "RC-001",
+      "one_sentence": "Reproduction is the foundation because without it, every hypothesis is untestable.",
+      "logic": [
+        "A hypothesis is only valuable if it can be tested: 'If X is the cause, then changing X should change the symptom.'",
+        "Testing a hypothesis requires observing the bug's behavior before and after a controlled change.",
+        "If the bug cannot be reproduced, the agent cannot observe its behavior on demand.",
+        "Without observation, the agent cannot confirm or deny any hypothesis.",
+        "Therefore, constructing a feedback loop that enables reproduction is the prerequisite for all diagnosis."
+      ],
+      "so_what": "Time spent constructing the feedback loop is not overhead — it is the most important diagnostic step. Without it, everything else is guesswork."
+    },
+    {
+      "id": "RC-002",
+      "one_sentence": "Multiple hypotheses prevent confirmation bias because the agent tests predictions, not beliefs.",
+      "logic": [
+        "When an agent commits to a single hypothesis, it naturally seeks evidence that confirms it.",
+        "Confirmation bias causes the agent to interpret ambiguous observations as supporting the committed hypothesis.",
+        "Generating multiple hypotheses forces the agent to consider alternative explanations before committing.",
+        "Ranking by falsifiability means the most informative hypothesis is tested first, regardless of whether it's the most likely.",
+        "Therefore, the hypothesis elimination process is more reliable than single-hypothesis verification."
+      ],
+      "so_what": "Generate 3-5 hypotheses before testing any. The goal is to eliminate wrong answers, not to confirm the first one that seems right."
+    },
+    {
+      "id": "RC-003",
+      "one_sentence": "One variable at a time because simultaneous changes destroy attribution.",
+      "logic": [
+        "Diagnosis requires knowing which change produced which result.",
+        "If two variables change simultaneously, the observed result could be caused by either, both, or their interaction.",
+        "The agent cannot determine which variable matters without isolating them.",
+        "Isolating variables requires changing one at a time and observing the result before changing the next.",
+        "Therefore, single-variable changes are not slower — they are the only way to get reliable diagnostic signal."
+      ],
+      "so_what": "Never batch diagnostic changes. Change one thing, observe, then change the next. Speed comes from reliable signal, not from parallel changes."
+    },
+    {
+      "id": "RC-004",
+      "one_sentence": "Regression tests before fixes because a fix without a test is an unverified claim.",
+      "logic": [
+        "A fix is a claim: 'Changing X resolves the bug.'",
+        "Without a regression test, the claim cannot be verified automatically — it requires manual checking.",
+        "Manual checking is not repeated. The bug can regress without anyone noticing.",
+        "A regression test captures the reproduction condition and verifies the fix in perpetuity.",
+        "Writing the test before the fix ensures the test captures the bug's behavior, not the fix's behavior.",
+        "Therefore, the regression test is not optional — it is the proof that the fix works."
+      ],
+      "so_what": "No regression test means no verified fix. The test is not documentation of the fix — it is verification of the diagnosis."
+    }
+  ]
+}

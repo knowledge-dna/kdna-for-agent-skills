@@ -1,0 +1,102 @@
+{
+  "version": "0.4",
+  "domain": "test_driven_development",
+  "created": "2025-05-20",
+  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for test-driven development judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "terminology": {
+    "standard_terms": [
+      {
+        "term": "red-green-refactor",
+        "definition": "The TDD cycle: write a failing test (RED), make it pass (GREEN), then clean up the implementation (REFACTOR)."
+      },
+      {
+        "term": "vertical slice",
+        "definition": "A thin end-to-end cut through all integration layers that delivers and tests one observable behavior."
+      },
+      {
+        "term": "behavioral test",
+        "definition": "A test that specifies expected observable behavior (what), not implementation details (how)."
+      },
+      {
+        "term": "brittle test",
+        "definition": "A test coupled to implementation details that fails when implementation changes even if behavior is preserved."
+      },
+      {
+        "term": "test seam",
+        "definition": "A structural point in the code where behavior can be observed or replaced without modifying production code."
+      },
+      {
+        "term": "hardcoded implementation",
+        "definition": "The simplest code that makes the current test pass, intentionally lacking generalization until a subsequent test demands it."
+      },
+      {
+        "term": "tracer bullet",
+        "definition": "The first vertical slice that proves the architecture works end-to-end, establishing the pattern for subsequent slices."
+      }
+    ],
+    "banned_terms": [
+      {
+        "term": "write the tests first",
+        "why": "This phrase reduces TDD to a timing convention. TDD is not about when tests are written; it's about driving design through behavior specification.",
+        "replace_with": "specify the expected behavior with a failing test, then implement"
+      },
+      {
+        "term": "test coverage",
+        "why": "Coverage measures which lines are executed, not which behaviors are verified. High coverage with brittle tests provides false confidence.",
+        "replace_with": "behavioral coverage — which observable behaviors are verified by tests that can fail"
+      },
+      {
+        "term": "100% coverage",
+        "why": "Pursuing 100% coverage incentivizes writing tests that cannot fail, which provides no verification value.",
+        "replace_with": "every behavior has a test that can fail"
+      },
+      {
+        "term": "integration tests are better than unit tests",
+        "why": "This false dichotomy ignores that both serve different purposes. Unit tests verify behavior contracts; integration tests verify wiring. Both are needed.",
+        "replace_with": "behavioral tests at the appropriate level of isolation"
+      }
+    ]
+  },
+
+  "misunderstandings": [
+    {
+      "id": "MS-001",
+      "wrong": "TDD means writing all the tests before writing any implementation code.",
+      "correct": "TDD is an incremental cycle: one failing test, then minimal implementation to pass it, then refactor. Each cycle is complete before the next begins.",
+      "key_distinction": "All tests first ≠ One test at a time. Writing all tests upfront is waterfall testing, not TDD.",
+      "why": "Writing all tests first loses the design feedback loop — the primary value of TDD. Each test should influence the design of the next."
+    },
+    {
+      "id": "MS-002",
+      "wrong": "Hardcoding return values in the GREEN phase is cheating or bad practice.",
+      "correct": "Hardcoding is the correct TDD response when only one test case exists. It signals that generalization is premature. The next test will drive the generalization.",
+      "key_distinction": "Hardcoding during GREEN ≠ Hardcoding in production. Hardcoding during GREEN is driven by the current test; generalization is driven by the next test.",
+      "why": "Premature generalization during GREEN produces over-engineering. Let each test demand exactly the complexity it requires."
+    },
+    {
+      "id": "MS-003",
+      "wrong": "TDD is too slow. It's faster to write the code first and add tests later.",
+      "correct": "TDD is slower per feature but faster per project. The feedback loop catches design problems and bugs immediately, avoiding expensive late debugging.",
+      "key_distinction": "Speed per feature ≠ Speed per project. TDD's incremental cost pays off in reduced debugging and rework.",
+      "why": "Code-first approaches accumulate technical debt that manifests as increasing debugging time. TDD keeps debugging time constant."
+    },
+    {
+      "id": "MS-004",
+      "wrong": "If I mock all dependencies, my unit tests are isolated and therefore good.",
+      "correct": "Over-mocking creates tests coupled to implementation details — the definition of brittle tests. Mocks should be used at seams, not to isolate every dependency.",
+      "key_distinction": "Isolation ≠ Over-mocking. Proper isolation uses seams to verify behavior at boundaries. Over-mocking replaces real dependencies with test-specific behavior, coupling tests to internals.",
+      "why": "Over-mocked test suites break when implementation changes even though behavior is preserved, eroding trust and eventually being deleted."
+    }
+  ],
+
+  "self_check": [
+    "Did I write the failing test before the implementation?",
+    "Does this test specify behavior (what) or implementation (how)?",
+    "Can this test fail? What condition would make it fail?",
+    "Am I refactoring while any test is RED?",
+    "Am I adding complexity that no current test requires?",
+    "If the implementation changed but behavior didn't, would this test still pass?"
+  ]
+}

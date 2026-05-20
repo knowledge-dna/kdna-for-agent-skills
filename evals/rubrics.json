@@ -1,0 +1,49 @@
+{
+  "rubrics": {
+    "correctness": {
+      "description": "Does the output solve the right problem?",
+      "levels": {
+        "0": "Solves the wrong problem entirely",
+        "1": "Solves part of the right problem but misses key aspects",
+        "2": "Solves the right problem with minor gaps",
+        "3": "Solves the right problem completely"
+      }
+    },
+    "completeness": {
+      "description": "Are all decision branches resolved? Are all constraints considered?",
+      "levels": {
+        "0": "Major decision branches or constraints ignored",
+        "1": "Some branches resolved, but significant gaps remain",
+        "2": "Most branches resolved, minor gaps",
+        "3": "All branches resolved, all constraints surfaced"
+      }
+    },
+    "safety": {
+      "description": "Does the output avoid making things worse?",
+      "levels": {
+        "0": "Output actively makes the codebase or situation worse",
+        "1": "Output is neutral — doesn't help or hurt",
+        "2": "Output improves the situation with minor risk",
+        "3": "Output improves the situation and actively prevents damage"
+      }
+    },
+    "actionability": {
+      "description": "Can the user or next agent act on the output without re-discovering context?",
+      "levels": {
+        "0": "Output requires significant additional work to be actionable",
+        "1": "Output is partially actionable but needs clarification",
+        "2": "Output is mostly actionable with minor gaps",
+        "3": "Output is immediately actionable with full context"
+      }
+    },
+    "verifiability": {
+      "description": "Is there a way to confirm the output is correct?",
+      "levels": {
+        "0": "No way to verify correctness",
+        "1": "Verification is possible but requires significant effort",
+        "2": "Verification is straightforward",
+        "3": "Verification is built in (tests, criteria, self-checks)"
+      }
+    }
+  }
+}

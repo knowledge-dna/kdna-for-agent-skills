@@ -1,0 +1,37 @@
+{
+  "version": "0.4",
+  "domain": "test_driven_development",
+  "created": "2025-05-20",
+  "purpose": "Provide concrete examples of good and bad TDD judgment.",
+  "load_condition": "Load when examples or cases are needed to illustrate TDD judgment.",
+
+  "cases": [
+    {
+      "id": "CS-001",
+      "title": "Vertical slice TDD drives correct design",
+      "context": "Implementing a user registration feature: accept email and password, validate, hash password, store, send confirmation email.",
+      "what_happened": "The agent identified the tracer bullet: accept email and password, return success. It wrote a failing E2E test for this slice, implemented minimally (hardcoded success response), and verified. Then it added validation as the next slice: wrote a failing test for invalid email, implemented email validation. Then password hashing: wrote a failing test for password storage, implemented hashing. Each slice was driven by a test that specified behavior, not implementation. The final feature was built as a series of verified behaviors with no untested paths.",
+      "what_was_learned": "Vertical slicing forced the agent to think about one behavior at a time. Each test was behavioral (what should happen) not structural (how it works). The implementation evolved naturally from simple to complex, driven by the tests.",
+      "structural_pattern": "Tracer bullet → One behavior per cycle → Hardcoded first → Generalized by next test → Clean design emerges",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-002",
+      "title": "Horizontal slicing produces brittle tests",
+      "context": "Same user registration feature, but the agent writes all unit tests first: test UserService.validate(), test PasswordHasher.hash(), test EmailSender.send().",
+      "what_happened": "All unit tests passed. The agent then wired the components together and wrote integration tests. The integration tests revealed that the components didn't fit together — the validation output format didn't match what the storage layer expected, and the email sender needed data that the storage layer didn't return. The agent had to rewrite the unit tests to match the actual integration contracts. The test suite ended up coupled to the implementation structure: when the storage layer was refactored, 15 unit tests broke even though no behavior changed.",
+      "what_was_learned": "Horizontal slicing tests layers, not behaviors. It produces tests that break when implementation changes even if behavior is preserved. The unit tests were testing the wrong thing: they verified that each function did something, not that the system produced the right outcome.",
+      "structural_pattern": "All unit tests → Integration mismatch → Rewrite tests → Tests coupled to implementation → Fragile suite",
+      "scene_id": "SC-003"
+    },
+    {
+      "id": "CS-003",
+      "title": "Over-mocking creates false confidence",
+      "context": "Testing an order processing service that calls PaymentService, InventoryService, and NotificationService.",
+      "what_happened": "The agent mocked all three services and wrote tests that verified the OrderProcessor calls each service in the expected order with the expected parameters. All tests passed. In production, the OrderProcessor failed because the PaymentService's response format had changed. The mocks had been set up with the old format, so the test suite never caught the incompatibility. The test suite was verifying that OrderProcessor talks to mocks in a certain way — not that the system actually processes orders correctly.",
+      "what_was_learned": "Over-mocking tests the agent's assumptions about dependencies, not the actual behavior of the system. Mocks should be used at system boundaries (external APIs, databases), not between internal components. Behavioral tests at the boundary catch integration issues that mocked interaction tests cannot.",
+      "structural_pattern": "Mock all dependencies → Test mock interactions → Passes in test, fails in production → False confidence",
+      "scene_id": "SC-004"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "version": "0.4",
+  "domain": "bug_diagnosis",
+  "created": "2025-05-20",
+  "purpose": "Define scenario triggers and action orientations for bug diagnosis judgment.",
+  "load_condition": "Load when a concrete bug, failure, or error situation is detected.",
+
+  "scenes": [
+    {
+      "id": "SC-001",
+      "name": "Failing Test",
+      "trigger_signal": "A test fails in CI or locally. The user asks to fix it.",
+      "sub_scenarios": [
+        {
+          "id": "SC-001-A",
+          "trap_belief": "I can read the test, see what's wrong, and fix it directly.",
+          "three_questions": {
+            "belief": "Can I reproduce the failure independently, or am I trusting the test output at face value?",
+            "state": "Is the test testing the right behavior, or could the test itself be wrong?",
+            "need": "What is the smallest reproduction case that triggers this failure?"
+          },
+          "action_template": "Run the test locally → Confirm reproduction → Minimize → Hypothesize → Fix with regression guard",
+          "replace": {
+            "avoid": ["reading the error message and jumping to a fix", "assuming the test is correct and the code is wrong"],
+            "use": ["reproduce first", "consider whether the test or the code is the source of the failure"]
+          },
+          "expected_result": "Root cause identified. Fix applied. Regression test passes. No instrumentation left behind."
+        }
+      ]
+    },
+    {
+      "id": "SC-002",
+      "name": "Runtime Error in Production",
+      "trigger_signal": "An error appears in logs, monitoring, or user reports from a running system.",
+      "sub_scenarios": [
+        {
+          "id": "SC-002-A",
+          "trap_belief": "The error message tells me what's wrong. I can fix based on the stack trace.",
+          "three_questions": {
+            "belief": "Does the error message describe the root cause or just the point of failure?",
+            "state": "What conditions lead to this error path being executed?",
+            "need": "Can I construct a feedback loop that reproduces this in a controlled environment?"
+          },
+          "action_template": "Construct feedback loop from logs → Identify reproduction conditions → Generate hypotheses → Test one at a time",
+          "replace": {
+            "avoid": ["fixing based on stack trace alone", "deploying a fix without local reproduction"],
+            "use": ["build a feedback loop first", "trace the error backward through the execution path"]
+          },
+          "expected_result": "Reproduction in controlled environment. Root cause identified. Fix verified with regression test before deployment."
+        },
+        {
+          "id": "SC-002-B",
+          "trap_belief": "I can't reproduce it, so I should refactor the code around the error to make it more robust.",
+          "three_questions": {
+            "belief": "Is refactoring around an unreproduced bug making the system more robust, or masking the real problem?",
+            "state": "What information do I lack that prevents reproduction?",
+            "need": "What instrumentation would capture the missing information?"
+          },
+          "action_template": "Add instrumentation at the error point → Deploy instrumentation → Collect data → Reproduce → Diagnose",
+          "replace": {
+            "avoid": ["refactoring without understanding the root cause", "adding defensive code that masks the symptom"],
+            "use": ["add targeted instrumentation", "use the collected data to construct a reproduction"]
+          },
+          "expected_result": "Instrumentation captures the missing context. Reproduction becomes possible. Root cause identified."
+        }
+      ]
+    },
+    {
+      "id": "SC-003",
+      "name": "Performance Regression",
+      "trigger_signal": "A function or endpoint has become noticeably slower. No error is thrown.",
+      "sub_scenarios": [
+        {
+          "id": "SC-003-A",
+          "trap_belief": "It's probably the database. Let me add an index.",
+          "three_questions": {
+            "belief": "Is the database the bottleneck, or am I assuming the most common cause?",
+            "state": "Where does the time actually go? Have I measured?",
+            "need": "What is the smallest change I can measure to confirm or deny my hypothesis?"
+          },
+          "action_template": "Establish baseline measurement → Profile the slow path → Generate hypotheses ranked by falsifiability → Test one at a time",
+          "replace": {
+            "avoid": ["adding indexes without measuring", "assuming the common cause applies to this specific case"],
+            "use": ["measure before and after each change", "profile the actual execution path"]
+          },
+          "expected_result": "Bottleneck identified through measurement. Fix verified by benchmark. Root cause documented."
+        }
+      ]
+    },
+    {
+      "id": "SC-004",
+      "name": "Intermittent Bug",
+      "trigger_signal": "A bug that does not reproduce consistently. Sometimes it happens, sometimes it doesn't.",
+      "sub_scenarios": [
+        {
+          "id": "SC-004-A",
+          "trap_belief": "If I can't reproduce it reliably, I can't fix it.",
+          "three_questions": {
+            "belief": "Is the bug truly random, or are there conditions I haven't identified?",
+            "state": "What variables differ between the cases where the bug occurs and where it doesn't?",
+            "need": "Can I instrument the code to capture the state at the point of divergence?"
+          },
+          "action_template": "Collect occurrence patterns → Identify correlated variables → Instrument to capture state → Increase reproduction rate → Diagnose",
+          "replace": {
+            "avoid": ["dismissing intermittent bugs as unreproducible", "trying random fixes hoping they work"],
+            "use": ["treat intermittent bugs as bugs with unknown trigger conditions", "use instrumentation to narrow the search space"]
+          },
+          "expected_result": "Trigger conditions identified. Reproduction rate increased. Root cause found and fixed with regression guard."
+        }
+      ]
+    }
+  ]
+}

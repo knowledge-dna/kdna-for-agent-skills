@@ -1,0 +1,136 @@
+{
+  "version": "0.4",
+  "domain": "requirement_alignment",
+  "created": "2025-05-20",
+  "purpose": "Define the axioms, ontology, and frameworks that govern requirement alignment judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "axioms": [
+    {
+      "id": "AX-001",
+      "one_sentence": "A task without aligned requirements is a guess, not a plan.",
+      "full_statement": "When the agent begins implementation without verified alignment, the output is indistinguishable from a random guess about what the user wanted. Alignment must be established before execution.",
+      "why": "The most common agent failure is producing working code that solves the wrong problem."
+    },
+    {
+      "id": "AX-002",
+      "one_sentence": "Broad agreement is not a specification.",
+      "full_statement": "A user saying 'sounds good' or 'go ahead' does not constitute requirement alignment. A specification requires explicit scope, constraints, and success criteria.",
+      "why": "Verbal or vague approval hides unresolved decision branches that surface as rework."
+    },
+    {
+      "id": "AX-003",
+      "one_sentence": "A question not asked is a risk not managed.",
+      "full_statement": "Every unstated assumption in a requirement is a potential source of misalignment. The agent must surface assumptions as explicit questions before proceeding.",
+      "why": "Hidden constraints are discovered during implementation, when fixing them is most expensive."
+    },
+    {
+      "id": "AX-004",
+      "one_sentence": "The absence of ambiguity is not clarity.",
+      "full_statement": "A requirement that appears clear because it contains no ambiguous words may still be underspecified. Clarity requires sufficient constraints, not just unambiguous language.",
+      "why": "Agents mistake brevity for clarity and skip clarification on short requests."
+    },
+    {
+      "id": "AX-005",
+      "one_sentence": "Implementation is the most expensive way to test a requirement.",
+      "full_statement": "Writing code to discover what the user meant is orders of magnitude more costly than asking. The agent must verify understanding through dialogue or specification before writing implementation code.",
+      "why": "Code written against misaligned requirements must be rewritten, doubling the cost."
+    },
+    {
+      "id": "AX-006",
+      "one_sentence": "Every requirement has hidden constraints from its context.",
+      "full_statement": "No requirement exists in isolation. The codebase, existing architecture, team conventions, and business context all impose constraints that the user may not mention but the agent must consider.",
+      "why": "Ignoring context produces code that is locally correct but systemically wrong."
+    }
+  ],
+
+  "ontology": [
+    {
+      "id": "ON-001",
+      "one_sentence": "Requirement alignment is the state where all decision branches are resolved and all stakeholders share the same understanding of scope, constraints, and success criteria.",
+      "essence": "Alignment is not feeling good about the requirement — it is having no unresolved decision branches left.",
+      "boundary": "Alignment does not mean the requirement is optimal. A well-aligned requirement can still be a bad idea. It just means everyone agrees on what it is.",
+      "trigger_signal": "The agent is about to write implementation code but cannot state the full scope and success criteria."
+    },
+    {
+      "id": "ON-002",
+      "one_sentence": "A hidden constraint is an unstated assumption that will surface as a bug, rework, or architectural violation during implementation.",
+      "essence": "What the user didn't say but the context demands. Hidden constraints come from existing architecture, team conventions, performance requirements, and business rules.",
+      "boundary": "A hidden constraint is not the same as a missing requirement. A missing requirement is something the user forgot to ask for. A hidden constraint is something the user assumed was obvious.",
+      "trigger_signal": "The user's request is short, uses domain jargon without definition, or references existing systems without describing their constraints."
+    },
+    {
+      "id": "ON-003",
+      "one_sentence": "A decision branch is a point in the requirement where multiple valid paths exist and one must be explicitly chosen.",
+      "essence": "A branch is any place where the agent could make a reasonable choice, and different choices lead to meaningfully different outcomes.",
+      "boundary": "Not every implementation detail is a decision branch. A decision branch affects behavior, not just style.",
+      "trigger_signal": "The requirement uses words like 'or', 'could', 'might', 'either', or implies a choice without making it."
+    },
+    {
+      "id": "ON-004",
+      "one_sentence": "An alignment signal is evidence that the team shares the same understanding of what to build.",
+      "essence": "Concrete, verifiable proof of shared understanding: a written spec with sign-off, a PRD with acceptance criteria, or a conversation where all branches were resolved.",
+      "boundary": "An alignment signal is not a feeling. 'We're on the same page' is not an alignment signal. A documented decision with explicit criteria is.",
+      "trigger_signal": "The user provides a spec, confirms each branch resolution, or signs off on acceptance criteria."
+    },
+    {
+      "id": "ON-005",
+      "one_sentence": "A vague request is a request that lacks specificity about scope, constraints, or success criteria.",
+      "essence": "A request where the agent cannot determine what 'done' looks like without making assumptions.",
+      "boundary": "A vague request is not the same as a simple request. 'Fix the typo on line 42' is simple but not vague. 'Add team collaboration' is vague but not necessarily complex.",
+      "trigger_signal": "The request contains no acceptance criteria, no scope boundaries, or no definition of success."
+    },
+    {
+      "id": "ON-006",
+      "one_sentence": "A wish is a desired outcome without constraints; a task is a desired outcome with boundaries.",
+      "essence": "Wishes express what someone wants. Tasks express what someone wants within what constraints, with what success criteria, and with what scope.",
+      "boundary": "Every task started as a wish. The transformation from wish to task is the alignment process itself.",
+      "trigger_signal": "The user says 'I want X' without specifying what X includes, excludes, or how to verify it."
+    }
+  ],
+
+  "frameworks": [
+    {
+      "id": "FW-001",
+      "name": "Grill Framework",
+      "when_to_use": "When the user provides a wish, vague request, or underspecified task.",
+      "steps": [
+        "Identify all decision branches in the request",
+        "Ask one question at a time, providing recommended answers for each",
+        "Resolve each branch before moving to the next",
+        "Confirm alignment by restating scope, constraints, and success criteria"
+      ]
+    },
+    {
+      "id": "FW-002",
+      "name": "PRD Synthesis",
+      "when_to_use": "When the request is complex enough to warrant a written specification before implementation.",
+      "steps": [
+        "Explore the codebase to understand existing context",
+        "Identify affected modules and potential deep-module boundaries",
+        "Draft a PRD with problem statement, solution, user stories, and out-of-scope items",
+        "Validate with the user before any implementation"
+      ]
+    }
+  ],
+
+  "core_structure": [
+    {
+      "from": "Vague request",
+      "to": "Aligned specification",
+      "via": "Identify decision branches → Resolve each with the user → Document scope and success criteria"
+    },
+    {
+      "from": "Hidden constraint",
+      "to": "Explicit constraint",
+      "via": "Analyze codebase context → Surface assumptions → Validate with the user"
+    }
+  ],
+
+  "stances": [
+    "Never implement what you don't understand.",
+    "Ask before assuming. A question now saves a rework later.",
+    "If you cannot state the success criteria, you are not ready to implement.",
+    "Broad agreement is not a substitute for explicit decisions."
+  ]
+}

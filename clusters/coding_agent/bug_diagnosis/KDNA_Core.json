@@ -1,0 +1,121 @@
+{
+  "version": "0.4",
+  "domain": "bug_diagnosis",
+  "created": "2025-05-20",
+  "purpose": "Define the axioms, ontology, and frameworks that govern bug diagnosis judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "axioms": [
+    {
+      "id": "AX-001",
+      "one_sentence": "A fix without reproduction is a guess.",
+      "full_statement": "If the agent cannot reproduce the bug under controlled conditions, any fix is an unverified hypothesis. Reproduction is the foundation of all diagnosis.",
+      "why": "Fixing without reproduction addresses symptoms, not causes. The bug recurs or manifests elsewhere."
+    },
+    {
+      "id": "AX-002",
+      "one_sentence": "The first plausible hypothesis is rarely the correct one.",
+      "full_statement": "The agent must generate multiple ranked, falsifiable hypotheses before testing any of them. Committing to the first hypothesis creates confirmation bias.",
+      "why": "Agents that jump to the first explanation waste time confirming what they already believe instead of eliminating what they don't."
+    },
+    {
+      "id": "AX-003",
+      "one_sentence": "Changing more than one variable at a time destroys diagnostic signal.",
+      "full_statement": "Each diagnostic step must isolate one variable. If two or more variables change simultaneously, the result cannot be attributed to either.",
+      "why": "Simultaneous changes make it impossible to determine which change fixed (or caused) the observed behavior."
+    },
+    {
+      "id": "AX-004",
+      "one_sentence": "A regression test must exist before the fix is applied.",
+      "full_statement": "The regression test captures the bug's reproduction condition. Without it, there is no proof the fix worked and no guard against recurrence.",
+      "why": "Fixes that lack regression tests can silently regress. The bug reappears and no test catches it."
+    },
+    {
+      "id": "AX-005",
+      "one_sentence": "The feedback loop is the diagnosis.",
+      "full_statement": "Without a feedback loop — a way to observe the bug's behavior on demand — the agent is debugging blind. Constructing the loop is the most important step, not the fix itself.",
+      "why": "Agents that skip loop construction cannot verify any hypothesis and may 'fix' bugs that were never reproduced."
+    },
+    {
+      "id": "AX-006",
+      "one_sentence": "A symptom is not a cause.",
+      "full_statement": "What the user reports (crash, error message, wrong output) is a symptom. The cause is the condition that produces the symptom. Diagnosis is the process of tracing from symptom to cause.",
+      "why": "Treating symptoms as causes produces fixes that mask the bug locally while it persists systemically."
+    }
+  ],
+
+  "ontology": [
+    {
+      "id": "ON-001",
+      "one_sentence": "Reproduction is the smallest set of conditions that reliably triggers the bug.",
+      "essence": "A reproduction is not 'sometimes it happens.' It is a deterministic or near-deterministic procedure that produces the observed failure on demand.",
+      "boundary": "Intermittent bugs have probabilistic reproduction, not no reproduction. A reproduction rate of 1-in-100 is still reproduction if the conditions are specified.",
+      "trigger_signal": "The agent is about to propose a fix but has not demonstrated that the bug can be triggered reliably."
+    },
+    {
+      "id": "ON-002",
+      "one_sentence": "A hypothesis is a falsifiable explanation of the root cause.",
+      "essence": "A hypothesis must predict a specific observation if true and a different observation if false. 'Something is wrong with the data' is not a hypothesis.",
+      "boundary": "A hypothesis is not a guess. A guess is an unstructured possibility. A hypothesis is a testable prediction with predicted outcomes.",
+      "trigger_signal": "The agent is considering what might be wrong but has not stated a falsifiable prediction."
+    },
+    {
+      "id": "ON-003",
+      "one_sentence": "Instrumentation is temporary observation code added to capture runtime behavior at the diagnostic point.",
+      "essence": "Instrumentation makes the invisible visible. It adds logging, tracing, or assertions at specific points to observe state during reproduction.",
+      "boundary": "Instrumentation is not a fix. It must be removed after diagnosis. It is diagnostic scaffolding, not production code.",
+      "trigger_signal": "The agent needs to observe runtime state that is not currently visible through existing logs or tests."
+    },
+    {
+      "id": "ON-004",
+      "one_sentence": "Minimal reproduction is the smallest possible case that still triggers the bug.",
+      "essence": "If removing any element of the reproduction case stops the bug from occurring, it is minimal. Every element in the reproduction contributes to triggering the bug.",
+      "boundary": "Minimal reproduction is not 'the simplest code that has a bug.' It is the simplest demonstration of this specific bug.",
+      "trigger_signal": "The reproduction case involves many steps, and it's unclear which steps are essential."
+    },
+    {
+      "id": "ON-005",
+      "one_sentence": "A feedback loop is a mechanism that allows the agent to observe the bug's behavior on demand within seconds or minutes.",
+      "essence": "The loop can be a failing test, a script that runs the relevant code, a browser interaction, or a HITL procedure. What matters is speed and reliability.",
+      "boundary": "A feedback loop is not 'deploy and check in staging.' It must be fast enough to support iterative hypothesis testing.",
+      "trigger_signal": "The agent cannot verify its hypotheses without manual intervention or long wait times."
+    }
+  ],
+
+  "frameworks": [
+    {
+      "id": "FW-001",
+      "name": "Diagnosis Loop",
+      "when_to_use": "When a bug, test failure, or runtime error needs to be fixed.",
+      "steps": [
+        "Construct or identify a feedback loop that reproduces the bug on demand",
+        "Minimize the reproduction to the smallest case that still triggers the bug",
+        "Generate 3-5 ranked, falsifiable hypotheses about the root cause",
+        "Instrument to test one hypothesis at a time, changing one variable per step",
+        "Write a regression test that captures the reproduction condition",
+        "Apply the fix and verify the regression test passes",
+        "Remove instrumentation and document the root cause in the commit message"
+      ]
+    }
+  ],
+
+  "core_structure": [
+    {
+      "from": "Unreproduced bug report",
+      "to": "Verified fix with regression guard",
+      "via": "Construct feedback loop → Minimize → Hypothesize → Instrument → Fix → Regression test"
+    },
+    {
+      "from": "Symptom (error message, crash, wrong output)",
+      "to": "Root cause (the condition producing the symptom)",
+      "via": "Trace the symptom backward through the execution path, testing one hypothesis at a time"
+    }
+  ],
+
+  "stances": [
+    "Never fix what you cannot reproduce.",
+    "One hypothesis at a time, one variable at a time.",
+    "The diagnosis is more valuable than the fix.",
+    "If the regression test doesn't exist, the bug isn't fixed — it's masked."
+  ]
+}

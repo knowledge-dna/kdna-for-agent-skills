@@ -1,0 +1,11 @@
+{
+  "input": "Move this notification logic into the UserService where it belongs.",
+  "selected_domains": ["bug_diagnosis", "test_driven_development"],
+  "loaded_files": [
+    "bug_diagnosis/KDNA_Core.json",
+    "bug_diagnosis/KDNA_Patterns.json",
+    "test_driven_development/KDNA_Core.json",
+    "test_driven_development/KDNA_Patterns.json"
+  ],
+  "activation_reason": "The request proposes a 'fix' that may address a symptom rather than a root cause (bug_diagnosis); any refactoring should be test-protected (test_driven_development). Note: architecture_reasoning domain (planned) would be the primary domain for this scenario."
+}

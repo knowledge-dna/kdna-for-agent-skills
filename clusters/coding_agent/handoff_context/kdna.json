@@ -1,0 +1,26 @@
+{
+  "kdna_spec": "0.4",
+  "name": "handoff_context",
+  "version": "0.1.0",
+  "status": "experimental",
+  "access": "open",
+  "language": "en",
+  "author": "KDNA Contributors",
+  "license": {
+    "type": "MIT",
+    "allow_agent_use": true,
+    "allow_redistribution": true,
+    "allow_training": true
+  },
+  "description": "Judgment patterns for agent handoff: what information must survive between agents, what is noise, and how to preserve decision context.",
+  "keywords": ["handoff", "context", "continuity", "decision-preservation", "agent-transfer", "agent-skills"],
+  "file_count": 6,
+  "files": [
+    "KDNA_Core.json",
+    "KDNA_Patterns.json",
+    "KDNA_Scenarios.json",
+    "KDNA_Cases.json",
+    "KDNA_Reasoning.json",
+    "KDNA_Evolution.json"
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "version": "0.4",
+  "domain": "shared_language",
+  "created": "2025-05-20",
+  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for shared language judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "terminology": {
+    "standard_terms": [
+      {
+        "term": "domain term",
+        "definition": "A word or phrase with a specific, agreed-upon meaning in the project context, distinct from its ordinary English meaning."
+      },
+      {
+        "term": "banned term",
+        "definition": "A word or phrase that must not be used in this domain because its common meaning introduces ambiguity or misdirection."
+      },
+      {
+        "term": "CONTEXT",
+        "definition": "The authoritative document defining the project's shared language: domain terms, banned terms, and naming decisions."
+      },
+      {
+        "term": "ADR",
+        "definition": "An Architecture Decision Record capturing a consequential, hard-to-reverse decision with its context, alternatives, and implications."
+      },
+      {
+        "term": "terminology drift",
+        "definition": "The gradual divergence of a term's actual usage from its formalized definition, caused by loose or extended use."
+      },
+      {
+        "term": "concept compression",
+        "definition": "The process of replacing verbose descriptions with concise domain terms that carry the same meaning."
+      },
+      {
+        "term": "naming boundary",
+        "definition": "The explicit definition of what a term includes and excludes, preventing scope creep in meaning."
+      }
+    ],
+    "banned_terms": [
+      {
+        "term": "it's obvious what this means",
+        "why": "Nothing is obvious across different people and agents. If it were truly obvious, it would be easy to define.",
+        "replace_with": "let me define this term explicitly"
+      },
+      {
+        "term": "you know what I mean",
+        "why": "Assuming shared understanding is the primary source of terminology misalignment.",
+        "replace_with": "let me verify we mean the same thing by defining the term"
+      },
+      {
+        "term": "the data",
+        "why": "'Data' is too generic. In a domain context, specify what kind of data: user record, event payload, configuration value, etc.",
+        "replace_with": "the specific data type or record being referenced"
+      },
+      {
+        "term": "the system",
+        "why": "'The system' is vague and can mean the application, the infrastructure, the team's processes, or something else entirely.",
+        "replace_with": "the specific component, service, or layer being referenced"
+      }
+    ]
+  },
+
+  "misunderstandings": [
+    {
+      "id": "MS-001",
+      "wrong": "A shared language document is a glossary of technical terms that anyone can look up.",
+      "correct": "A shared language document is a contract between the team and the agent about what words mean in this specific project. It is not a reference — it is a commitment.",
+      "key_distinction": "Glossary vs. Contract. A glossary documents meanings for reference. A contract commits the team and agent to use terms consistently.",
+      "why": "Treating CONTEXT as a glossary means it's optional and can be ignored. Treating it as a contract means deviation must be justified."
+    },
+    {
+      "id": "MS-002",
+      "wrong": "Every word the team uses should be formalized as a domain term.",
+      "correct": "Only words that are reused, ambiguous in this context, or carry domain-specific meaning need formalization. Over-formalizing creates bureaucratic overhead.",
+      "key_distinction": "Formalize what matters, not everything. A term needs formalization when misuse would cause real misunderstanding.",
+      "why": "An over-formalized vocabulary is exhausting to maintain and discourages people from using it."
+    },
+    {
+      "id": "MS-003",
+      "wrong": "If the code uses a certain name, that's the domain term.",
+      "correct": "Code names are implementation details. Domain terms capture concepts. A domain term and its code name may differ, and the mapping between them should be documented.",
+      "key_distinction": "Concept vs. Implementation. 'Customer' (domain term) might map to 'User' (code name) or 'Account' (database table). These are different levels of abstraction.",
+      "why": "Conflating domain terms with code names prevents the team from discussing concepts independently of implementation choices."
+    },
+    {
+      "id": "MS-004",
+      "wrong": "ADRs should document every design decision for completeness.",
+      "correct": "ADRs should only capture decisions that are hard to reverse and surprising without context. Routine decisions don't need ADRs.",
+      "key_distinction": "Consequential vs. Routine. An ADR costs attention to write and read. It must earn its place by preventing future confusion.",
+      "why": "Too many ADRs creates noise. People stop reading them, and consequential decisions get lost among routine ones."
+    }
+  ],
+
+  "self_check": [
+    "Am I using a term that has a specific meaning in this project? If so, am I using it consistently?",
+    "Am I describing something in 20 words that could be named in 1?",
+    "Does every domain term I use have a clear boundary (what it is NOT)?",
+    "Am I about to make a consequential architectural decision that should be recorded in an ADR?",
+    "Is the CONTEXT document up to date with the terms we've discussed?"
+  ]
+}

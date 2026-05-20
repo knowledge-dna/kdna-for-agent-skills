@@ -1,0 +1,37 @@
+{
+  "version": "0.4",
+  "domain": "handoff_context",
+  "created": "2025-05-20",
+  "purpose": "Provide concrete examples of good and bad handoff context judgment.",
+  "load_condition": "Load when examples or cases are needed to illustrate handoff context judgment.",
+
+  "cases": [
+    {
+      "id": "CS-001",
+      "title": "Structured handoff preserves judgment across sessions",
+      "context": "An agent completes Issues 1-2 of a team collaboration feature and is partway through Issue 3 when the session ends.",
+      "what_happened": "The agent produced a structured handoff with: (1) Goal statement, (2) Completed work with decision context (e.g., 'We chose role-based permissions because the user confirmed three roles are sufficient'), (3) Unresolved question ('Should sharing be team-level or document-level?'), (4) Constraints (no WebSocket infrastructure, PostgreSQL only), (5) Risks (team-level auth may need middleware), (6) Next steps (resolve sharing scope, then implement Issue 3). The next agent read the handoff, resolved the sharing question with the user, and continued from exactly where the previous agent left off.",
+      "what_was_learned": "A structured handoff enables zero-loss continuity. The next agent didn't need to re-discover decisions, constraints, or the open question. The session transition was seamless.",
+      "structural_pattern": "Goal → Decisions + rationale → Unresolved questions → Constraints → Risks → Next steps",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-002",
+      "title": "Chronological summary loses critical decisions",
+      "context": "Same scenario, but the agent produces a chronological summary instead of a structured handoff.",
+      "what_happened": "The agent summarized: 'We created the Team model and API, added membership management, fixed a bug where owners could be removed, and started on project sharing.' The next agent, not knowing why role-based permissions were chosen, spent 30 minutes re-debating the permission model. Not knowing about the team-level vs. document-level question, they implemented team-level sharing and had to redo it when the user clarified they wanted document-level. The bug context (missing role validation for self-removal) was lost, and the same bug pattern appeared in the new code.",
+      "what_was_learned": "A chronological summary loses decisions (why), constraints (what's not possible), and questions (what's unresolved). The next agent must re-derive or re-discover all of these, costing time and introducing inconsistency.",
+      "structural_pattern": "Chronological summary → Decisions lost → Questions lost → Re-discovery and rework",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-003",
+      "title": "Bloated handoff is ignored",
+      "context": "An agent produces a 2000-word handoff that includes full code listings, detailed commit messages, and a line-by-line changelog.",
+      "what_happened": "The next agent skimmed the handoff because it was too long to parse carefully. They missed a critical constraint (the database migration for the team_members table had a unique constraint on user_id + team_id) because it was buried in the 47th paragraph. They created a new endpoint that tried to insert duplicate memberships, causing a runtime error that took 2 hours to diagnose.",
+      "what_was_learned": "Bloated handoffs are worse than concise ones because they create a false sense of completeness. The critical information is there, but it's not findable. Signal-to-noise ratio matters more than total information.",
+      "structural_pattern": "Bloated handoff → Next agent skims → Critical signal missed → Error from missing constraint",
+      "scene_id": "SC-003"
+    }
+  ]
+}

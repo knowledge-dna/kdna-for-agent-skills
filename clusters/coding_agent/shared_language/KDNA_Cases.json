@@ -1,0 +1,37 @@
+{
+  "version": "0.4",
+  "domain": "shared_language",
+  "created": "2025-05-20",
+  "purpose": "Provide concrete examples of good and bad shared language judgment.",
+  "load_condition": "Load when examples or cases are needed to illustrate shared language judgment.",
+
+  "cases": [
+    {
+      "id": "CS-001",
+      "title": "Verbosity eliminated through term formalization",
+      "context": "An agent repeatedly describes 'the process by which a user who has been invited to a team accepts the invitation and becomes a member with the specified role.'",
+      "what_happened": "The team formalized the term 'onboarding' to mean 'the process of accepting a team invitation and being assigned a role.' After formalization, the agent used 'onboarding' instead of the 20-word description. Token usage for this concept dropped by ~90%. More importantly, when the agent said 'the onboarding flow,' the user knew exactly what it meant.",
+      "what_was_learned": "Naming a concept compresses communication permanently. The investment in defining the term pays off every time it is used.",
+      "structural_pattern": "Verbose description → Term proposed → Boundary defined → Communication compressed",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-002",
+      "title": "Ambiguous term causes architectural misunderstanding",
+      "context": "The team uses 'subscription' to mean both 'a recurring payment plan' and 'an event listener registration.' The agent implements a payment-related feature using the event-listener meaning.",
+      "what_happened": "The user asked the agent to 'add subscription support.' The agent, seeing event-emitter patterns in the codebase, implemented pub/sub event listeners. The user expected Stripe-style recurring billing. The rework took 3 days because the wrong abstraction was built into the data model.",
+      "what_was_learned": "A single ambiguous term caused a 3-day rework. Splitting 'subscription' into 'billing plan' (payment) and 'event subscription' (listener) would have prevented the misalignment entirely.",
+      "structural_pattern": "Ambiguous term → Wrong interpretation → Wrong abstraction → Expensive rework",
+      "scene_id": "SC-002"
+    },
+    {
+      "id": "CS-003",
+      "title": "ADR prevents repeated debate",
+      "context": "The team debated whether to use REST or GraphQL for the API. They chose REST and documented the decision in an ADR.",
+      "what_happened": "Three months later, a new team member suggested switching to GraphQL. Instead of re-debating, the team read the ADR, which captured the original context (simple CRUD operations, no nested query needs, team expertise in REST). The new member understood the decision and moved on. Without the ADR, the team would have spent another 2 days debating.",
+      "what_was_learned": "ADRs prevent decision recycling. Without them, teams re-litigate settled decisions because the context and rationale are lost.",
+      "structural_pattern": "Decision made → ADR captured → Later challenge → ADR resolves without re-debate",
+      "scene_id": "SC-003"
+    }
+  ]
+}

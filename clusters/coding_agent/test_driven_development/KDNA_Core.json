@@ -1,0 +1,139 @@
+{
+  "version": "0.4",
+  "domain": "test_driven_development",
+  "created": "2025-05-20",
+  "purpose": "Define the axioms, ontology, and frameworks that govern test-driven development judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "axioms": [
+    {
+      "id": "AX-001",
+      "one_sentence": "A test written after implementation tests the implementation, not the behavior.",
+      "full_statement": "When the implementation exists first, the test is shaped by what the code does rather than what it should do. TDD forces the test to specify behavior independently of implementation.",
+      "why": "Tests written after the fact confirm that the code does what it does, not that it does what it should."
+    },
+    {
+      "id": "AX-002",
+      "one_sentence": "Vertical slices produce reliable software; horizontal slices produce brittle tests.",
+      "full_statement": "A vertical slice cuts through all integration layers end-to-end for one behavior. A horizontal slice tests one layer across all behaviors. Vertical slices are independently verifiable; horizontal slices create coupling across tests.",
+      "why": "Horizontal slicing produces tests that break together when any layer changes, making the test suite fragile."
+    },
+    {
+      "id": "AX-003",
+      "one_sentence": "Refactoring while RED is waste.",
+      "full_statement": "If the test is failing (RED), the only valid action is to make it pass. Refactoring during RED either introduces unverified changes or delays the feedback loop.",
+      "why": "Refactoring without a passing test baseline means any regression introduced by refactoring goes undetected."
+    },
+    {
+      "id": "AX-004",
+      "one_sentence": "A test that cannot fail is not a test.",
+      "full_statement": "If there is no condition under which the test would produce a failing result, it does not verify anything. Every test must have a plausible failure mode.",
+      "why": "Tests that cannot fail provide false confidence. They appear in coverage reports but verify nothing."
+    },
+    {
+      "id": "AX-005",
+      "one_sentence": "One test at a time. One behavior per test.",
+      "full_statement": "Each RED-GREEN-REFACTOR cycle addresses one behavior. Writing multiple failing tests before implementing any of them creates indeterminate state and hides which test drove which implementation.",
+      "why": "Multiple simultaneous RED tests make it unclear which implementation change fixed which test, destroying the diagnostic value of the TDD cycle."
+    },
+    {
+      "id": "AX-006",
+      "one_sentence": "The simplest implementation that passes is the correct implementation for this cycle.",
+      "full_statement": "In TDD, the goal of the GREEN phase is to make the test pass as simply as possible, even if that means hardcoding. Complexity is added only when a subsequent test demands it.",
+      "why": "Premature generalization during GREEN produces over-engineering. Each test should drive exactly the complexity it requires, no more."
+    }
+  ],
+
+  "ontology": [
+    {
+      "id": "ON-001",
+      "one_sentence": "Red-green-refactor is the cycle of writing a failing test, making it pass with minimal code, then cleaning up the implementation.",
+      "essence": "RED proves the test can fail. GREEN proves the implementation satisfies the test. REFACTOR proves the implementation can be improved without changing behavior.",
+      "boundary": "Red-green-refactor is not 'write all tests then implement.' It is an incremental cycle where each test drives one behavior.",
+      "trigger_signal": "The agent is about to write implementation code without a failing test, or is about to refactor while tests are failing."
+    },
+    {
+      "id": "ON-002",
+      "one_sentence": "A vertical slice is a thin end-to-end cut through all integration layers that delivers one observable behavior.",
+      "essence": "A vertical slice goes from the user-facing interface down to the data layer for one specific behavior. It is independently testable and independently deployable.",
+      "boundary": "A vertical slice is not 'testing one function.' It is testing one behavior from entry point to persistence, including all layers in between.",
+      "trigger_signal": "The agent is writing tests for one layer while other layers remain untested, or is testing multiple behaviors in one test."
+    },
+    {
+      "id": "ON-003",
+      "one_sentence": "A behavioral test specifies expected observable behavior, not implementation details.",
+      "essence": "A behavioral test answers 'what should happen when X?' not 'how does the code achieve X?' It verifies output and side effects, not internal structure.",
+      "boundary": "Behavioral tests can still be unit tests. A unit test is behavioral if it tests a unit's contract, not its internals.",
+      "trigger_signal": "The test accesses private methods, internal state, or implementation-specific details."
+    },
+    {
+      "id": "ON-004",
+      "one_sentence": "A brittle test is a test that fails for reasons unrelated to the behavior it claims to verify.",
+      "essence": "Brittle tests are coupled to implementation details: they break when the implementation changes even if behavior is preserved. They erode trust in the test suite.",
+      "boundary": "A test that fails because behavior changed is not brittle — it's doing its job. A test that fails because implementation changed while behavior didn't is brittle.",
+      "trigger_signal": "Tests break frequently during refactoring even though no behavior has changed."
+    },
+    {
+      "id": "ON-005",
+      "one_sentence": "A test seam is a point in the code where behavior can be observed or replaced without modifying production code.",
+      "essence": "Seams allow tests to inject dependencies, observe outputs, or isolate units. They are the architectural prerequisite for testable code.",
+      "boundary": "A seam is not a mock. A seam is the structural point where a mock can be inserted. Mocks are one way to use a seam.",
+      "trigger_signal": "The agent cannot write a test without modifying production code, or the test requires complex setup that touches unrelated systems."
+    },
+    {
+      "id": "ON-006",
+      "one_sentence": "Hardcoded implementation is the simplest code that makes the current test pass, intentionally lacking generalization.",
+      "essence": "Hardcoding during GREEN is not a shortcut — it is the correct TDD response when only one test case exists. Generalization is driven by the next test, not by anticipation.",
+      "boundary": "Hardcoded implementation is only appropriate during the GREEN phase of the current cycle. It must be generalized when a subsequent test requires it.",
+      "trigger_signal": "The agent is about to add complexity that no current test requires."
+    }
+  ],
+
+  "frameworks": [
+    {
+      "id": "FW-001",
+      "name": "TDD Cycle",
+      "when_to_use": "When implementing a new feature, fixing a bug with expected behavior, or preventing regressions.",
+      "steps": [
+        "Plan the next vertical slice (one behavior end-to-end)",
+        "Write one failing test that specifies the expected behavior",
+        "Make the test pass with the simplest possible implementation",
+        "Refactor the implementation while keeping all tests GREEN",
+        "Repeat for the next behavior"
+      ]
+    },
+    {
+      "id": "FW-002",
+      "name": "Test Quality Check",
+      "when_to_use": "When evaluating whether a test is behavioral or brittle.",
+      "steps": [
+        "Can this test fail? If not, it verifies nothing.",
+        "Does this test specify behavior (what) or implementation (how)?",
+        "If the implementation changes but behavior doesn't, will this test still pass?",
+        "Does this test test exactly one behavior?",
+        "Can this test run independently of other tests?"
+      ]
+    }
+  ],
+
+  "core_structure": [
+    {
+      "from": "Implementation-first code",
+      "to": "Behavior-driven code with regression guard",
+      "via": "Write failing test for each behavior → Implement minimally → Refactor with safety net"
+    },
+    {
+      "from": "Horizontal test suite (all tests for one layer)",
+      "to": "Vertical test suite (one test per slice end-to-end)",
+      "via": "Reorganize tests around behaviors, not layers; each test traces one behavior from entry to outcome"
+    }
+  ],
+
+  "stances": [
+    "Behavior first, implementation second.",
+    "One test at a time. One behavior per cycle.",
+    "Never refactor while RED.",
+    "If the simplest passing implementation is a hardcoded value, that's the right answer for this cycle.",
+    "A test that cannot fail provides false confidence."
+  ]
+}

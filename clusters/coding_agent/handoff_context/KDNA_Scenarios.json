@@ -1,0 +1,76 @@
+{
+  "version": "0.4",
+  "domain": "handoff_context",
+  "created": "2025-05-20",
+  "purpose": "Define scenario triggers and action orientations for handoff context judgment.",
+  "load_condition": "Load when a situation involving conversation compaction, agent transfer, or session handoff is detected.",
+
+  "scenes": [
+    {
+      "id": "SC-001",
+      "name": "Session Ending",
+      "trigger_signal": "The user is ending the session or stepping away, and another agent will continue the work.",
+      "sub_scenarios": [
+        {
+          "id": "SC-001-A",
+          "trap_belief": "A summary of the conversation is sufficient for the next agent.",
+          "three_questions": {
+            "belief": "Can the next agent reconstruct the judgment layer from a conversation summary?",
+            "state": "What decisions, constraints, and unresolved questions exist that are not captured in code or docs?",
+            "need": "What forward-looking direction does the next agent need to start effectively?"
+          },
+          "action_template": "Extract decisions + rationale → List constraints discovered → Surface unresolved questions → Identify risks → Specify next steps",
+          "replace": {
+            "avoid": ["chronological summary", "including implementation details that are in the code"],
+            "use": ["structured handoff with decisions, constraints, questions, risks, next steps"]
+          },
+          "expected_result": "Self-contained handoff document that enables the next agent to continue without re-discovering context."
+        }
+      ]
+    },
+    {
+      "id": "SC-002",
+      "name": "Mid-Task Handoff",
+      "trigger_signal": "Work is in progress but must be handed off due to context limits, session timeout, or task reassignment.",
+      "sub_scenarios": [
+        {
+          "id": "SC-002-A",
+          "trap_belief": "I should finish the current step before handing off.",
+          "three_questions": {
+            "belief": "Is completing the current step more valuable than preserving context for the next agent?",
+            "state": "What is the current state of the work-in-progress?",
+            "need": "What does the next agent need to know to continue from this exact point?"
+          },
+          "action_template": "Document current state precisely → List what's done and what's in progress → Note any partial work that needs completion or rollback → Hand off immediately",
+          "replace": {
+            "avoid": ["rushing to complete before handing off", "leaving partial work unmarked"],
+            "use": ["document current state precisely", "mark partial work explicitly", "hand off immediately with full context"]
+          },
+          "expected_result": "Current state documented. Partial work marked. Next agent can continue or roll back as appropriate."
+        }
+      ]
+    },
+    {
+      "id": "SC-003",
+      "name": "Conversation Compaction",
+      "trigger_signal": "The conversation is approaching context limits and needs to be compacted while preserving essential information.",
+      "sub_scenarios": [
+        {
+          "id": "SC-003-A",
+          "trap_belief": "I should keep a detailed summary of everything discussed.",
+          "three_questions": {
+            "belief": "Is a detailed summary the most compact representation, or can the same information be structured more efficiently?",
+            "state": "What information from the conversation is signal (irreplaceable) vs. noise (derivable)?",
+            "need": "What is the minimum information needed to continue the current work effectively?"
+          },
+          "action_template": "Identify signal (decisions, constraints, questions, risks) → Discard noise (derivable details, implementation specifics) → Structure compactly → Verify self-containment",
+          "replace": {
+            "avoid": ["compressing the full conversation into a shorter summary", "keeping everything just in case"],
+            "use": ["extract only irreplaceable information", "structure for the next agent's needs"]
+          },
+          "expected_result": "Compact handoff that contains all signal and no noise. The next agent has full judgment context without the conversation history."
+        }
+      ]
+    }
+  ]
+}

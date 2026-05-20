@@ -1,0 +1,12 @@
+{
+  "input": "Help me add a team collaboration feature",
+  "selected_domains": ["requirement_alignment", "test_driven_development"],
+  "loaded_files": [
+    "requirement_alignment/KDNA_Core.json",
+    "requirement_alignment/KDNA_Patterns.json",
+    "requirement_alignment/KDNA_Scenarios.json",
+    "test_driven_development/KDNA_Core.json",
+    "test_driven_development/KDNA_Patterns.json"
+  ],
+  "activation_reason": "Vague request triggers requirement_alignment; new feature implementation triggers test_driven_development"
+}

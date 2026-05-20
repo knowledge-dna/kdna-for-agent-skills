@@ -1,0 +1,26 @@
+{
+  "kdna_spec": "0.4",
+  "name": "bug_diagnosis",
+  "version": "0.1.0",
+  "status": "experimental",
+  "access": "open",
+  "language": "en",
+  "author": "KDNA Contributors",
+  "license": {
+    "type": "MIT",
+    "allow_agent_use": true,
+    "allow_redistribution": true,
+    "allow_training": true
+  },
+  "description": "Judgment patterns for disciplined bug diagnosis: when a fix is a guess, what counts as reproduction, and when to refuse to fix.",
+  "keywords": ["bug", "diagnosis", "debugging", "reproduction", "regression", "agent-skills"],
+  "file_count": 6,
+  "files": [
+    "KDNA_Core.json",
+    "KDNA_Patterns.json",
+    "KDNA_Scenarios.json",
+    "KDNA_Cases.json",
+    "KDNA_Reasoning.json",
+    "KDNA_Evolution.json"
+  ]
+}

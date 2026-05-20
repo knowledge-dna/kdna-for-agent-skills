@@ -1,0 +1,11 @@
+{
+  "input": "I need to step away. Summarize what we've done so another agent can continue.",
+  "selected_domains": ["requirement_alignment", "bug_diagnosis"],
+  "loaded_files": [
+    "requirement_alignment/KDNA_Core.json",
+    "requirement_alignment/KDNA_Patterns.json",
+    "bug_diagnosis/KDNA_Core.json",
+    "bug_diagnosis/KDNA_Patterns.json"
+  ],
+  "activation_reason": "Unresolved decision branch triggers requirement_alignment; bug found during work triggers bug_diagnosis context. Note: handoff_context domain (planned) would be primary."
+}

@@ -1,0 +1,81 @@
+{
+  "version": "0.4",
+  "domain": "architecture_reasoning",
+  "created": "2025-05-20",
+  "purpose": "Define capability stages and measurable growth for architecture reasoning judgment.",
+  "load_condition": "Load when coaching, improvement, or practice measurement is requested.",
+
+  "stages": [
+    {
+      "id": "ST-001",
+      "name": "Feature Implementer",
+      "description": "Implements features without assessing architectural impact. Does not zoom out. Treats boundary crossings as normal. Creates shallow modules. Does not distinguish local optimality from systemic impact.",
+      "indicators": [
+        "Implements without mapping affected modules",
+        "Creates modules with many public methods",
+        "Does not assess boundary crossings",
+        "Says 'we'll refactor later' without scheduling it"
+      ]
+    },
+    {
+      "id": "ST-002",
+      "name": "Boundary-Aware Developer",
+      "description": "Zooms out before implementing. Maps affected modules. Assesses boundary crossings. Creates deep modules. Distinguishes cross-cutting concerns from wrong boundaries. Records architectural decisions.",
+      "indicators": [
+        "Maps affected modules before implementing",
+        "Assesses whether boundary crossings indicate wrong boundaries",
+        "Designs modules with small interfaces and hidden complexity",
+        "Records ADRs for architectural decisions"
+      ]
+    },
+    {
+      "id": "ST-003",
+      "name": "Architecture Strategist",
+      "description": "Proactively identifies architectural decay before it manifests. Suggests boundary refactoring without being asked. Designs module structures that resist entropy. Makes architectural decisions that are proportional to the problem.",
+      "indicators": [
+        "Identifies decay before it becomes a problem",
+        "Suggests boundary refactoring proactively",
+        "Designs module structures that minimize future coupling",
+        "Makes proportional architectural decisions — neither over-engineered nor under-designed"
+      ]
+    }
+  ],
+
+  "evolution_layers": [
+    {
+      "id": "EL-001",
+      "name": "From feature implementer to boundary-aware",
+      "capability": "Consistently zoom out and assess architectural impact before implementing",
+      "from_stage": "ST-001",
+      "to_stage": "ST-002"
+    },
+    {
+      "id": "EL-002",
+      "name": "From boundary-aware to strategist",
+      "capability": "Proactively identify and prevent architectural decay",
+      "from_stage": "ST-002",
+      "to_stage": "ST-003"
+    }
+  ],
+
+  "measurement": [
+    {
+      "id": "ME-001",
+      "what": "Boundary crossing rate",
+      "how": "Count the number of changes that cross module boundaries without explicit assessment, divided by total changes.",
+      "threshold": "ST-002: <10%. ST-003: <3%."
+    },
+    {
+      "id": "ME-002",
+      "what": "Module depth ratio",
+      "how": "Average ratio of functionality provided to interface surface across all modules. Higher is better.",
+      "threshold": "ST-002: >2:1 (2 units of functionality per interface point). ST-003: >3:1."
+    },
+    {
+      "id": "ME-003",
+      "what": "Architectural decay rate",
+      "how": "Count the number of modules that have accumulated shallow additions (new public methods that expose internals) without boundary refactoring, over time.",
+      "threshold": "ST-002: <2 shallow additions per month. ST-003: 0 (immediate refactoring when detected)."
+    }
+  ]
+}

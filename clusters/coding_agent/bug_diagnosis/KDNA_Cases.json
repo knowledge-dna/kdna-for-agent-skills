@@ -1,0 +1,37 @@
+{
+  "version": "0.4",
+  "domain": "bug_diagnosis",
+  "created": "2025-05-20",
+  "purpose": "Provide concrete examples of good and bad bug diagnosis judgment.",
+  "load_condition": "Load when examples or cases are needed to illustrate diagnosis judgment.",
+
+  "cases": [
+    {
+      "id": "CS-001",
+      "title": "Disciplined diagnosis with hypothesis elimination",
+      "context": "A test fails: UserService.create() returns null instead of throwing on invalid input. The error message says 'Expected error to be thrown, but received null.'",
+      "what_happened": "The agent first reproduced the failure locally. Then it generated 4 hypotheses ranked by falsifiability: (1) validation is not called, (2) validation catches but returns null instead of throwing, (3) validation throws but is caught upstream, (4) the test targets the wrong method. By adding a single log statement at the validation entry point, it eliminated hypotheses 1 and 2 in one step. A second log at the caller eliminated hypothesis 3. The root cause was hypothesis 4: the test was calling the wrong overload. The agent fixed the test, not the code.",
+      "what_was_learned": "The most obvious fix (add validation) would have been wrong — validation already existed. Systematic hypothesis elimination revealed that the test, not the code, was the source of the failure.",
+      "structural_pattern": "Reproduction → Multiple hypotheses → Sequential elimination → Root cause ≠ expected target",
+      "scene_id": "SC-001"
+    },
+    {
+      "id": "CS-002",
+      "title": "Jumping to the first plausible fix",
+      "context": "Users report that the search feature returns stale results. The error log shows no exceptions.",
+      "what_happened": "The agent assumed the cache was not being invalidated and added a cache-busting mechanism. The fix appeared to work — search results were fresh. But two weeks later, the team discovered the real issue: the search index was not being updated after writes. The cache-busting fix masked the symptom by forcing re-indexing on every search, which degraded performance. The correct fix was to fix the index update trigger, not to bypass the cache.",
+      "what_was_learned": "The first plausible hypothesis (stale cache) was wrong. The agent committed to it without generating alternatives. The fix masked the root cause and introduced a performance regression. A disciplined approach would have tested the cache hypothesis first (check if cache is actually stale) before implementing a fix.",
+      "structural_pattern": "Symptom → First hypothesis assumed true → Fix masks root cause → New problem emerges",
+      "scene_id": "SC-002"
+    },
+    {
+      "id": "CS-003",
+      "title": "Intermittent bug solved through instrumentation",
+      "context": "An API endpoint returns 500 errors approximately 1 in 200 requests. No pattern is obvious from logs.",
+      "what_happened": "The agent added instrumentation to capture the full request state at the error point: headers, body, auth context, and timing. After collecting 50 occurrences, the agent identified that all errors happened when the request arrived within 50ms of a database connection reset. The root cause was a race condition between connection pool recycling and request handling. The agent added a retry mechanism at the connection acquisition point and wrote a regression test that simulated the race condition.",
+      "what_was_learned": "Intermittent bugs have trigger conditions — they are not random. Instrumentation is the key to discovering the conditions. Without it, the agent would have been guessing at fixes for a bug it couldn't reproduce.",
+      "structural_pattern": "Intermittent failure → Instrumentation added → Pattern discovered → Race condition identified → Fix with regression test",
+      "scene_id": "SC-004"
+    }
+  ]
+}

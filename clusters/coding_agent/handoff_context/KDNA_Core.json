@@ -1,0 +1,118 @@
+{
+  "version": "0.4",
+  "domain": "handoff_context",
+  "created": "2025-05-20",
+  "purpose": "Define the axioms, ontology, and frameworks that govern handoff context judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "axioms": [
+    {
+      "id": "AX-001",
+      "one_sentence": "A handoff that loses decisions forces the next agent to re-make them, possibly differently.",
+      "full_statement": "Every decision made during a session is a constraint on future work. If the decision is lost in handoff, the next agent may make a different decision, creating inconsistency or rework.",
+      "why": "Decision loss is the most expensive form of information loss. It doesn't just waste time — it introduces contradictions."
+    },
+    {
+      "id": "AX-002",
+      "one_sentence": "A chronological summary is not a handoff — it is a log.",
+      "full_statement": "Listing what happened in order preserves history but not judgment. A handoff must preserve the judgment layer: why decisions were made, what constraints were discovered, and what remains unresolved.",
+      "why": "Logs are useful for audit but useless for continuity. The next agent needs to understand the current state and its context, not replay the past."
+    },
+    {
+      "id": "AX-003",
+      "one_sentence": "Information that the next agent can derive from the codebase is noise; information that cannot be derived is signal.",
+      "full_statement": "The handoff should contain only information that is not recoverable from the code, git history, or existing documentation. Everything else is noise that makes the handoff harder to parse.",
+      "why": "Bloated handoffs are ignored. The next agent skims them and misses the signal because it's buried in derivable information."
+    },
+    {
+      "id": "AX-004",
+      "one_sentence": "An unresolved question is more valuable than an assumed answer.",
+      "full_statement": "Explicitly stating what is unresolved gives the next agent the choice to investigate or ask. Assuming an answer hides the uncertainty and may lead the next agent to build on a false foundation.",
+      "why": "Hidden assumptions in handoffs are more dangerous than open questions, because they don't trigger verification."
+    },
+    {
+      "id": "AX-005",
+      "one_sentence": "The handoff must be self-contained — the next agent cannot ask the previous agent questions.",
+      "full_statement": "Unlike a conversation where clarifications are possible, a handoff document is the only information the next agent receives. It must be complete enough to act on without further clarification from the source.",
+      "why": "Incomplete handoffs force the next agent to either guess (risky) or re-discover information (expensive)."
+    },
+    {
+      "id": "AX-006",
+      "one_sentence": "Risk and next steps are forward-looking; summaries are backward-looking. Both are necessary.",
+      "full_statement": "A handoff that only summarizes what happened leaves the next agent without direction. A handoff that only provides next steps leaves the next agent without context. Both are required for effective continuity.",
+      "why": "Without forward-looking content, the next agent doesn't know where to start. Without backward-looking content, they don't know why."
+    }
+  ],
+
+  "ontology": [
+    {
+      "id": "ON-001",
+      "one_sentence": "Decision context is the why behind a choice: what alternatives were considered, what constraints applied, and what the implications are.",
+      "essence": "Decision context is not the decision itself ('we chose REST') — it is the reasoning ('we chose REST because the team has no GraphQL experience and the API is CRUD-only').",
+      "boundary": "Decision context is not meeting notes or discussion history. It is the distilled rationale that would allow someone else to understand and evaluate the decision.",
+      "trigger_signal": "The agent is about to hand off without documenting why key decisions were made."
+    },
+    {
+      "id": "ON-002",
+      "one_sentence": "Handoff noise is information that can be derived from the codebase, git history, or existing documentation.",
+      "essence": "Noise is not unimportant information — it is redundant information. Including it in the handoff wastes the next agent's attention without adding value.",
+      "boundary": "What counts as noise depends on the next agent's access. If the next agent has full codebase access, implementation details are noise. If they don't, some implementation details may be signal.",
+      "trigger_signal": "The handoff document includes details that are fully captured in code, commits, or existing docs."
+    },
+    {
+      "id": "ON-003",
+      "one_sentence": "An unresolved question is a known uncertainty that must be resolved before certain work can proceed safely.",
+      "essence": "Unresolved questions are not TODOs. They are decision points where the answer affects scope, architecture, or approach. They must be explicitly called out so the next agent doesn't assume an answer.",
+      "boundary": "Not every unknown is an unresolved question. A question is unresolved only if assuming the wrong answer would cause rework or misalignment.",
+      "trigger_signal": "The agent is leaving a session with a question that would change the implementation if answered differently."
+    },
+    {
+      "id": "ON-004",
+      "one_sentence": "Handoff signal is information that cannot be recovered from any other source: decisions, constraints discovered, unresolved questions, risks, and next steps.",
+      "essence": "Signal is the irreplaceable information. If the handoff document were lost, this information would be gone permanently or would require significant effort to re-derive.",
+      "boundary": "Signal is not everything the agent knows. It is what the agent knows that no other source records.",
+      "trigger_signal": "The agent has information that exists only in the conversation, not in code, docs, or git."
+    },
+    {
+      "id": "ON-005",
+      "one_sentence": "Forward-looking context is information about what should happen next, including priorities, risks, and dependencies.",
+      "essence": "Forward-looking context answers 'what should I do?' and 'what should I watch out for?' It gives the next agent direction and warning.",
+      "boundary": "Forward-looking context is not a project plan. It is the immediate next steps and their associated risks, scoped to what is relevant for continuity.",
+      "trigger_signal": "The handoff document ends with a summary but no indication of what to do next."
+    }
+  ],
+
+  "frameworks": [
+    {
+      "id": "FW-001",
+      "name": "Handoff Document Structure",
+      "when_to_use": "When compacting a conversation for another agent to continue.",
+      "steps": [
+        "State the goal: what are we trying to achieve?",
+        "List completed work with decision context (not just what was done, but why)",
+        "List in-progress work with current state and blockers",
+        "Document decisions made with rationale",
+        "List unresolved questions that would affect implementation",
+        "List constraints discovered (from codebase, architecture, or business rules)",
+        "Identify risks and things to watch out for",
+        "Specify next steps in priority order"
+      ]
+    }
+  ],
+
+  "core_structure": [
+    {
+      "from": "Conversation context",
+      "to": "Structured handoff document",
+      "via": "Extract signal (decisions, constraints, questions) → Remove noise (derivable information) → Add forward-looking context (risks, next steps)"
+    }
+  ],
+
+  "stances": [
+    "Preserve decisions, not chronology.",
+    "If the next agent can derive it, don't include it.",
+    "An unresolved question is more valuable than an assumed answer.",
+    "The handoff must be self-contained — there is no second chance to clarify.",
+    "Both backward-looking context and forward-looking direction are necessary."
+  ]
+}

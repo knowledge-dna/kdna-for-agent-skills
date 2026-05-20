@@ -1,0 +1,131 @@
+{
+  "version": "0.4",
+  "domain": "architecture_reasoning",
+  "created": "2025-05-20",
+  "purpose": "Define the axioms, ontology, and frameworks that govern architecture reasoning judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "axioms": [
+    {
+      "id": "AX-001",
+      "one_sentence": "Agents accelerate coding and therefore accelerate software entropy.",
+      "full_statement": "An agent that writes code faster than a human also introduces complexity faster. Without deliberate architectural attention, the codebase decays faster with an agent than without one.",
+      "why": "Speed without design creates debt faster than speed with design. Agent-assisted coding must be paired with agent-assisted architecture reasoning."
+    },
+    {
+      "id": "AX-002",
+      "one_sentence": "Local optimality is the enemy of system integrity.",
+      "full_statement": "A change that is optimal for the feature being implemented may be suboptimal or damaging for the system as a whole. Each change must be evaluated for both local and systemic impact.",
+      "why": "Agents optimize for the immediate task. Without zooming out, they accumulate locally optimal decisions that collectively produce a ball of mud."
+    },
+    {
+      "id": "AX-003",
+      "one_sentence": "Deep modules provide simplicity through abstraction; shallow modules provide complexity through exposure.",
+      "full_statement": "A deep module has a simple interface and hides complex implementation. A shallow module has a complex interface that exposes its implementation details. Deep modules make the system simpler; shallow modules make it harder to change.",
+      "why": "Agents tend to create shallow modules because they're easier to generate. Deep modules require design thinking that must be deliberately applied."
+    },
+    {
+      "id": "AX-004",
+      "one_sentence": "Refactoring boundaries is not optional maintenance — it is the primary mechanism for preventing architectural decay.",
+      "full_statement": "Module boundaries drift as the system evolves. What was once a clean separation becomes a tangled dependency. Regular boundary refactoring is the only way to maintain architectural integrity over time.",
+      "why": "Treating boundary refactoring as optional leads to gradual decay that becomes exponentially expensive to reverse."
+    },
+    {
+      "id": "AX-005",
+      "one_sentence": "A change that crosses module boundaries is a signal, not an exception.",
+      "full_statement": "When a feature requires changes in multiple modules, it indicates either that the feature spans a legitimate cross-cutting concern, or that the module boundaries are wrong. The agent must judge which case applies before implementing.",
+      "why": "Ignoring boundary-crossing changes leads to entangled modules where any change requires touching multiple places."
+    },
+    {
+      "id": "AX-006",
+      "one_sentence": "Zooming out is mandatory when the agent cannot explain how the change fits the system.",
+      "full_statement": "If the agent is about to implement a change but cannot articulate which modules are affected and why, it must zoom out to understand the system context first. Implementing without understanding is architectural negligence.",
+      "why": "Changes made without system understanding inevitably violate existing boundaries or create new coupling."
+    }
+  ],
+
+  "ontology": [
+    {
+      "id": "ON-001",
+      "one_sentence": "A deep module is a module with a simple interface that hides substantial complexity behind it.",
+      "essence": "Deep modules are defined by the ratio of functionality provided to interface exposed. A module that does a lot with a small API is deep. A module that does little with a large API is shallow.",
+      "boundary": "Depth is not about code volume. A module with 1000 lines but 2 public methods is deeper than a module with 50 lines and 15 public methods.",
+      "trigger_signal": "The agent is about to add a new public method to a module that already has many."
+    },
+    {
+      "id": "ON-002",
+      "one_sentence": "A ball of mud is a system where boundaries between modules have eroded to the point where changes propagate unpredictably.",
+      "essence": "In a ball of mud, any change can affect any part of the system because there are no clean separation boundaries. The system resists modification because the effects of any change are hard to predict.",
+      "boundary": "A ball of mud is not just 'messy code.' It's a system where the architecture has failed to provide predictability. Code can be messy but architecturally sound if boundaries are clear.",
+      "trigger_signal": "A simple change requires modifications in multiple unrelated files or modules."
+    },
+    {
+      "id": "ON-003",
+      "one_sentence": "Module boundary is the line of separation between two areas of responsibility, defined by the interface they share.",
+      "essence": "A boundary is not just a file boundary or a class boundary. It is a contract: one side provides certain capabilities, the other side uses them through a defined interface.",
+      "boundary": "Moving code across a file boundary without changing the interface is not a boundary change. Changing the interface is a boundary change, regardless of file organization.",
+      "trigger_signal": "A feature requires changes on both sides of a module boundary."
+    },
+    {
+      "id": "ON-004",
+      "one_sentence": "Software entropy is the tendency of a codebase to become more complex over time as changes accumulate without corresponding boundary maintenance.",
+      "essence": "Entropy is not the same as bugs. A system can be bug-free and entropic. Entropy is the gradual loss of architectural clarity that makes future changes harder.",
+      "boundary": "Entropy is inevitable but manageable. It becomes a problem only when it exceeds the team's capacity for boundary maintenance.",
+      "trigger_signal": "Features that used to take hours now take days, not because the features are harder, but because the codebase resists change."
+    },
+    {
+      "id": "ON-005",
+      "one_sentence": "Zooming out is the act of stepping back from the immediate task to understand how the change fits the broader system.",
+      "essence": "Zooming out is not just reading more code. It is deliberately shifting perspective from 'how do I implement this feature?' to 'how does this feature relate to the system's architecture?'",
+      "boundary": "Zooming out is not the same as over-engineering. It does not mean designing for hypothetical future requirements. It means understanding the current system context before making changes.",
+      "trigger_signal": "The agent is about to make a change but cannot explain which modules are affected and how."
+    }
+  ],
+
+  "frameworks": [
+    {
+      "id": "FW-001",
+      "name": "Zoom-Out Check",
+      "when_to_use": "Before implementing a change that affects more than one file or module.",
+      "steps": [
+        "Identify all modules that will be affected by this change",
+        "Map the dependencies between affected modules",
+        "Determine if the change crosses module boundaries",
+        "If yes: assess whether boundaries need adjustment or the feature is truly cross-cutting",
+        "State the architectural impact before implementing"
+      ]
+    },
+    {
+      "id": "FW-002",
+      "name": "Deep Module Assessment",
+      "when_to_use": "When creating a new module or evaluating an existing one.",
+      "steps": [
+        "List the module's public interface (methods, properties, events)",
+        "Describe the functionality the module provides",
+        "Assess the ratio: high functionality with small interface = deep; low functionality with large interface = shallow",
+        "If shallow: identify which implementation details are exposed and how to hide them"
+      ]
+    }
+  ],
+
+  "core_structure": [
+    {
+      "from": "Local change without system context",
+      "to": "Change with architectural awareness",
+      "via": "Zoom out → Map affected modules → Assess boundary impact → State architectural implications"
+    },
+    {
+      "from": "Shallow module (complex interface)",
+      "to": "Deep module (simple interface, hidden complexity)",
+      "via": "Identify exposed details → Redesign interface to hide them → Move complexity inside the module boundary"
+    }
+  ],
+
+  "stances": [
+    "Never implement a change you cannot explain in system context.",
+    "When a change crosses boundaries, the boundaries may be wrong — not the change.",
+    "Deep modules are a design choice, not an accident.",
+    "Zooming out is not overhead — it is the only way to prevent architectural decay.",
+    "Local optimality is not sufficient justification for a change."
+  ]
+}

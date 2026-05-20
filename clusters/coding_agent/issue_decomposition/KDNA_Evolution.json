@@ -1,0 +1,82 @@
+{
+  "version": "0.4",
+  "domain": "issue_decomposition",
+  "created": "2025-05-20",
+  "purpose": "Define capability stages and measurable growth for issue decomposition judgment.",
+  "load_condition": "Load when coaching, improvement, or practice measurement is requested.",
+
+  "stages": [
+    {
+      "id": "ST-001",
+      "name": "Layer Splitter",
+      "description": "Breaks work into horizontal layers (database, API, frontend). Creates issues without acceptance criteria. Does not triage. No tracer bullet. Issues depend on each other implicitly.",
+      "indicators": [
+        "Issues organized by technical layer",
+        "No acceptance criteria on issues",
+        "No triage before implementation",
+        "No tracer bullet or architecture validation"
+      ]
+    },
+    {
+      "id": "ST-002",
+      "name": "Vertical Slicer",
+      "description": "Breaks work into vertical slices (end-to-end behaviors). Writes acceptance criteria for each issue. Triage before execution. Uses tracer bullets. Marks explicit dependencies.",
+      "indicators": [
+        "Issues organized by observable behavior",
+        "Acceptance criteria on every issue",
+        "Triage performed before implementation",
+        "Tracer bullet as the first issue",
+        "Dependencies explicitly marked"
+      ]
+    },
+    {
+      "id": "ST-003",
+      "name": "Decomposition Strategist",
+      "description": "Selects the right granularity for each situation. Identifies when an issue is too large or too small. Manages dependency graphs across many issues. Designs issue sequences that maximize parallel work while respecting blocking dependencies.",
+      "indicators": [
+        "Issues are at the right granularity — not too large, not too small",
+        "Dependency graphs managed explicitly",
+        "Issue sequences designed to maximize parallel work",
+        "HITL/AFK classification enables human-agent collaboration"
+      ]
+    }
+  ],
+
+  "evolution_layers": [
+    {
+      "id": "EL-001",
+      "name": "From layer splitter to vertical slicer",
+      "capability": "Consistently decompose work into vertical slices with acceptance criteria and triage",
+      "from_stage": "ST-001",
+      "to_stage": "ST-002"
+    },
+    {
+      "id": "EL-002",
+      "name": "From vertical slicer to strategist",
+      "capability": "Manage granularity, dependencies, and parallelism across many issues",
+      "from_stage": "ST-002",
+      "to_stage": "ST-003"
+    }
+  ],
+
+  "measurement": [
+    {
+      "id": "ME-001",
+      "what": "Vertical slice ratio",
+      "how": "Count issues that deliver end-to-end behavior vs. issues that cover one layer only.",
+      "threshold": "ST-002: >80% vertical. ST-003: >95% vertical."
+    },
+    {
+      "id": "ME-002",
+      "what": "Acceptance criteria coverage",
+      "how": "Count issues with explicit acceptance criteria vs. total issues.",
+      "threshold": "ST-002: 100%."
+    },
+    {
+      "id": "ME-003",
+      "what": "Triage rate",
+      "how": "Count issues that were triaged before implementation began vs. total implemented issues.",
+      "threshold": "ST-002: 100%."
+    }
+  ]
+}

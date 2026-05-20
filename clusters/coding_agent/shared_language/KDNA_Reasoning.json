@@ -1,0 +1,46 @@
+{
+  "version": "0.4",
+  "domain": "shared_language",
+  "created": "2025-05-20",
+  "purpose": "Define reasoning chains that explain why shared language judgment holds.",
+  "load_condition": "Load when the user asks why, or when tradeoffs in terminology decisions matter.",
+
+  "reasoning_chains": [
+    {
+      "id": "RC-001",
+      "one_sentence": "Verbosity is a vocabulary problem, not a style problem.",
+      "logic": [
+        "When a speaker needs many words to describe a concept, it means no single word carries that concept's meaning.",
+        "The lack of a term forces the speaker to reconstruct the concept from simpler words every time.",
+        "Each reconstruction is slightly different, introducing inconsistency and ambiguity.",
+        "Naming the concept once and reusing the term eliminates reconstruction, inconsistency, and ambiguity simultaneously.",
+        "Therefore, verbosity should be treated as a missing term, not a failure of conciseness."
+      ],
+      "so_what": "When you catch yourself using 20 words, stop and ask: 'What concept am I describing that could be named?'"
+    },
+    {
+      "id": "RC-002",
+      "one_sentence": "Terminology contracts prevent misalignment more efficiently than clarification cycles.",
+      "logic": [
+        "Without a shared language contract, each conversation starts with implicit term definitions.",
+        "When the same term is used in a later conversation, the definitions may have shifted.",
+        "Misalignment is discovered only when the term's usage produces a visible conflict.",
+        "A shared language contract fixes definitions externally, so they don't need to be re-established each time.",
+        "Therefore, investing in terminology contracts reduces the total cost of communication over time."
+      ],
+      "so_what": "The upfront cost of defining terms is paid once. The cost of not defining them is paid every conversation."
+    },
+    {
+      "id": "RC-003",
+      "one_sentence": "ADRs earn their cost by preventing decision recycling.",
+      "logic": [
+        "Without ADRs, the rationale for past decisions lives only in people's memories and chat logs.",
+        "When a new person (or agent) encounters the decision, they cannot understand why it was made.",
+        "This leads to either accepting decisions without understanding (risky) or re-debating them (expensive).",
+        "ADRs externalize rationale, making it accessible without needing the original decision-makers present.",
+        "Therefore, ADRs are worthwhile when the cost of writing them is less than the cost of re-debating the decision."
+      ],
+      "so_what": "Write ADRs for decisions that people will question later. Skip them for decisions that are self-explanatory or trivially reversible."
+    }
+  ]
+}

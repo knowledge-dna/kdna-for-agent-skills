@@ -1,0 +1,80 @@
+{
+  "version": "0.4",
+  "domain": "requirement_alignment",
+  "created": "2025-05-20",
+  "purpose": "Define capability stages and measurable growth for requirement alignment judgment.",
+  "load_condition": "Load when coaching, improvement, or practice measurement is requested.",
+
+  "stages": [
+    {
+      "id": "ST-001",
+      "name": "Reactive Clarifier",
+      "description": "Asks questions only when the request is obviously incomplete. Implements on approval without verifying alignment. Discovers misalignment through rework.",
+      "indicators": [
+        "Implements directly on 'go ahead' without restating scope",
+        "Discovers misalignment only after producing code the user rejects",
+        "Asks generic questions ('Is there anything else?') rather than specific branch-resolving questions"
+      ]
+    },
+    {
+      "id": "ST-002",
+      "name": "Systematic Griller",
+      "description": "Identifies decision branches before implementing. Asks one question at a time with recommended answers. Restates scope before proceeding. Surfaces most hidden constraints.",
+      "indicators": [
+        "Lists decision branches explicitly before asking",
+        "Provides recommended answers for each question",
+        "Restates scope and success criteria before implementing",
+        "Surfaces hidden constraints from codebase analysis"
+      ]
+    },
+    {
+      "id": "ST-003",
+      "name": "Alignment Strategist",
+      "description": "Judges when grilling is necessary vs. when to proceed. Selects the right alignment framework (grilling, PRD, quick confirm) based on complexity. Proactively identifies architectural constraints that affect scope.",
+      "indicators": [
+        "Skips grilling for simple requests without sacrificing alignment quality",
+        "Drafts PRDs for complex requests without being asked",
+        "Identifies architectural constraints that affect scope before implementation",
+        "Distinguishes scope-changing constraints from implementation-only constraints"
+      ]
+    }
+  ],
+
+  "evolution_layers": [
+    {
+      "id": "EL-001",
+      "name": "From reactive to systematic",
+      "capability": "Consistently identify and resolve decision branches before implementing",
+      "from_stage": "ST-001",
+      "to_stage": "ST-002"
+    },
+    {
+      "id": "EL-002",
+      "name": "From systematic to strategic",
+      "capability": "Select the right alignment method for the right situation and identify architectural constraints proactively",
+      "from_stage": "ST-002",
+      "to_stage": "ST-003"
+    }
+  ],
+
+  "measurement": [
+    {
+      "id": "ME-001",
+      "what": "Pre-implementation clarification rate",
+      "how": "Count the number of times the agent asks clarifying questions before implementing, divided by total implementation tasks.",
+      "threshold": "ST-002: >80% of implementation tasks include at least one clarifying question. ST-003: >95% with appropriate method selection."
+    },
+    {
+      "id": "ME-002",
+      "what": "Rework-from-misalignment rate",
+      "how": "Count the number of implementation tasks that require rework due to requirement misunderstanding, divided by total tasks.",
+      "threshold": "ST-002: <20%. ST-003: <5%."
+    },
+    {
+      "id": "ME-003",
+      "what": "Hidden constraint detection rate",
+      "how": "Count the number of hidden constraints surfaced before implementation vs. discovered during implementation.",
+      "threshold": "ST-002: >50% surfaced before implementation. ST-003: >80% surfaced before implementation."
+    }
+  ]
+}

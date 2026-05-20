@@ -1,0 +1,133 @@
+{
+  "version": "0.4",
+  "domain": "issue_decomposition",
+  "created": "2025-05-20",
+  "purpose": "Define the axioms, ontology, and frameworks that govern issue decomposition judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "axioms": [
+    {
+      "id": "AX-001",
+      "one_sentence": "An issue that cannot be completed independently is not an issue — it is a fragment.",
+      "full_statement": "Every issue must be deliverable on its own. If completing an issue requires other issues to be done first, the dependency must be explicit and the issue must still provide some standalone value when completed.",
+      "why": "Fragments create coordination overhead. If issues are not independently deliverable, they must be managed as a group, defeating the purpose of decomposition."
+    },
+    {
+      "id": "AX-002",
+      "one_sentence": "A vertical slice delivers observable value; a horizontal layer delivers only structural progress.",
+      "full_statement": "A vertical slice cuts through all layers for one behavior, producing something the user can observe and verify. A horizontal layer covers one tier across all behaviors, producing nothing observable until the remaining layers are complete.",
+      "why": "Vertical slices are independently verifiable. Horizontal layers require other layers to be complete before any value is visible."
+    },
+    {
+      "id": "AX-003",
+      "one_sentence": "An issue without acceptance criteria is a wish, not a task.",
+      "full_statement": "Every issue must define what 'done' looks like in observable, testable terms. Without acceptance criteria, there is no way to verify the issue is complete and no way to prevent scope creep within the issue.",
+      "why": "Issues without criteria expand during implementation, absorbing adjacent work and blurring boundaries with other issues."
+    },
+    {
+      "id": "AX-004",
+      "one_sentence": "An issue that is too large is a plan disguised as a task.",
+      "full_statement": "If an issue requires more than one focused session to complete, it should be decomposed further. Large issues hide complexity, obscure dependencies, and resist estimation.",
+      "why": "Large issues create the illusion of progress when they're started but deliver no value until they're finished — and finishing takes unpredictably long."
+    },
+    {
+      "id": "AX-005",
+      "one_sentence": "Triage must precede execution.",
+      "full_statement": "Before implementing any issue, the agent must determine whether it is ready for execution, needs more information, requires human decision, or should not be done at all. Executing on an untriaged issue wastes effort if the issue turns out to be invalid.",
+      "why": "Untriaged issues may be duplicates, outdated, incomplete, or misaligned. Implementing them wastes more effort than triaging them first."
+    },
+    {
+      "id": "AX-006",
+      "one_sentence": "Dependencies must be explicit, not implicit.",
+      "full_statement": "If completing Issue B requires Issue A to be done first, this dependency must be stated in Issue B. Implicit dependencies create hidden blocking relationships that surface as surprises during implementation.",
+      "why": "Implicit dependencies cause agents to start issues they cannot complete, wasting time and creating partially-done work."
+    }
+  ],
+
+  "ontology": [
+    {
+      "id": "ON-001",
+      "one_sentence": "A vertical slice is a thin end-to-end cut through all integration layers that delivers one observable behavior.",
+      "essence": "A vertical slice is defined by its output: the user can observe and verify the behavior. It is not defined by its technical implementation.",
+      "boundary": "A vertical slice is not a 'small task.' A small task can still be horizontal (e.g., 'add the CSS for all buttons'). A vertical slice is always defined by the behavior it delivers.",
+      "trigger_signal": "An issue describes work at one layer (e.g., 'create the database table') without referencing the observable behavior it serves."
+    },
+    {
+      "id": "ON-002",
+      "one_sentence": "An independently deliverable issue is an issue that provides observable value when completed, even if no other issue is done.",
+      "essence": "Independent delivery means the issue's value can be verified by the user without waiting for other issues. It may depend on prior issues for foundation, but its own completion delivers something observable.",
+      "boundary": "Independent delivery does not mean isolated from all context. A tracer bullet depends on project setup but delivers the first end-to-end behavior independently.",
+      "trigger_signal": "An issue requires other issues to be complete before any of its value is observable."
+    },
+    {
+      "id": "ON-003",
+      "one_sentence": "A tracer bullet is the first vertical slice that proves the architecture works end-to-end.",
+      "essence": "The tracer bullet is not a prototype or a spike. It is production-quality code that goes through all layers and establishes the pattern for subsequent slices.",
+      "boundary": "A tracer bullet is not a minimal viable product. It does not deliver all features — it delivers one feature end-to-end at production quality.",
+      "trigger_signal": "No vertical slice has been implemented yet, and the architecture is unproven."
+    },
+    {
+      "id": "ON-004",
+      "one_sentence": "Triage is the process of determining whether an issue is ready for execution, needs more information, requires human decision, or should not be done.",
+      "essence": "Triage is not prioritization. Prioritization determines the order of execution. Triage determines whether execution is appropriate at all.",
+      "boundary": "Triage is not a one-time event. As context changes, previously triaged issues may need re-triage.",
+      "trigger_signal": "An untriaged issue is about to be picked up for implementation."
+    },
+    {
+      "id": "ON-005",
+      "one_sentence": "Issue scope is the boundary of what the issue includes and excludes, defined by its acceptance criteria.",
+      "essence": "Scope is not the size of the issue. It is the boundary between what this issue delivers and what belongs to other issues. Clear scope prevents scope creep.",
+      "boundary": "A well-scoped issue can still be large (if the behavior is complex). A poorly-scoped issue is always problematic, regardless of size.",
+      "trigger_signal": "An issue does not clearly state what is excluded or where its boundaries end."
+    }
+  ],
+
+  "frameworks": [
+    {
+      "id": "FW-001",
+      "name": "Vertical Slice Decomposition",
+      "when_to_use": "When breaking a plan, spec, or PRD into executable issues.",
+      "steps": [
+        "Identify all observable behaviors the plan requires",
+        "For each behavior, define the thinnest end-to-end slice that delivers it",
+        "Order slices: tracer bullet first, then by dependency and value",
+        "Classify each slice: HITL (needs human interaction) or AFK (agent can do autonomously)",
+        "Write acceptance criteria for each slice",
+        "Mark explicit dependencies between slices"
+      ]
+    },
+    {
+      "id": "FW-002",
+      "name": "Issue Triage",
+      "when_to_use": "Before picking up any issue for execution.",
+      "steps": [
+        "Read the issue description and acceptance criteria",
+        "Determine if the issue is complete (has scope, criteria, and context) or needs more information",
+        "Check if the issue requires a human decision before execution can begin",
+        "Verify the issue is not a duplicate, outdated, or misaligned with current goals",
+        "Assign triage status: ready-for-agent, ready-for-human, needs-info, or wontfix"
+      ]
+    }
+  ],
+
+  "core_structure": [
+    {
+      "from": "Plan or PRD",
+      "to": "Vertical-slice issues with dependencies",
+      "via": "Identify behaviors → Slice end-to-end → Order by dependency → Write criteria → Mark dependencies"
+    },
+    {
+      "from": "Untriaged issue",
+      "to": "Triaged issue with execution status",
+      "via": "Read issue → Check completeness → Assess decision needs → Verify alignment → Assign status"
+    }
+  ],
+
+  "stances": [
+    "Every issue must deliver observable value on its own.",
+    "Slice vertically, not horizontally.",
+    "Triage before executing.",
+    "If the acceptance criteria are missing, the issue is a wish, not a task.",
+    "Explicit dependencies beat implicit surprises."
+  ]
+}

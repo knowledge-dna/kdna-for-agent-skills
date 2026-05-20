@@ -1,0 +1,98 @@
+{
+  "version": "0.4",
+  "domain": "issue_decomposition",
+  "created": "2025-05-20",
+  "purpose": "Define scenario triggers and action orientations for issue decomposition judgment.",
+  "load_condition": "Load when a situation involving issue creation, decomposition, or triage is detected.",
+
+  "scenes": [
+    {
+      "id": "SC-001",
+      "name": "PRD to Issues",
+      "trigger_signal": "A plan, spec, or PRD needs to be broken into executable issues.",
+      "sub_scenarios": [
+        {
+          "id": "SC-001-A",
+          "trap_belief": "Break the PRD into issues by technical layer: database, API, frontend.",
+          "three_questions": {
+            "belief": "Will layer-based issues deliver value independently, or only when all layers are assembled?",
+            "state": "What are the observable behaviors this PRD requires?",
+            "need": "What is the thinnest vertical slice that delivers the first behavior end-to-end?"
+          },
+          "action_template": "List observable behaviors → Slice each end-to-end → Order: tracer bullet first → Write acceptance criteria → Mark dependencies",
+          "replace": {
+            "avoid": ["organizing issues by layer", "creating issues without acceptance criteria"],
+            "use": ["organize issues by behavior", "each issue delivers one observable outcome"]
+          },
+          "expected_result": "Vertical-slice issues with acceptance criteria, explicit dependencies, and a tracer bullet as the first issue."
+        }
+      ]
+    },
+    {
+      "id": "SC-002",
+      "name": "Oversized Issue Detected",
+      "trigger_signal": "An issue describes multiple behaviors, requires multiple sessions, or lacks clear completion criteria.",
+      "sub_scenarios": [
+        {
+          "id": "SC-002-A",
+          "trap_belief": "This issue is complex but manageable as one unit.",
+          "three_questions": {
+            "belief": "Is this one issue or multiple issues disguised as one?",
+            "state": "Can I identify distinct behaviors within this issue that could be delivered independently?",
+            "need": "What are the minimum viable slices within this issue?"
+          },
+          "action_template": "Identify distinct behaviors → Split into separate issues → Define acceptance criteria for each → Mark dependencies",
+          "replace": {
+            "avoid": ["leaving large issues as-is", "accepting that some issues are 'naturally' large"],
+            "use": ["decompose until each issue is independently deliverable in one session"]
+          },
+          "expected_result": "Original issue replaced with 2-5 focused issues, each with clear criteria and independent value."
+        }
+      ]
+    },
+    {
+      "id": "SC-003",
+      "name": "Triage Required",
+      "trigger_signal": "An issue is about to be picked up for execution but has not been triaged.",
+      "sub_scenarios": [
+        {
+          "id": "SC-003-A",
+          "trap_belief": "If an issue exists in the backlog, it's ready to be worked on.",
+          "three_questions": {
+            "belief": "Is this issue complete, valid, and aligned with current goals?",
+            "state": "Does this issue have all the information needed to execute?",
+            "need": "Does this issue require a human decision before execution can begin?"
+          },
+          "action_template": "Read issue → Check for scope, criteria, and context → Assess information completeness → Verify alignment → Assign triage status",
+          "replace": {
+            "avoid": ["starting work on untriaged issues", "assuming backlog items are ready for execution"],
+            "use": ["triage before picking up", "assign explicit status: ready-for-agent, ready-for-human, needs-info, or wontfix"]
+          },
+          "expected_result": "Every issue has a triage status before work begins. Invalid or incomplete issues are filtered out."
+        }
+      ]
+    },
+    {
+      "id": "SC-004",
+      "name": "Missing Tracer Bullet",
+      "trigger_signal": "Multiple vertical-slice issues are planned but no first slice has proven the architecture end-to-end.",
+      "sub_scenarios": [
+        {
+          "id": "SC-004-A",
+          "trap_belief": "We'll prove the architecture when we finish the first few issues.",
+          "three_questions": {
+            "belief": "Can we be confident the architecture will work before we've built anything end-to-end?",
+            "state": "What is the thinnest slice that would prove the architecture?",
+            "need": "Should we add a tracer bullet issue before the feature issues?"
+          },
+          "action_template": "Identify the simplest end-to-end path → Create a tracer bullet issue → Implement it first → Validate architecture → Proceed with feature issues",
+          "replace": {
+            "avoid": ["assuming the architecture will work", "building multiple slices without proving the foundation"],
+            "use": ["tracer bullet first", "prove the architecture before building features"]
+          },
+          "expected_result": "Tracer bullet implemented. Architecture validated. Subsequent slices build on a proven foundation."
+        }
+      ]
+    }
+  ]
+}

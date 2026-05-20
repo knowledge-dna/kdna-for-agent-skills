@@ -1,0 +1,98 @@
+{
+  "version": "0.4",
+  "domain": "architecture_reasoning",
+  "created": "2025-05-20",
+  "purpose": "Define scenario triggers and action orientations for architecture reasoning judgment.",
+  "load_condition": "Load when a situation involving system design, module boundaries, or architectural decisions is detected.",
+
+  "scenes": [
+    {
+      "id": "SC-001",
+      "name": "Change That Crosses Boundaries",
+      "trigger_signal": "A feature requires modifications in multiple unrelated modules.",
+      "sub_scenarios": [
+        {
+          "id": "SC-001-A",
+          "trap_belief": "If the feature needs changes in multiple modules, that's just how it is.",
+          "three_questions": {
+            "belief": "Is this feature genuinely cross-cutting, or are the module boundaries wrong?",
+            "state": "Which modules are affected and what is the nature of the coupling?",
+            "need": "Should the feature be implemented as-is, or should the boundaries be adjusted first?"
+          },
+          "action_template": "Map affected modules → Assess boundary crossings → Determine if boundaries are wrong → Adjust boundaries or implement as cross-cutting",
+          "replace": {
+            "avoid": ["implementing across boundaries without assessment", "assuming boundary crossings are normal"],
+            "use": ["assess whether boundaries need adjustment", "distinguish cross-cutting concerns from wrong boundaries"]
+          },
+          "expected_result": "Clear decision on whether to implement across boundaries or refactor boundaries first."
+        }
+      ]
+    },
+    {
+      "id": "SC-002",
+      "name": "Ball of Mud Detected",
+      "trigger_signal": "A simple change requires modifications in many files, and the developer cannot predict the full scope of impact.",
+      "sub_scenarios": [
+        {
+          "id": "SC-002-A",
+          "trap_belief": "The codebase is just complex. We need to be more careful.",
+          "three_questions": {
+            "belief": "Is the complexity inherent to the problem, or is it caused by eroded boundaries?",
+            "state": "Which modules have the most entangled dependencies?",
+            "need": "Where should we draw new boundaries to reduce coupling?"
+          },
+          "action_template": "Identify the most entangled modules → Map dependency graph → Propose new boundaries → Implement incrementally",
+          "replace": {
+            "avoid": ["accepting complexity as inevitable", "adding more code to work around the tangle"],
+            "use": ["identify the entangled modules", "propose cleaner boundaries", "refactor incrementally"]
+          },
+          "expected_result": "Dependency graph mapped. New boundaries proposed. Incremental refactoring plan created."
+        }
+      ]
+    },
+    {
+      "id": "SC-003",
+      "name": "Shallow Module Creation",
+      "trigger_signal": "The agent is about to create a module with many public methods that expose implementation details.",
+      "sub_scenarios": [
+        {
+          "id": "SC-003-A",
+          "trap_belief": "More public methods mean more flexibility.",
+          "three_questions": {
+            "belief": "Is flexibility the goal, or is simplicity? What does the caller actually need?",
+            "state": "What is the minimum interface that provides the required functionality?",
+            "need": "Which implementation details can be hidden behind a simpler interface?"
+          },
+          "action_template": "Define the minimum interface → Hide implementation details behind it → Assess depth ratio",
+          "replace": {
+            "avoid": ["exposing internal state and methods", "creating getter/setter pairs for every internal field"],
+            "use": ["design the interface from the caller's perspective", "hide complexity behind simple operations"]
+          },
+          "expected_result": "Deep module with simple interface. Complexity hidden. Callers use the module without knowing internals."
+        }
+      ]
+    },
+    {
+      "id": "SC-004",
+      "name": "Zoom-Out Triggered",
+      "trigger_signal": "The agent cannot explain how the proposed change fits the system architecture.",
+      "sub_scenarios": [
+        {
+          "id": "SC-004-A",
+          "trap_belief": "I don't need to understand the whole system to make this change.",
+          "three_questions": {
+            "belief": "Can I implement this change safely without understanding its architectural context?",
+            "state": "Which modules will be affected and how?",
+            "need": "What is the architectural role of the module I'm modifying?"
+          },
+          "action_template": "Stop implementing → Map the relevant architecture → Identify affected modules → Assess impact → Proceed with awareness",
+          "replace": {
+            "avoid": ["implementing without architectural context", "assuming local knowledge is sufficient"],
+            "use": ["map the architectural context first", "identify all affected modules before writing code"]
+          },
+          "expected_result": "Architectural context mapped. Change implemented with awareness of systemic impact."
+        }
+      ]
+    }
+  ]
+}

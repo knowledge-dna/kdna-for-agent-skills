@@ -1,0 +1,98 @@
+{
+  "version": "0.4",
+  "domain": "test_driven_development",
+  "created": "2025-05-20",
+  "purpose": "Define scenario triggers and action orientations for TDD judgment.",
+  "load_condition": "Load when a concrete situation involving test-driven development is detected.",
+
+  "scenes": [
+    {
+      "id": "SC-001",
+      "name": "New Feature Implementation",
+      "trigger_signal": "User asks to implement a new feature. No tests exist yet.",
+      "sub_scenarios": [
+        {
+          "id": "SC-001-A",
+          "trap_belief": "I should plan the full feature first, then write tests for the whole thing.",
+          "three_questions": {
+            "belief": "Is full upfront planning more efficient than incremental TDD cycles?",
+            "state": "What is the first observable behavior this feature should exhibit?",
+            "need": "What is the thinnest vertical slice that proves the architecture works end-to-end?"
+          },
+          "action_template": "Identify first vertical slice → Write failing test for one behavior → Implement minimally → Refactor → Next slice",
+          "replace": {
+            "avoid": ["planning all tests upfront", "implementing the full feature then writing tests"],
+            "use": ["identify the tracer bullet slice first", "one RED-GREEN-REFACTOR cycle per behavior"]
+          },
+          "expected_result": "Feature built as a series of vertical slices, each with a test that drove its design. No untested behavior."
+        }
+      ]
+    },
+    {
+      "id": "SC-002",
+      "name": "Bug Fix with Expected Behavior",
+      "trigger_signal": "A bug is reported and the expected behavior is clearly defined.",
+      "sub_scenarios": [
+        {
+          "id": "SC-002-A",
+          "trap_belief": "I should fix the bug first, then write a test to make sure it doesn't happen again.",
+          "three_questions": {
+            "belief": "Will the test accurately capture the bug's conditions if I write it after the fix?",
+            "state": "What is the reproduction condition for this bug?",
+            "need": "Can I write a test that fails with the current code and passes after the fix?"
+          },
+          "action_template": "Write a test that reproduces the bug (RED) → Fix the code (GREEN) → Verify test passes → Refactor if needed",
+          "replace": {
+            "avoid": ["fixing first and testing after", "writing a test that only verifies the fix, not the bug"],
+            "use": ["write the failing test first", "the test must fail before the fix and pass after"]
+          },
+          "expected_result": "Regression test that captures the bug condition. Fix verified by test transition from RED to GREEN."
+        }
+      ]
+    },
+    {
+      "id": "SC-003",
+      "name": "Horizontal Slicing Detected",
+      "trigger_signal": "The agent or user proposes writing all unit tests, then all integration tests, then all E2E tests.",
+      "sub_scenarios": [
+        {
+          "id": "SC-003-A",
+          "trap_belief": "Writing all tests at one level before moving to the next is organized and efficient.",
+          "three_questions": {
+            "belief": "Does horizontal slicing test real behavior or just layer coverage?",
+            "state": "If a unit test passes but the feature doesn't work end-to-end, what value did the unit test provide?",
+            "need": "Can I reorganize these tests into vertical slices that each verify one complete behavior?"
+          },
+          "action_template": "Identify the behaviors being tested → Group into vertical slices → Write one test per slice → Implement one slice at a time",
+          "replace": {
+            "avoid": ["all unit tests then all integration tests then all E2E tests", "testing layers instead of behaviors"],
+            "use": ["one vertical slice at a time", "each slice tests one behavior from entry to outcome"]
+          },
+          "expected_result": "Test suite organized by behavior, not by layer. Each test traces one behavior end-to-end."
+        }
+      ]
+    },
+    {
+      "id": "SC-004",
+      "name": "Over-Mocking Detected",
+      "trigger_signal": "A test replaces most or all dependencies with mocks, testing the mock interactions rather than observable behavior.",
+      "sub_scenarios": [
+        {
+          "id": "SC-004-A",
+          "trap_belief": "Mocking all dependencies makes the test isolated and therefore reliable.",
+          "three_questions": {
+            "belief": "Is this test verifying behavior or verifying that the code calls the mocks in the expected order?",
+            "state": "If the implementation changes but behavior stays the same, will this test break?",
+            "need": "What is the minimal mock boundary that preserves behavioral testing?"
+          },
+          "action_template": "Identify which mocks test behavior vs. implementation → Remove implementation-coupled mocks → Test at the behavioral boundary instead",
+          "replace": {
+            "avoid": ["mocking every dependency", "verifying mock call counts and order"],
+            "use": ["mock at system boundaries only", "verify observable behavior, not interaction patterns"]
+          },
+          "expected_result": "Tests that verify behavior at boundaries. Implementation can change without breaking tests."
+        }
+      ]
+    }
+  ]
+}

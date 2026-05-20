@@ -1,0 +1,101 @@
+{
+  "version": "0.4",
+  "domain": "requirement_alignment",
+  "created": "2025-05-20",
+  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for requirement alignment judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "terminology": {
+    "standard_terms": [
+      {
+        "term": "requirement alignment",
+        "definition": "The state where all decision branches are resolved, scope is explicit, and success criteria are verifiable."
+      },
+      {
+        "term": "decision branch",
+        "definition": "A point in the requirement where multiple valid paths exist and one must be explicitly chosen."
+      },
+      {
+        "term": "hidden constraint",
+        "definition": "An unstated assumption from context (architecture, conventions, business rules) that will surface during implementation."
+      },
+      {
+        "term": "success criteria",
+        "definition": "Observable, testable conditions that define when the requirement is satisfied."
+      },
+      {
+        "term": "scope boundary",
+        "definition": "An explicit statement of what the requirement includes and excludes."
+      },
+      {
+        "term": "grilling",
+        "definition": "A structured interview where the agent asks one question at a time to resolve each decision branch."
+      },
+      {
+        "term": "alignment signal",
+        "definition": "Concrete evidence that all stakeholders share the same understanding: documented decisions, explicit criteria, confirmed scope."
+      }
+    ],
+    "banned_terms": [
+      {
+        "term": "the requirements are clear",
+        "why": "This statement is an assumption, not a fact. Clarity must be verified, not declared.",
+        "replace_with": "all decision branches are resolved"
+      },
+      {
+        "term": "I understand what you want",
+        "why": "Understanding is demonstrated by restating scope and criteria, not claimed.",
+        "replace_with": "let me restate the scope and success criteria to verify"
+      },
+      {
+        "term": "that's obvious",
+        "why": "What is obvious to one person is a hidden constraint to another. If it were truly obvious, it would be stated.",
+        "replace_with": "let me confirm this assumption explicitly"
+      },
+      {
+        "term": "just do it",
+        "why": "This phrase suppresses the alignment process. It treats a wish as a task.",
+        "replace_with": "let me clarify the scope and constraints first"
+      }
+    ]
+  },
+
+  "misunderstandings": [
+    {
+      "id": "MS-001",
+      "wrong": "If the user says 'go ahead', the requirement is aligned.",
+      "correct": "'Go ahead' is approval to proceed, not evidence of alignment. The user may be approving based on a different understanding than the agent's.",
+      "key_distinction": "Approval ≠ Alignment. Approval means 'start', alignment means 'we agree on what done looks like'.",
+      "why": "Agents that treat approval as alignment produce code that the user approves of starting but rejects when they see the result."
+    },
+    {
+      "id": "MS-002",
+      "wrong": "A short request means the requirement is simple and can be implemented directly.",
+      "correct": "A short request often means the user has omitted context, constraints, and criteria. Brevity is not simplicity.",
+      "key_distinction": "Simple request ≠ Simple requirement. A simple request ('fix the typo') has clear scope. A brief request ('add collaboration') has hidden scope.",
+      "why": "Agents that treat brevity as simplicity implement the most obvious interpretation, which is rarely what the user intended."
+    },
+    {
+      "id": "MS-003",
+      "wrong": "If the requirement has no ambiguities in its wording, it is clear.",
+      "correct": "Absence of ambiguous words does not mean presence of sufficient constraints. A requirement can be unambiguous and underspecified.",
+      "key_distinction": "Unambiguous wording ≠ Sufficient specification. 'Add a button' is unambiguous but underspecified (where? what does it do? when is it visible?).",
+      "why": "Agents that equate unambiguous language with clear requirements skip clarification and discover gaps during implementation."
+    },
+    {
+      "id": "MS-004",
+      "wrong": "Asking too many questions will annoy the user. It's better to start implementing and adjust.",
+      "correct": "Implementing on misaligned requirements is more expensive than asking questions. Each question prevents a potential rework cycle.",
+      "key_distinction": "Efficiency ≠ Skipping alignment. Being efficient means asking the right questions, not avoiding them.",
+      "why": "Rework from misalignment costs more than upfront clarification, both in time and in user trust."
+    }
+  ],
+
+  "self_check": [
+    "Can I state the full scope of what is included and excluded?",
+    "Can I list all decision branches and their resolved outcomes?",
+    "Can I define observable success criteria that would confirm the requirement is met?",
+    "Am I about to implement based on an assumption rather than a confirmed decision?",
+    "Would the user agree with my understanding if I restated it in their words?"
+  ]
+}

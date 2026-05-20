@@ -1,0 +1,102 @@
+{
+  "version": "0.4",
+  "domain": "bug_diagnosis",
+  "created": "2025-05-20",
+  "purpose": "Define terminology boundaries, common misunderstandings, and self-checks for bug diagnosis judgment.",
+  "load_condition": "Always loaded when this domain is active.",
+
+  "terminology": {
+    "standard_terms": [
+      {
+        "term": "reproduction",
+        "definition": "A deterministic or near-deterministic procedure that produces the observed failure on demand."
+      },
+      {
+        "term": "hypothesis",
+        "definition": "A falsifiable prediction about the root cause, with specified observations for true and false cases."
+      },
+      {
+        "term": "instrumentation",
+        "definition": "Temporary observation code added to capture runtime behavior during diagnosis, removed after the fix."
+      },
+      {
+        "term": "minimal reproduction",
+        "definition": "The smallest case that still triggers the bug, where removing any element stops the bug from occurring."
+      },
+      {
+        "term": "feedback loop",
+        "definition": "A mechanism to observe the bug's behavior on demand within seconds or minutes."
+      },
+      {
+        "term": "regression test",
+        "definition": "A test that captures the bug's reproduction condition, written before the fix is applied."
+      },
+      {
+        "term": "root cause",
+        "definition": "The specific condition in the code that produces the observed symptom, distinct from the symptom itself."
+      }
+    ],
+    "banned_terms": [
+      {
+        "term": "it's probably",
+        "why": "Probabilities without evidence are guesses. A hypothesis must be falsifiable, not probable.",
+        "replace_with": "my top hypothesis is X, which I can test by Y"
+      },
+      {
+        "term": "let me just try this fix",
+        "why": "Trying fixes without hypotheses is randomized debugging. It may accidentally work but teaches nothing.",
+        "replace_with": "my hypothesis is X, I will test it by Y"
+      },
+      {
+        "term": "the bug is fixed",
+        "why": "A bug is not fixed until a regression test proves it. Without a test, the bug is masked.",
+        "replace_with": "the regression test passes"
+      },
+      {
+        "term": "I can't reproduce it, so let me just clean up the code",
+        "why": "Refactoring around an unreproduced bug can mask it, change its trigger conditions, or introduce new bugs.",
+        "replace_with": "I need to construct a feedback loop before I can diagnose this"
+      }
+    ]
+  },
+
+  "misunderstandings": [
+    {
+      "id": "MS-001",
+      "wrong": "If the fix makes the error go away, the bug is resolved.",
+      "correct": "The error disappearing is necessary but not sufficient. Without understanding the root cause and having a regression test, the bug may be masked rather than fixed.",
+      "key_distinction": "Symptom gone ≠ Bug fixed. The bug is fixed when the root cause is understood and a regression test guards against recurrence.",
+      "why": "Masked bugs recur when the masking condition changes. They also often have related bugs that share the same root cause."
+    },
+    {
+      "id": "MS-002",
+      "wrong": "The bug report is accurate. I should trust the user's description and fix based on it.",
+      "correct": "Bug reports describe symptoms from the user's perspective. The agent must verify and minimize the reproduction, not assume the report describes the root cause.",
+      "key_distinction": "Bug report ≠ Root cause description. The report says what happened; diagnosis discovers why.",
+      "why": "Fixing based on the user's interpretation of the bug often addresses the wrong layer of the system."
+    },
+    {
+      "id": "MS-003",
+      "wrong": "If I can't reproduce the bug, it's not real or not worth fixing.",
+      "correct": "An unreproduced bug is a bug with an unknown trigger. It is real to the user. The agent must construct a feedback loop, not dismiss the report.",
+      "key_distinction": "Unreproduced ≠ Not real. It means the conditions are not yet understood, not that the bug doesn't exist.",
+      "why": "Dismissing unreproduced bugs leads to user frustration and bugs that worsen over time as conditions shift."
+    },
+    {
+      "id": "MS-004",
+      "wrong": "I should fix the most obvious issue first and see if that resolves it.",
+      "correct": "The most obvious issue is often a symptom or coincidental. Generate multiple hypotheses, rank them, and test the most falsifiable one first.",
+      "key_distinction": "Obvious ≠ Most likely. Obvious issues are often surface-level. The most falsifiable hypothesis yields the most diagnostic information regardless of whether it's correct.",
+      "why": "Fixing obvious issues first creates confirmation bias and may mask the real root cause."
+    }
+  ],
+
+  "self_check": [
+    "Can I reproduce the bug on demand before proposing a fix?",
+    "Have I generated multiple hypotheses rather than committing to the first one?",
+    "Am I changing only one variable at a time in my diagnostic steps?",
+    "Does a regression test exist that captures the reproduction condition?",
+    "Can I state the root cause distinctly from the symptom?",
+    "Have I removed all instrumentation code before declaring the fix complete?"
+  ]
+}
