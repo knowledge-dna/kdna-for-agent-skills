@@ -12,6 +12,8 @@ Popular agent-skill projects prove the demand: developers want reusable ways to 
 
 This project extracts high-frequency agent-skill workflows into standard KDNA cognition domains, then composes them into a loadable, verifiable, evolvable **Agent cognition cluster**.
 
+v0.1 includes **3 active experimental KDNA domains**, with 4 planned domains kept as draft directions.
+
 It is inspired by the broader agent-skills ecosystem, including [mattpocock/skills](https://github.com/mattpocock/skills). It does not copy skill text. It does not claim affiliation. It focuses on KDNA-native cognition domains.
 
 ## Why KDNA?
@@ -109,6 +111,35 @@ kdna-for-agent-skills/
   scripts/                      # Validation and utility scripts
   docs/                         # Documentation
 ```
+
+## Before / After Demo
+
+**Input:** "This test is failing. Can you fix it?"
+
+**Without KDNA** — the agent jumps to the most obvious fix:
+```
+Looking at the failing test, the issue is missing email validation.
+I'll add it now.
+
++ if (!email.includes('@')) throw new Error('Invalid email format');
+```
+No reproduction. No hypothesis. No regression test. This fix would have broken another service.
+
+**With KDNA** — `bug_diagnosis` + `test_driven_development` domains load:
+```
+1. Reproduce: run the test locally → confirmed
+2. Hypotheses (4):
+   H1: validation not called → CHECK: it IS called → eliminated
+   H2: validation returns instead of throwing → CONFIRMED
+   H3: validation throws but caught upstream → eliminated
+   H4: test targets wrong method → eliminated
+3. Hidden constraint found: adminService depends on return-based behavior
+4. Decision surfaced to user before fixing
+5. Regression test written before fix applied
+```
+The KDNA-loaded agent discovered the root cause (inconsistent error handling pattern) instead of writing a fix that would break existing code.
+
+See [examples/failing_test_debugging/](examples/failing_test_debugging/) for the full comparison.
 
 ## Attribution
 
