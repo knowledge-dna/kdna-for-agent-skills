@@ -30,25 +30,37 @@ How KDNA for Agent Skills transforms agent skill workflows into structured cogni
   │  Cognition Cluster           │
   │  coding_agent                │
   │                              │
-  │  Active (v0.1):              │
+  │  7 domains:                  │
   │   requirement_alignment      │
   │   bug_diagnosis              │
   │   test_driven_development    │
-  │                              │
-  │  Planned:                    │
   │   shared_language            │
   │   architecture_reasoning     │
   │   issue_decomposition        │
   │   handoff_context            │
   └──────────────┬──────────────┘
                  │
-                 │  load via adapter
+                 │  load via KDNA ecosystem
+                 ▼
+  ┌─────────────────────────────────────┐
+  │  KDNA Ecosystem                      │
+  │                                      │
+  │  @aikdna/kdna-core  — pure logic     │
+  │  @aikdna/kdna       — CLI toolkit    │
+  │  @aikdna/agent      — TypeScript SDK │
+  │  VS Code extension                   │
+  │  kdna-skills      — install scripts  │
+  │  kdna-registry    — domain registry  │
+  └──────────────┬──────────────────────┘
+                 │
+                 │  deliver to
                  ▼
   ┌─────────────────────────┐
   │  Agent                   │
   │                          │
   │  Claude Code  ·  Codex   │
   │  OpenCode     ·  Cursor  │
+  │  Copilot      ·  More    │
   └─────────────────────────┘
 ```
 
@@ -57,7 +69,7 @@ How KDNA for Agent Skills transforms agent skill workflows into structured cogni
 1. **Skill workflows** identify what agents repeatedly do and where they fail
 2. **KDNA extraction** re-encodes those workflows as judgment patterns, not step lists
 3. **Cluster composition** groups domains by task context with load conditions
-4. **Adapter loading** delivers the right domains to the right agent at the right time
+4. **Ecosystem delivery** — npm packages, CLI, install scripts, VS Code — loads the right domains to the right agent at the right time
 
 ## Loading Strategy
 
@@ -65,7 +77,7 @@ How KDNA for Agent Skills transforms agent skill workflows into structured cogni
 User input: "fix this failing test"
           │
           ▼
-  select-domains.mjs
+  select-domains.mjs / kdna select
           │
           ├─ bug_diagnosis       ← "test failure" signal
           └─ test_driven_development ← "bug fix with expected behavior" signal

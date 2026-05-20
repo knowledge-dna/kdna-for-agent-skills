@@ -2,6 +2,14 @@
 
 This document summarizes the comparative evaluation of KDNA-loaded vs. skill-only agent behavior across 5 scenarios.
 
+## Methodology Disclosure
+
+**What this is:** A qualitative comparison of agent output with and without KDNA cognition domains loaded, based on 5 constructed scenarios. Each scenario was manually authored and evaluated by the project authors.
+
+**What this is not:** A controlled experiment with statistical significance. The scenarios were not randomized, the sample size is 5, and there is no inter-rater reliability measurement. The scores represent the authors' judgment, not independent verification.
+
+**How to verify:** All raw scenario inputs and both baseline/KDNA outputs are in `examples/`. Review them yourself and draw your own conclusions.
+
 ## Summary Table
 
 | Scenario | Correctness | Completeness | Safety | Actionability | Verifiability |
@@ -13,6 +21,8 @@ This document summarizes the comparative evaluation of KDNA-loaded vs. skill-onl
 | Agent handoff | +1 | +3 | +1 | +3 | +1 |
 
 Scale: +3 = major improvement, +2 = significant improvement, +1 = moderate improvement, 0 = no difference
+
+**Limitations:** No negative scores were recorded. This could mean KDNA never made things worse in these scenarios, or it could reflect author bias. Independent evaluation is needed.
 
 ## Per-Scenario Analysis
 
@@ -77,12 +87,12 @@ The weakest improvement is in **correctness** for scenarios where the baseline a
 - **Code generation quality**: KDNA does not make the agent write better code. It makes the agent make better decisions about what code to write.
 - **Domain-specific knowledge**: KDNA encodes judgment patterns, not domain facts. A KDNA domain for medical diagnosis would not make the agent know medicine.
 
-## Conclusion
+## Open Questions for Independent Evaluation
 
-KDNA cognition domains improve agent output primarily by preventing three classes of failure:
+1. Does KDNA loading increase latency or token usage enough to matter in practice?
+2. Are there scenarios where KDNA judgment patterns cause the agent to overthink simple tasks?
+3. How do the results change with different base models (GPT-4, Claude, Gemini)?
+4. Do real-world tasks show the same patterns as these constructed scenarios?
+5. How does KDNA compare to simply adding more detailed system prompts?
 
-1. **Premature action** — acting before understanding (requirement_alignment)
-2. **Symptom treatment** — fixing surface problems without root cause (bug_diagnosis)
-3. **Structural blindness** — making changes that damage the architecture (architecture_reasoning, issue_decomposition)
-
-These are exactly the failure modes identified by popular agent-skill projects. KDNA addresses them at the judgment layer rather than the workflow layer.
+These questions require controlled experiments that this project has not yet conducted.

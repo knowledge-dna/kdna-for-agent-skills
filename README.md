@@ -12,7 +12,7 @@ Popular agent-skill projects prove the demand: developers want reusable ways to 
 
 This project extracts high-frequency agent-skill workflows into standard KDNA cognition domains, then composes them into a loadable, verifiable, evolvable **Agent cognition cluster**.
 
-v0.1 includes **3 active experimental KDNA domains**, with 4 planned domains kept as draft directions.
+v0.1 includes **7 KDNA domains** covering the full coding agent workflow — from requirement alignment through bug diagnosis, TDD, architecture reasoning, to agent handoff.
 
 It is inspired by the broader agent-skills ecosystem, including [mattpocock/skills](https://github.com/mattpocock/skills). It does not copy skill text. It does not claim affiliation. It focuses on KDNA-native cognition domains.
 
@@ -28,26 +28,55 @@ It is inspired by the broader agent-skills ecosystem, including [mattpocock/skil
 
 ## The Coding Agent Cluster
 
-### Active Domains (v0.1.0)
-
-3 domains with full 6-file KDNA structure, validated against SPEC.
+7 domains with full 6-file KDNA structure, validated against SPEC.
 
 | Domain | Origin Skill | What It Judges |
 |--------|-------------|----------------|
 | `requirement_alignment` | /grill-me, /grill-with-docs, /to-prd | When to ask vs. when to implement |
 | `bug_diagnosis` | /diagnose | When a fix is a guess vs. a diagnosis |
 | `test_driven_development` | /tdd | What makes a test behavioral vs. brittle |
-
-### Planned Domains
-
-| Domain | Origin Skill | What It Judges |
-|--------|-------------|----------------|
 | `shared_language` | /grill-with-docs, CONTEXT.md, ADR | What terms to keep, avoid, or formalize |
 | `architecture_reasoning` | /zoom-out, /improve-codebase-architecture | When to zoom out vs. push forward |
 | `issue_decomposition` | /to-issues, /triage | What makes an issue independently deliverable |
 | `handoff_context` | /handoff | What information must survive between agents |
 
 ## Quick Start
+
+### Install the KDNA CLI
+
+```bash
+npm i -g @aikdna/kdna
+```
+
+This gives you `kdna`, `kdna-validate`, and `kdna-lint` commands. See [@aikdna/kdna on npm](https://www.npmjs.com/package/@aikdna/kdna).
+
+### One-command install for your agent
+
+```bash
+# Interactive — auto-detects Claude Code, Codex, OpenCode
+curl -fsSL https://raw.githubusercontent.com/knowledge-dna/kdna-skills/main/install.sh | bash
+
+# Or target a specific agent
+curl -fsSL https://raw.githubusercontent.com/knowledge-dna/kdna-skills/main/install.sh | bash -s -- --claude
+```
+
+Installs `kdna-loader` and `kdna-create` skills into your agent's skill directory.
+
+### Use programmatically
+
+```bash
+# Pure logic kernel (zero dependencies)
+npm i @aikdna/kdna-core
+
+# TypeScript Agent SDK
+npm i @aikdna/agent
+```
+
+### VS Code
+
+Search "KDNA" in the VS Code Extensions Marketplace.
+
+### Work with this cluster directly
 
 ```bash
 git clone https://github.com/knowledge-dna/kdna-for-agent-skills.git
@@ -58,27 +87,26 @@ node scripts/validate-cluster.mjs
 
 # Select relevant domains for a task
 node scripts/select-domains.mjs "fix this failing test"
-
-# Generate adapter for your agent
-node scripts/generate-loader-skill.mjs claude_code
 ```
 
-### Install for Claude Code
+## KDNA Ecosystem
 
-```bash
-# Generate the loader skill
-node scripts/generate-loader-skill.mjs claude_code
+This cluster is one part of the KDNA ecosystem:
 
-# Copy to your project's .claude/ directory
-cp adapters/claude_code/SKILL.md .claude/skills/kdna-loader/SKILL.md
-```
+| Component | Repository | Description |
+|-----------|-----------|-------------|
+| KDNA Core | [knowledge-dna/KDNA](https://github.com/knowledge-dna/KDNA) | Spec, schema, CLI, validators, examples |
+| KDNA Skills | [knowledge-dna/kdna-skills](https://github.com/knowledge-dna/kdna-skills) | Agent install scripts and loader skills |
+| KDNA Registry | [knowledge-dna/kdna-registry](https://github.com/knowledge-dna/kdna-registry) | Domain registry |
+| Agent Safety | [knowledge-dna/kdna-agent_safety](https://github.com/knowledge-dna/kdna-agent_safety) | Halt before irreversible actions |
+| Authoring | [knowledge-dna/kdna-authoring](https://github.com/knowledge-dna/kdna-authoring) | Turn expertise into KDNA domains |
+| Content Strategy | [knowledge-dna/kdna-content_strategy](https://github.com/knowledge-dna/kdna-content_strategy) | Evaluate whether a topic is worth writing |
+| Knowledge Management | [knowledge-dna/kdna-knowledge_management](https://github.com/knowledge-dna/kdna-knowledge_management) | Distinguish knowledge assets from raw material |
+| Open Source Project | [knowledge-dna/kdna-open_source_project](https://github.com/knowledge-dna/kdna-open_source_project) | Diagnose adoption problems |
+| Prompt Diagnosis | [knowledge-dna/kdna-prompt_diagnosis](https://github.com/knowledge-dna/kdna-prompt_diagnosis) | Identify why a prompt failed |
+| Writing | [knowledge-dna/kdna-writing](https://github.com/knowledge-dna/kdna-writing) | Diagnose whether content has a real argument |
 
-### Install for Codex
-
-```bash
-node scripts/generate-loader-skill.mjs codex
-cp adapters/codex/AGENTS.md AGENTS.md
-```
+The main KDNA repository also includes integration examples for LangChain, LangGraph, CrewAI, and MCP, plus a Python SDK.
 
 ## Project Structure
 
@@ -87,25 +115,14 @@ kdna-for-agent-skills/
   clusters/
     coding_agent/
       cluster.json              # Cluster index
-      requirement_alignment/    # Active KDNA domain
-        kdna.json
-        KDNA_Core.json
-        KDNA_Patterns.json
-        KDNA_Scenarios.json
-        KDNA_Cases.json
-        KDNA_Reasoning.json
-        KDNA_Evolution.json
-      bug_diagnosis/            # Active KDNA domain
-      test_driven_development/  # Active KDNA domain
-      shared_language/          # Planned (draft)
-      architecture_reasoning/   # Planned (draft)
-      issue_decomposition/      # Planned (draft)
-      handoff_context/          # Planned (draft)
+      requirement_alignment/    # KDNA domain (6-file structure)
+      bug_diagnosis/
+      test_driven_development/
+      shared_language/
+      architecture_reasoning/
+      issue_decomposition/
+      handoff_context/
   adapters/                     # Agent-specific loaders
-    claude_code/
-    codex/
-    opencode/
-    cursor/
   examples/                     # Before/after comparison scenarios
   evals/                        # Evaluation rubrics
   scripts/                      # Validation and utility scripts

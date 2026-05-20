@@ -17,7 +17,7 @@
     {
       "domain": "shared_language",
       "path": "./shared_language",
-      "status": "planned",
+      "status": "experimental",
       "load_when": [
         "project has domain-specific terminology",
         "agent uses verbose descriptions",
@@ -49,7 +49,7 @@
     {
       "domain": "architecture_reasoning",
       "path": "./architecture_reasoning",
-      "status": "planned",
+      "status": "experimental",
       "load_when": [
         "large change",
         "module boundary concern",
@@ -60,7 +60,7 @@
     {
       "domain": "issue_decomposition",
       "path": "./issue_decomposition",
-      "status": "planned",
+      "status": "experimental",
       "load_when": [
         "plan needs to become tasks",
         "PRD needs issue breakdown",
@@ -70,7 +70,7 @@
     {
       "domain": "handoff_context",
       "path": "./handoff_context",
-      "status": "planned",
+      "status": "experimental",
       "load_when": [
         "conversation needs compacting",
         "another agent will continue",
