@@ -1,87 +1,55 @@
 {
   "name": "coding_agent",
-  "version": "0.1.0",
-  "purpose": "Map common agent-skill workflows into KDNA cognition domains for coding agents.",
+  "version": "0.2.0",
+  "purpose": "Full-stack coding agent judgment: 7 KDNA domains + 7 detailed skills. Loads judgment for TDD, bug diagnosis, code review, architecture, requirements, shared language, and handoff.",
+  "skills_dir": "../../skills",
   "packages": [
     {
       "id": "requirement_alignment",
       "role": "primary",
-      "use_when": [
-        "user request is vague",
-        "task has hidden constraints",
-        "agent is about to implement without enough context",
-        "user provides a wish without scope or criteria"
-      ]
+      "trigger_signals": ["feature", "implement", "build", "add", "create", "new", "开发", "实现", "新增"],
+      "use_when": ["user request is vague", "task has hidden constraints", "agent is about to implement without enough context"]
     },
     {
       "id": "bug_diagnosis",
-      "role": "advisor",
-      "use_when": [
-        "bug report",
-        "test failure",
-        "performance regression",
-        "runtime error"
-      ]
+      "role": "secondary",
+      "trigger_signals": ["bug", "fix", "debug", "broken", "crash", "error", "regression", "not working", "修复", "bug", "报错", "异常"],
+      "use_when": ["bug report", "test failure", "performance regression", "runtime error"]
     },
     {
       "id": "test_driven_development",
-      "role": "advisor",
-      "use_when": [
-        "new feature implementation",
-        "bug fix with expected behavior",
-        "regression prevention",
-        "agent is about to write implementation without a failing test"
-      ]
+      "role": "primary",
+      "trigger_signals": ["test", "tdd", "red-green", "spec", "behavior", "测试", "TDD"],
+      "use_when": ["new feature implementation", "bug fix with expected behavior", "regression prevention"]
     },
     {
       "id": "architecture_reasoning",
-      "role": "advisor",
-      "use_when": [
-        "large change",
-        "module boundary concern",
-        "codebase complexity",
-        "request to zoom out"
-      ]
+      "role": "secondary",
+      "trigger_signals": ["architecture", "refactor", "design", "module", "boundary", "complexity", "zoom out", "large change", "架构", "重构", "设计"],
+      "use_when": ["large change", "module boundary concern", "codebase complexity", "request to zoom out"]
     },
     {
       "id": "issue_decomposition",
-      "role": "advisor",
-      "use_when": [
-        "plan needs to become tasks",
-        "PRD needs issue breakdown",
-        "triage is requested"
-      ]
+      "role": "secondary",
+      "trigger_signals": ["plan", "breakdown", "tasks", "issues", "triage", "estimate", "sprint", "计划", "分解", "任务"],
+      "use_when": ["plan needs to become tasks", "PRD needs issue breakdown", "triage is requested"]
     },
     {
       "id": "shared_language",
       "role": "constraint",
-      "use_when": [
-        "project has domain-specific terminology",
-        "agent uses verbose descriptions",
-        "naming consistency matters"
-      ]
+      "trigger_signals": ["explain", "document", "write", "describe", "communicate", "说明", "解释", "文档", "描述"],
+      "use_when": ["agent uses verbose descriptions", "agent communicates with user", "terminology precision matters"]
     },
     {
       "id": "handoff_context",
-      "role": "constraint",
-      "use_when": [
-        "conversation needs compacting",
-        "another agent will continue",
-        "session is ending"
-      ]
+      "role": "secondary",
+      "trigger_signals": ["done", "complete", "finish", "summary", "handoff", "next steps", "完成", "总结", "交接"],
+      "use_when": ["task is complete", "context needs to be preserved for next session", "agent is about to end work"]
     }
   ],
-  "composition_rules": [
-    "requirement_alignment leads — all other domains interpret tasks relative to aligned requirements",
-    "shared_language constrains terminology across all domains",
-    "bug_diagnosis and test_driven_development complement but do not override each other",
-    "handoff_context activates only when session continuity is at risk"
-  ],
-  "routing_questions": [
-    "Is the user request clear or vague?",
-    "Is there a bug, test failure, or performance issue?",
-    "Is the agent about to write code without a test?",
-    "Does the change affect architecture or module boundaries?",
-    "Does the session need to be compacted or handed off?"
-  ]
+  "composition": {
+    "mode": "signal_driven",
+    "primary_always_loaded": true,
+    "conflict_reporting": true
+  }
 }
