@@ -12,7 +12,7 @@ Unlike standard skills that only provide workflows, KDNA adds a judgment layer: 
 
 ```bash
 # One-time setup
-npx @aikdna/kdna setup
+npx @aikdna/kdna-cli setup
 
 # Install the full coding agent cluster
 kdna install cluster:github:knowledge-dna/kdna-for-agent-skills
