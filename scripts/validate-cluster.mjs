@@ -149,17 +149,23 @@ if (!cluster) {
   process.exit(1);
 }
 
-if (!cluster.cluster) error('Missing "cluster" field');
-if (!cluster.version) error('Missing "version" field');
-if (!Array.isArray(cluster.domains)) error('Missing "domains" array');
-else ok(`Found ${cluster.domains.length} domains`);
+if (!cluster.name) error('Missing "name" field');
+else ok(`Name: ${cluster.name}`);
+if (cluster.version) ok(`Version: ${cluster.version}`);
+else error('Missing "version" field');
+
+const domainList = cluster.domains || cluster.packages || [];
+if (!Array.isArray(domainList) || domainList.length === 0) error('Missing "domains" or "packages" array');
+else ok(`Found ${domainList.length} domains/packages`);
 
 // 2. Validate each domain
-for (const domainEntry of cluster.domains) {
-  const domainName = domainEntry.domain;
-  const domainDir = join(CLUSTER_DIR, domainName);
+for (const domainEntry of domainList) {
+  const domainName = domainEntry.domain || domainEntry.id;
+  const domainDir = domainEntry.skills_dir
+    ? join(CLUSTER_DIR, domainEntry.skills_dir)
+    : join(CLUSTER_DIR, domainName);
 
-  console.log(`\n=== Validating domain: ${domainName} (${domainEntry.status}) ===`);
+  console.log(`\n=== Validating domain: ${domainName} (${domainEntry.status || domainEntry.role || 'active'}) ===`);
 
   if (!existsSync(domainDir)) {
     if (domainEntry.status === 'planned') {
