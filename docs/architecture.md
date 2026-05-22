@@ -77,7 +77,7 @@ How KDNA for Agent Skills transforms agent skill workflows into structured cogni
 User input: "fix this failing test"
           │
           ▼
-  select-domains.mjs / kdna select
+  select-domains.mjs
           │
           ├─ bug_diagnosis       ← "test failure" signal
           └─ test_driven_development ← "bug fix with expected behavior" signal
