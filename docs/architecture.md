@@ -46,7 +46,7 @@ How KDNA for Agent Skills transforms agent skill workflows into structured cogni
   │  KDNA Ecosystem                      │
   │                                      │
   │  @aikdna/kdna-core  — pure logic     │
-  │  @aikdna/kdna       — CLI toolkit    │
+  │  @aikdna/kdna-cli       — CLI toolkit    │
   │  @aikdna/agent      — TypeScript SDK │
   │  VS Code extension                   │
   │  kdna-skills      — install scripts  │
