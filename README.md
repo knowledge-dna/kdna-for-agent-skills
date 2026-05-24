@@ -1,3 +1,10 @@
+# ⚠️ ARCHIVED — This repository is no longer maintained.
+
+This repository has been superseded by [aikdna/kdna-skills](https://github.com/aikdna/kdna-skills).
+Please use the official kdna-loader skill for AI agent integration.
+
+The content below is preserved for reference only.
+
 # KDNA for Agent Skills
 
 **Skills tell agents what to do. KDNA tells agents how to judge.**
@@ -15,7 +22,7 @@ Unlike standard skills that only provide workflows, KDNA adds a judgment layer: 
 npx @aikdna/kdna-cli setup
 
 # Install the full coding agent cluster
-kdna install cluster:github:knowledge-dna/kdna-for-agent-skills
+kdna install cluster:github:aikdna/kdna-for-agent-skills
 ```
 
 This installs:

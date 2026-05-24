@@ -1,0 +1,18 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify archived status
+        run: |
+          head -5 README.md | grep -q "ARCHIVED" || { echo "Missing ARCHIVED notice in README"; exit 1; }
+      - name: Check for old org references
+        run: |
+          ! grep -rq "knowledge-dna" README.md || { echo "ERROR: knowledge-dna reference found"; exit 1; }
