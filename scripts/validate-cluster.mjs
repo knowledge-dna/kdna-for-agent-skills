@@ -5,7 +5,7 @@
  *
  * Checks:
  * 1. cluster.json exists and is valid JSON
- * 2. Each domain directory exists
+ * 2. Each dev source workspace exists
  * 3. Each active domain has kdna.json with required fields
  * 4. Each KDNA_*.json has meta object with version/domain/created/purpose/load_condition
  * 5. meta.domain matches directory name
