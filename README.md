@@ -83,7 +83,7 @@ coding-agent SKILL.md loads
 | **Judgment** | Implicit in prose | Explicit, structured, validated |
 | **Banned terms** | Not enforced | Explicit list with replacements |
 | **Self-checks** | Not structured | Yes/no questions from domain |
-| **Verifiability** | Manual review only | kdna validate + eval |
+| **Verifiability** | Manual review only | kdna dev validate + eval |
 | **Composability** | Skills are independent | Cluster composes multiple domains |
 
 ---
