@@ -1,5 +1,5 @@
 {
-  "kdna_spec": "0.4",
+  "spec_version": "0.4",
   "name": "handoff_context",
   "version": "0.1.0",
   "status": "experimental",
